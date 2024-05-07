@@ -16,4 +16,20 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware'=>['auth']],function(){
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::resource('/managements', 'ManagementsController');
+
+    Route::get('/managements/{id}/destroy',[
+        'uses' => 'ManagementsController@destroy',
+        'as'   => 'managements.destroy'
+    ]);
+
+    Route::get('/managements/{id}/status',[
+        'uses' => 'ManagementsController@status',
+        'as'   => 'managements.status'
+    ]);
+});
+

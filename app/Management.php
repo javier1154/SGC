@@ -12,4 +12,11 @@ class Management extends Model
     public function users(){
         return $this->hasMany('App\User');
     }
+
+    public function destroy_validate(){
+        if(count($this->users)){
+            return false;
+        }
+        return true;
+    }
 }
