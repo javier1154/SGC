@@ -1,25 +1,26 @@
 <aside class="main-sidebar">
   <section class="sidebar">
 
-    @if(isset(Auth::user()->usuario))
+    @auth
+      dasdasd
+    @endauth
+
+    @if(Auth::check())
     <div class="user-panel">
       <div class="pull-left info">
-        <p style="margin-bottom: -6px; font-size: 14px">{{ Auth::user()->usuario->nombres }}</p>
-        <a href="#" style="cursor: default;"><i class="fa fa-circle text-success"></i>{{ Auth::user()->tipo() }}</a>
+        <p style="margin-bottom: -6px; font-size: 14px">{{ Auth::user()->name }}</p>
+        {{-- <a href="#" style="cursor: default;"><i class="fa fa-circle text-success"></i>{{ Auth::user()->tipo() }}</a> --}}
       </div>
       <div class="info salir" style="margin-top: 10px; margin-bottom: 0px; padding-left: 0">
         <button id="salir-sistema" class="btn btn-primary btn-block btn-sm"><b>Salir <i class="fa fa-sign-out"></i></b></button>
       </div>
     </div>
     <ul class="sidebar-menu">
-
-      <li class="header">Panel {{Auth::user()->tipo()}}</li>
-      
-
-      @if ((Auth::user()->tipo() == "Administrador") or (Auth::user()->tipo() == "Root"))
-        <li class="inicio"><a href="{!! route('inicio') !!}"><i class="fa fa-home"></i> <span>Resumen</span></a></li>
+      <li class="header">Panel {{-- {{Auth::user()->tipo()}} --}}</li>
+      <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Resumen</span></a></li>
+      {{-- @if ((Auth::user()->tipo() == "Administrador") or (Auth::user()->tipo() == "Root"))
         <li class="caja"><a href="{!! route('caja.index') !!}"><i class="fa fa-desktop"></i><i class="fa fa-spinner fa-spin pull-right"></i> <span>Caja</span></a></li>
-        {{-- <li class="inventario"><a href="{!! route('inventario.index') !!}"><i class="fa fa-list"></i> <span>Inventario</span></a></li> --}}
+        <li class="inventario"><a href="{!! route('inventario.index') !!}"><i class="fa fa-list"></i> <span>Inventario</span></a></li>
         <li class="treeview inventario">
           <a href="#">
             <i class="fa fa-list"></i> <span>Inventario</span>
@@ -35,9 +36,9 @@
         </li>
         <li class="ventas"><a href="{!! route('ventas.index') !!}"><i class="fa fa-object-group"></i> <span>Ventas</span></a></li>
         <li class="eliminadas"><a href="{!! route('ventas.eliminadas') !!}"><i class="fa fa-trash"></i> <span>Ventas Eliminadas</span></a></li>
-        {{-- <li class="cuentas"><a href="{!! route('ventas.cuentas') !!}"><i class="fa fa-tags"></i> <span>Créditos</span></a></li>
-        <li class="cuentas_usaurios"><a href="{!! route('ventas.cuentas_usuarios') !!}"><i class="fa fa-tags"></i> <span>Créditos por Usuarios</span></a></li> --}}
-        {{-- <li class="abonos"><a href="{!! route('compras.index') !!}"><i class="fa fa-bank"></i> <span>Abonos</span></a></li> --}}
+        <li class="cuentas"><a href="{!! route('ventas.cuentas') !!}"><i class="fa fa-tags"></i> <span>Créditos</span></a></li>
+        <li class="cuentas_usaurios"><a href="{!! route('ventas.cuentas_usuarios') !!}"><i class="fa fa-tags"></i> <span>Créditos por Usuarios</span></a></li>
+        <li class="abonos"><a href="{!! route('compras.index') !!}"><i class="fa fa-bank"></i> <span>Abonos</span></a></li>
         <li class="treeview cuadres">
           <a href="#">
             <i class="fa fa-exchange"></i> <span>Cuadres</span>
@@ -47,7 +48,7 @@
             <li class="Ccaja"><a href="{!! route('cuadresCaja.index') !!}"><i class="fa fa-circle-o"></i> Caja</a></li>
           </ul>
         </li>
-        {{-- <li class="treeview abonos">
+        <li class="treeview abonos">
           <a href="#">
             <i class="fa fa-bank"></i> <span>Abonos</span>
           </a>
@@ -56,7 +57,7 @@
             <li class="Aventas"><a href="{!! route('abonos.ventas') !!}"><i class="fa fa-circle-o"></i> Ventas</a></li>
           </ul>
         </li>
-        <li class="retiros"><a href="{!! route('retiros.index') !!}"><i class="fa fa-ticket"></i> <span>Retiros</span></a></li> --}}
+        <li class="retiros"><a href="{!! route('retiros.index') !!}"><i class="fa fa-ticket"></i> <span>Retiros</span></a></li>
         <li class="gastos"><a href="{!! route('gastos.index') !!}"><i class="fa fa-crop"></i> <span>Gastos</span></a></li>
         <li class="compras"><a href="{!! route('compras.index') !!}"><i class="fa fa-shopping-cart"></i> <span>Compras</span></a></li>
         <li class="aperturas"><a href="{{ route('aperturas.index') }}"><i class="fa fa-inbox"></i> <span>Aperturas de Caja</span></a></li>
@@ -88,7 +89,7 @@
             <li class="Ccaja"><a href="{!! route('cuadresCaja.index') !!}"><i class="fa fa-circle-o"></i> Caja</a></li>
           </ul>
         </li>
-        {{-- <li class="treeview abonos">
+        <li class="treeview abonos">
           <a href="#">
             <i class="fa fa-bank"></i> <span>Abonos</span>
           </a>
@@ -97,7 +98,7 @@
             <li class="Aventas"><a href="{!! route('abonos.ventas') !!}"><i class="fa fa-circle-o"></i> Ventas</a></li>
           </ul>
         </li>
-        <li class="retiros"><a href="{!! route('retiros.index') !!}"><i class="fa fa-ticket"></i> <span>Retiros</span></a></li> --}}
+        <li class="retiros"><a href="{!! route('retiros.index') !!}"><i class="fa fa-ticket"></i> <span>Retiros</span></a></li>
         <li class="gastos"><a href="{!! route('gastos.index') !!}"><i class="fa fa-crop"></i> <span>Gastos</span></a></li>
         <li class="compras"><a href="{!! route('compras.index') !!}"><i class="fa fa-shopping-cart"></i> <span>Compras</span></a></li>
         <li class="aperturas"><a href="{{ route('aperturas.index') }}"><i class="fa fa-inbox"></i> <span>Aperturas de Caja</span></a></li>
@@ -105,10 +106,8 @@
         <li class="productos"><a href="{!! route('productos.index') !!}"><i class="fa fa-cubes"></i> <span>Productos</span></a></li>
         <li class="reportes"><a href="{!! route('reportes.index') !!}"><i class="fa fa-files-o"></i> <span>Reportes</span></a></li>
         <li class="clientes"><a href="{{ route('clientes.index') }}"><i class="fa fa-users"></i> <span>Clientes</span></a></li>
-      @endif
-
-    @endif
-
+      @endif --}}
     </ul>
+    @endif
   </section>
 </aside>

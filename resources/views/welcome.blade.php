@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <title> {{config('app.name')}} | Ingresar al Sistema</title>
-
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="apple-touch-icon" sizes="180x180" href="{!! asset('img/apple-touch-icon.png') !!}">
@@ -26,20 +25,20 @@
     }
 
     .btn-primary {
-      background-color: #00107f !important;
-      border-color: #010f69 !important;
+      background-color: #d64040 !important;
+      border-color: #da3131 !important;
     }
 
     .btn-primary.focus, .btn-primary:focus {
-      background-color: #010f69 !important;
+      background-color: #da3131 !important;
     }
 
     .btn-primary:hover {
-      background-color: #010f69 !important;
+      background-color: #da3131 !important;
     }
 
     .login-box, .register-box {
-      margin: 3% auto;
+      margin: 8% auto;
     }
 </style>  
 </head>
@@ -49,16 +48,15 @@
         <img src="{!! asset('img/logo.png') !!}" style="width: 380px;">
     </div>
     <!-- /.login-logo -->
-    <div class="login-box-body" style="border: 1px solid #010f69; border-radius: 12px;">
+    <div class="login-box-body" style="border: 1px solid #da3131; border-radius: 12px;">
         <p class="login-box-msg"><b>INGRESAR AL SISTEMA</b></p>
         @if ($errors->any())
             <div class="alert alert-danger text-center">
               <b>Correo o Contraseña inválida</b>
             </div>
         @endif
-
         <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-            @csrf
+          {{ csrf_field() }}
             <div class="form-group has-feedback">
                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"  placeholder="Correo Electrónico" required autofocus>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>

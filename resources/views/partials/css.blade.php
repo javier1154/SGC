@@ -12,15 +12,9 @@
 <link rel="stylesheet" href="{!! asset('plugins/plantilla/dist/css/AdminLTE.min.css') !!}">
 <!-- AdminLTE Skins. Choose a skin from the css/skins -->
 <link rel="stylesheet" href="{!! asset('plugins/plantilla/dist/css/skins/skin-red.min.css') !!}">
-
 <link rel="stylesheet" href="{!! asset('plugins/pace/pace.min.css') !!}">
-
 <link rel="stylesheet" href="{!! asset('plugins/sweetalert/dist/sweetalert.min.css') !!}">
-
 <link rel="stylesheet" href="{!! asset('plugins/toastr/toastr.min.css') !!}">
-
-<link rel="stylesheet" href="{!! asset('css/app.min.css') !!}">
-
+<link rel="stylesheet" href="{!! asset('css/app.css') !!}">
 <link rel="stylesheet" type="text/css" href="{!! asset('css/imprimir.min.css') !!}" media="print">
-
 @yield('css')

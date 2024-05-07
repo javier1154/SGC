@@ -144,7 +144,7 @@ div.salir{
 }
 
 .skin-red .sidebar-menu>li:hover>a, .skin-red .sidebar-menu>li.active>a {
-  border-left-color: #00107f !important;
+  border-left-color: #d64040 !important;
 }
 
 .tooltip-inner {
@@ -176,7 +176,7 @@ a{
 }
 
 table.table thead tr th{
-  background-color: #00107f;
+  background-color: #d64040;
   color: white;
 }
 
@@ -196,21 +196,21 @@ table.table thead tr th{
 }
 
 .panel-primary{
-  border-color:#00107f;
+  border-color:#d64040;
 }
 
 .panel-primary > .panel-heading {
-  background-color: #00107f;
-  border-color:#010f69;
+  background-color: #d64040;
+  border-color:#da3131;
 }
 
 .panel-info{
-  border-color:#010f69;
+  border-color:#da3131;
 }
 
 .panel-info > .panel-heading {
-  background-color: #00107f;
-  border-color:#010f69;
+  background-color: #d64040;
+  border-color:#da3131;
 }
 
 skin-red .main-header .navbar, 
@@ -222,7 +222,7 @@ skin-red .main-header .navbar,
 }
 
 .main-header{
-  background-color:  #00107f !important;
+  background-color:  #d64040 !important;
   /* background: rgb(0,255,230);
   background: linear-gradient(201deg, rgba(0,255,230,1) 0%, rgba(51,51,51,1) 85%); */
 }
@@ -236,18 +236,18 @@ skin-red .main-header .navbar,
 .skin-red .main-header .navbar .sidebar-toggle:hover, */
 .panel-danger .panel-heading, 
 .progress-bar-danger {
-  background-color: #00107f !important;
-  border-color: #010f69 !important;
+  background-color: #d64040 !important;
+  border-color: #da3131 !important;
 }
 
 .btn-primary.focus, .btn-primary:focus {
     color: #fff;
-    background-color: #010f69 !important;
+    background-color: #da3131 !important;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #010f69 !important;
+    background-color: #da3131 !important;
 }
 
 
@@ -328,7 +328,7 @@ section.content-header{
 }
 
 div.modal div.modal-header{
-  background-color: #00107f;
+  background-color: #d64040;
   color: #FFF;
 }
 
@@ -505,8 +505,8 @@ div.sa-button-container button.cancel, div.sa-button-container button.cancel:hov
 
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: #00107f;
-  border-color: #00107f;
+  background-color: #d64040;
+  border-color: #d64040;
 }
 
 .select2-container--default .select2-search--inline .select2-search__field {
@@ -514,7 +514,7 @@ div.sa-button-container button.cancel, div.sa-button-container button.cancel:hov
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #00107f;
+  background-color: #d64040;
   color: #FFF;
 }
 
@@ -523,7 +523,7 @@ div.sa-button-container button.cancel, div.sa-button-container button.cancel:hov
 }
 
 .nav-tabs-custom>.nav-tabs>li.active {
-    border-top-color: #00107f;
+    border-top-color: #d64040;
     font-weight: bold;
 }
 
@@ -537,11 +537,11 @@ div.sa-button-container button.cancel, div.sa-button-container button.cancel:hov
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field {
-    border: 1px solid #00107f;
+    border: 1px solid #d64040;
 }
 
 div.datepicker table thead tr th{
-  background-color: #00107f;
+  background-color: #d64040;
   color: #FFF;
   border-radius: 0;
 }
@@ -564,17 +564,17 @@ table.dataTable thead > tr > th {
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-    background-color: #00107f;
+    background-color: #d64040;
     border-color: #0a3d8f;
 }
 
 .pagination > li > a, .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
-    color: #00107f;
+    color: #d64040;
 }
 
 span.input-group-addon#Dsearch{
-  background-color: #00107f !important;
-  border-color: #010f69 !important;
+  background-color: #d64040 !important;
+  border-color: #da3131 !important;
 }
 
 span.input-group-addon#Dsearch i.fa-search{
@@ -715,13 +715,13 @@ table{
 
 
 div.sweet-alert button.confirm{
-  background-color: #00107f !important;
-  border-color: #010f69 !important;
+  background-color: #d64040 !important;
+  border-color: #da3131 !important;
   box-shadow: none !important;
 }
 
 div.sweet-alert button.confirm:hover{
-  background-color: #010f69 !important;
+  background-color: #da3131 !important;
 }
 
 .dataTables_filter{
@@ -733,12 +733,12 @@ input#busqueda{
 }
 
 .panel-success {
-  border-color: #00107f;
+  border-color: #d64040;
 }
 
 .panel-success > .panel-heading {
-  background-color: #00107f;
-  border-color: #00107f;
+  background-color: #d64040;
+  border-color: #d64040;
 }
 
 .form-horizontal .form-group {
@@ -748,12 +748,12 @@ input#busqueda{
 
 .datepicker table tr td span.active:hover, .datepicker table tr td span.active:hover:hover, .datepicker table tr td span.active.disabled:hover, .datepicker table tr td span.active.disabled:hover:hover, .datepicker table tr td span.active:focus, .datepicker table tr td span.active:hover:focus, .datepicker table tr td span.active.disabled:focus, .datepicker table tr td span.active.disabled:hover:focus, .datepicker table tr td span.active:active, .datepicker table tr td span.active:hover:active, .datepicker table tr td span.active.disabled:active, .datepicker table tr td span.active.disabled:hover:active, .datepicker table tr td span.active.active, .datepicker table tr td span.active:hover.active, .datepicker table tr td span.active.disabled.active, .datepicker table tr td span.active.disabled:hover.active, .open .dropdown-toggle.datepicker table tr td span.active, .open .dropdown-toggle.datepicker table tr td span.active:hover, .open .dropdown-toggle.datepicker table tr td span.active.disabled, .open .dropdown-toggle.datepicker table tr td span.active.disabled:hover {
     color: #fff;
-    background-color: #00107f !important;
+    background-color: #d64040 !important;
     border-color: #0a3d8f;
 }
 
 .datepicker thead tr:first-child th.cw {
-    background-color: #00107f !important;
+    background-color: #d64040 !important;
 }
 
 ul.pagination{
@@ -767,7 +767,7 @@ ul.pagination li{
 }
 
 .bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
-    background-color: #00107f !important;
+    background-color: #d64040 !important;
 }
 
 .wrapper{
@@ -884,7 +884,7 @@ div.dataTables_processing {
 }
 
 table.table thead tr th.info, table.table thead tr th.danger,table.table thead tr th.success,table.table thead tr th.warning {
-  background-color: #00107f !important;
+  background-color: #d64040 !important;
 }
 
 table.table tfoot tr td.info.bold {
@@ -921,7 +921,7 @@ margin-bottom: -20px !important;
 } */
 
 .box.box-success {
-  border-top-color: #00107f;
+  border-top-color: #d64040;
 }
 
 
@@ -944,8 +944,8 @@ tr td.t-opciones a i.fa-star, tfoot tr td i.fa-star, tr td.t-opciones a i.fa-ref
 }
 
 .label-primary{
-  background-color: #00107f !important;
-  border-color: #00107f !important;
+  background-color: #d64040 !important;
+  border-color: #d64040 !important;
 }
 
 header.main-header div.user-header{

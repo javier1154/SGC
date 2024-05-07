@@ -1,5 +1,5 @@
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
+    {{ csrf_field() }}
 </form>
 <!-- jQuery 2.2.0 -->
 <script src="{!! asset('plugins/jQuery/jQuery-2.2.0.min.js') !!}"></script>

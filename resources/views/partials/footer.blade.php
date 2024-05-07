@@ -4,7 +4,7 @@
       <div class="pull-right text-right">
         <b>{{date("d-m-Y")}}</b>
       </div>
-    <strong>Copyleft &copy; <a href="#!">JMC</a></strong>
+    <strong>Copyleft &copy; <a href="#!">SGC</a></strong>
   </footer>
 @endif
 

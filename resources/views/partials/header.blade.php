@@ -10,7 +10,7 @@
 
     @auth
       <div class="user-header">
-        <i class="fa fa-user"></i>&nbsp;&nbsp; {{ Auth::user()->usuario->nombres }}
+        <i class="fa fa-user"></i>&nbsp;&nbsp; {{ Auth::user()->name }}
       </div>
     @endauth
     
