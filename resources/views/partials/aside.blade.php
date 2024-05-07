@@ -1,11 +1,6 @@
 <aside class="main-sidebar">
   <section class="sidebar">
-
     @auth
-      dasdasd
-    @endauth
-
-    @if(Auth::check())
     <div class="user-panel">
       <div class="pull-left info">
         <p style="margin-bottom: -6px; font-size: 14px">{{ Auth::user()->name }}</p>
@@ -109,6 +104,6 @@
         <li class="clientes"><a href="{{ route('clientes.index') }}"><i class="fa fa-users"></i> <span>Clientes</span></a></li>
       @endif --}}
     </ul>
-    @endif
+    @endauth
   </section>
 </aside>
