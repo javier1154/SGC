@@ -1,95 +1,93 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> {{config('app.name')}} | Ingresar al Sistema</title>
 
-        <title>Laravel</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="apple-touch-icon" sizes="180x180" href="{!! asset('img/apple-touch-icon.png') !!}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{!! asset('img/favicon-32x32.png') !!}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{!! asset('img/favicon-16x16.png') !!}">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="{!! asset('plugins/bootstrap/css/bootstrap.min.css') !!}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{!! asset('plugins/font-awesome/css/font-awesome.min.css') !!}">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{!! asset('plugins/plantilla/dist/css/AdminLTE.min.css') !!}">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+  <link rel="stylesheet" href="{!! asset('plugins/toastr/toastr.min.css') !!}">
+  <!-- iCheck -->
+  <style>
+     body.login-page{
+        background-color: #ddd;
+    }
 
-            .full-height {
-                height: 100vh;
-            }
+    .btn-primary {
+      background-color: #00107f !important;
+      border-color: #010f69 !important;
+    }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    .btn-primary.focus, .btn-primary:focus {
+      background-color: #010f69 !important;
+    }
 
-            .position-ref {
-                position: relative;
-            }
+    .btn-primary:hover {
+      background-color: #010f69 !important;
+    }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+    .login-box, .register-box {
+      margin: 3% auto;
+    }
+</style>  
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+      <div class="login-logo" style="margin-top:0px; margin-bottom: 20px">
+        <img src="{!! asset('img/logo.png') !!}" style="width: 380px;">
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body" style="border: 1px solid #010f69; border-radius: 12px;">
+        <p class="login-box-msg"><b>INGRESAR AL SISTEMA</b></p>
+        @if ($errors->any())
+            <div class="alert alert-danger text-center">
+              <b>Correo o Contraseña inválida</b>
             </div>
-        </div>
-    </body>
+        @endif
+
+        <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+            @csrf
+            <div class="form-group has-feedback">
+                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"  placeholder="Correo Electrónico" required autofocus>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Contraseña" required>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-primary btn-block btn-flat"><b>Ingresar</b></button>
+          </div>
+      </div>
+  </form>
+
+</div>
+<!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery 3 -->
+<script src="{!! asset('plugins/jQuery/jQuery-2.2.0.min.js') !!}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{!! asset('plugins/bootstrap/js/bootstrap.min.js') !!}"></script>
+
+<script src="{!! asset('plugins/toastr/toastr.min.js') !!}"></script>
+
+@toastr_render
+
+</body>
 </html>
