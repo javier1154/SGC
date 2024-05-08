@@ -4,10 +4,11 @@
 @section('contenido')
 <div class="row">
         <div class="col-md-12">
-
+            <a href="{!! route('users.create') !!}">
             <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1;">
                 <i class="fa fa-btn fa-sign-in"></i> Registrar
             </button>
+            </a>
 
             
             <table class="table">
@@ -45,7 +46,7 @@
 								@else
 									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
 								@endif
-                                <a href="" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
+                                <a href="{{route('users.edit', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
                                 @if( $user->destroy_validate())
 								    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
 								@endif
@@ -57,6 +58,8 @@
 					<tr>
 						<td colspan="8" class="opciones">
 							<center>
+                                <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
+                                <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
 								<i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
 								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
 							</center>

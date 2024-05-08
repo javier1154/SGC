@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Management;
 
 class UsersController extends Controller
 {
@@ -27,7 +28,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        
+        $managements = Management::orderBy('name')->get();
+        return view('users.create', compact('managements'));
     }
 
     /**
@@ -38,7 +40,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'ci' => 'required|unique:users',
+            'email' => 'required|unique:users',
+            'phone' => 'required',
+            'password' => 'required',
+            'management_id' => 'required'
+        ]);
+        $user = new User($request->all());
+        $user->name = mb_strtoupper($request->name, "UTF-8");
+        $user->password = bcrypt($request->password);
+        $user->management_id = $request->management_id;
+        $user->save();
+        return redirect()->route('users.index');
     }
 
     /**
@@ -60,7 +75,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail(decrypt($id));
+        return view('users.edit', compact('user'));
     }
 
     /**
