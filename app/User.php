@@ -39,4 +39,11 @@ class User extends Authenticatable
     public function permit(){
         return $this->hasOne('App\Permit');
     }
+
+    public function destroy_validate(){
+        /*if(count($this->users)){
+            return false;
+        }*/
+        return true;
+    }
 }

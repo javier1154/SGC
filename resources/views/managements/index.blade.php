@@ -61,6 +61,7 @@
                             <td class="text-center">{!! status($management->status) !!}</td>
                             <td class="text-center">{!! fecha_hora($management->created_at) !!}</td>
                             <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($management->id)}}", "name":"{{$management->name}}"}'>
+								<a href="{{route('managements.edit', encrypt($management->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar gerencia"><i class="fa fa-pencil"></i></a>
                                 @if ($management->status == 1)
 									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar gerencia"><i class="fa fa-ban"></i></a>
 								@else

@@ -31,5 +31,17 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'ManagementsController@status',
         'as'   => 'managements.status'
     ]);
+
+    Route::resource('/users', 'UsersController');
+
+    Route::get('/users/{id}/destroy',[
+        'uses' => 'UsersController@destroy',
+        'as'   => 'users.destroy'
+    ]);
+
+    Route::get('/users/{id}/status',[
+        'uses' => 'UsersController@status',
+        'as'   => 'users.status'
+    ]);
 });
 

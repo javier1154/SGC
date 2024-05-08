@@ -74,7 +74,8 @@ class ManagementsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $management = Management::findOrFail(decrypt($id));
+        return view('managements.edit', compact('management'));
     }
 
     /**
@@ -86,7 +87,11 @@ class ManagementsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $management = Management::find($id);
+        $management->name = $request->name;
+        $management->save();
+        return redirect()->route('managements.index');
     }
 
     /**
