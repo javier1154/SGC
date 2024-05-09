@@ -92,7 +92,10 @@ class VehiclesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $vehicle = Vehicle::findOrFail(decrypt($id));
+        $users = User::orderBy('name')->get();
+        $fuels = Fuel::orderBy('name')->get();
+        return view('vehicles.edit', compact('vehicle', 'users', 'fuels'));
     }
 
     /**
@@ -104,7 +107,18 @@ class VehiclesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vehicle = Vehicle::find($id);
+        $vehicle->plate = mb_strtoupper($request->plate, "UTF-8");
+        $vehicle->brand = $request->brand;
+        $vehicle->model = $request->model;
+        $vehicle->year = $request->year;
+        $vehicle->color = $request->color;
+        $vehicle->observations = $request->observations;
+        $vehicle->liter = $request->liter;
+        $vehicle->user_id = $request->user_id;
+        $vehicle->fuel_id = $request->fuel_id;
+        $vehicle->save();
+        return redirect()->route('vehicles.index');
     }
 
     /**
@@ -116,5 +130,18 @@ class VehiclesController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function status($id)
+    {
+        $vehicle = Vehicle::findOrFail(decrypt($id));
+        if($vehicle->status){
+            $vehicle->status = 0;
+            /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
+        }else{
+            $vehicle->status = 1;
+            /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
+        }
+        $vehicle->save();
+        return redirect()->back();
     }
 }

@@ -81,6 +81,7 @@
 								<i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
 								<i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
 								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                <i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
 							</center>
 						</td>
 					</tr>

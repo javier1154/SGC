@@ -48,6 +48,7 @@
 								@else
 									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
 								@endif
+                                <a href="{{route('users.show', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
                                 <a href="{{route('users.edit', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
                                 @if( $user->destroy_validate())
 								    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
@@ -58,7 +59,7 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="8" class="opciones">
+						<td colspan="9" class="opciones">
 							<center>
                                 <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
                                 <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;

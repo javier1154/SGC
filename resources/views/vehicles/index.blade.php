@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('titulo', 'Usuarios')
+@section('titulo', 'Vehículos')
 @section('subtitulo', '')
 @section('contenido')
 <div class="row">
@@ -48,15 +48,15 @@
                             <td class="text-center">{!!status($vehicle->status)!!}</td>
                             <td class="text-center">{{$vehicle->user->name}}</td>
                             <td class="text-center">{!! fecha_hora($vehicle->created_at) !!}</td>
-                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($vehicle->id)}}", "name":"{{$vehicle->name}}"}'>
+                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($vehicle->id)}}", "name":"{{$vehicle->plate}}"}'>
                                 @if ($vehicle->status == 1)
-									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar usuario"><i class="fa fa-ban"></i></a>
+									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar vehiculo"><i class="fa fa-ban"></i></a>
 								@else
-									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
+									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar vehículo"><i class="fa fa-check-circle-o"></i></a>
 								@endif
-                                <a href="{{route('vehicles.edit', encrypt($vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
+                                <a href="{{route('vehicles.edit', encrypt($vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar vehículo"><i class="fa fa-pencil"></i></a>
                                 @if( $vehicle->destroy_validate())
-								    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
+								    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar vehículo"><i class="fa fa-trash"></i></a>
 								@endif
                             </td>
                         </tr>
@@ -87,7 +87,7 @@
     <script src="{!! asset('plugins/datatables/dataTables.bootstrap.min.js'); !!}"></script>
     <script>
         $(document).ready(function(){
-            $( "ul.sidebar-menu li.users" ).addClass('active');
+            $( "ul.sidebar-menu li.vehicles" ).addClass('active');
 
             var errors = "{{$errors->any()}}"; if(errors){ $("div.modal").modal(); }
 
@@ -109,13 +109,13 @@
                 var name = $(this).parents('td').data('valor').name;
                 swal({
                     title: "Aviso!",
-                    text: "¿Desea eliminar al usuario de <b>"+name+"</b>?",
+                    text: "¿Desea eliminar al vehículo de <b>"+name+"</b>?",
                     type: "info",
                     showCancelButton: true,
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!! url("/") !!}/users/'+id+'/destroy';
+                        url = '{!! url("/") !!}/vehicles/'+id+'/destroy';
                         $(location).attr('href', url);
                     }
                 });
@@ -126,13 +126,13 @@
                 var name = $(this).parents('td').data('valor').name;
                 swal({
                     title: "Aviso!",
-                    text: "¿Desea habilitar al usuario <b>"+name+"</b>?",
+                    text: "¿Desea habilitar al vehículo <b>"+name+"</b>?",
                     type: "info",
                     showCancelButton: true,
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/users/'+id+'/status';
+                        url = '{!!url("/")!!}/vehicles/'+id+'/status';
                         $(location).attr('href', url);
                     }
                 });
@@ -143,13 +143,13 @@
                 var name = $(this).parents('td').data('valor').name;
                 swal({
                     title: "Aviso!",
-                    text: "¿Desea deshabilitar al usuario <b>"+name+"</b>?",
+                    text: "¿Desea deshabilitar al vehículo <b>"+name+"</b>?",
                     type: "info",
                     showCancelButton: true,
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/users/'+id+'/status';
+                        url = '{!!url("/")!!}/vehicles/'+id+'/status';
                         $(location).attr('href', url);
                     }
                 });
