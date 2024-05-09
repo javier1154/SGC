@@ -42,7 +42,7 @@
                     <tr>
                         <th class="text-center">N°</th>
                         <th class="col-md-8">Nombre</th>
-                        <th class="text-center col-md-1">Status</th>
+                        <th class="text-center col-md-1">Estado</th>
                         <th class="text-center col-md-2">Fecha de Creación</th>
                         <th class="text-center col-md-1">Opciones</th>
                     </tr>

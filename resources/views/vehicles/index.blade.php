@@ -4,7 +4,7 @@
 @section('contenido')
 <div class="row">
         <div class="col-md-12">
-            <a href="{!! route('users.create') !!}">
+            <a href="{!! route('vehicles.create') !!}">
             <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1;">
                 <i class="fa fa-btn fa-sign-in"></i> Registrar
             </button>
@@ -15,41 +15,47 @@
                 <thead>
                     <tr>
                         <th class="text-center col-md-1">N°</th>
-                        <th class="text-center col-md-3">Nombre</th>
-                        <th class="text-center col-md-1">CI</th>
-                        <th class="text-center col-md-1">Email</th>
-                        <th class="text-center col-md-1">Teléfono</th>
-                        <th class="text-center col-md-1">Gerencia</th>
+                        <th class="text-center col-md-1">Placa</th>
+                        <th class="text-center col-md-1">Marca</th>
+                        <th class="text-center col-md-1">Modelo</th>
+                        <th class="text-center col-md-1">Año</th>
+                        <th class="text-center col-md-1">Color</th>
+                        <th class="text-center col-md-1">Litraje</th>
+                        <th class="text-center col-md-1">Oberservaciones</th>
                         <th class="text-center col-md-1">Estado</th>
-                        <th class="text-center col-md-2">Fecha de Creación</th>
-                        <th class="text-center col-md-2">Opciones</th>
+                        <th class="text-center col-md-1">Usuario</th>
+                        <th class="text-center col-md-1">Fecha de Creación</th>
+                        <th class="text-center col-md-1">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php
                         $i = 0;
                     @endphp
-                    @foreach ($users as $user)
+                    @foreach ($vehicles as $vehicle)
                         @php
                             $i++;
                         @endphp
-                        <tr @if ($user->status == 0) class="danger" @endif>
+                        <tr @if ($vehicle->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
-                            <td class="bold">{{$user->name}}</td>
-                            <td class="text-center">{{$user->ci}}</td>
-                            <td class="text-center">{{$user->email}}</td>
-                            <td class="text-center">{{$user->phone}}</td>
-                            <td class="text-center">{{$user->management->name}}</td>
-                            <td class="text-center">{!!status($user->status)!!}</td>
-                            <td class="text-center">{!! fecha_hora($user->created_at) !!}</td>
-                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($user->id)}}", "name":"{{$user->name}}"}'>
-                                @if ($user->status == 1)
+                            <td class="bold">{{$vehicle->plate}}</td>
+                            <td class="text-center">{{$vehicle->brand}}</td>
+                            <td class="text-center">{{$vehicle->model}}</td>
+                            <td class="text-center">{{$vehicle->year}}</td>
+                            <td class="text-center">{{$vehicle->color}}</td>
+                            <td class="text-center">{{$vehicle->liter}}</td>
+                            <td class="text-center">{{$vehicle->observations}}</td>
+                            <td class="text-center">{!!status($vehicle->status)!!}</td>
+                            <td class="text-center">{{$vehicle->user->name}}</td>
+                            <td class="text-center">{!! fecha_hora($vehicle->created_at) !!}</td>
+                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($vehicle->id)}}", "name":"{{$vehicle->name}}"}'>
+                                @if ($vehicle->status == 1)
 									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar usuario"><i class="fa fa-ban"></i></a>
 								@else
 									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
 								@endif
-                                <a href="{{route('users.edit', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
-                                @if( $user->destroy_validate())
+                                <a href="{{route('vehicles.edit', encrypt($vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
+                                @if( $vehicle->destroy_validate())
 								    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
 								@endif
                             </td>
@@ -58,7 +64,7 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="8" class="opciones">
+						<td colspan="12" class="opciones">
 							<center>
                                 <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
                                 <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;

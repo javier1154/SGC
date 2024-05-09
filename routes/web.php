@@ -43,5 +43,17 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'UsersController@status',
         'as'   => 'users.status'
     ]);
+
+    Route::resource('/vehicles', 'VehiclesController');
+
+    Route::get('/vehicles/{id}/destroy',[
+        'uses' => 'UsersController@destroy',
+        'as'   => 'vehicles.destroy'
+    ]);
+
+    Route::get('/vehicles/{id}/status',[
+        'uses' => 'UsersController@status',
+        'as'   => 'vehicles.status'
+    ]);
 });
 

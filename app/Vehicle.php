@@ -14,8 +14,16 @@ class Vehicle extends Model
         return $this->belongsTo('App\User');
     }
     
+   
+
     public function fuel(){
-        
-        return $this->hasOne('App\Fuel'); 
+        return $this->belongsTo('App\Fuel');
+    }
+
+    public function destroy_validate(){
+        /*if(count($this->users)){
+            return false;
+        }*/
+        return true;
     }
 }

@@ -76,7 +76,8 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail(decrypt($id));
-        return view('users.edit', compact('user'));
+        $managements = Management::orderBy('name')->get();
+        return view('users.edit', compact('user', 'managements'));
     }
 
     /**
@@ -87,8 +88,17 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+
+        $user = User::find($id);
+        $user->name = mb_strtoupper($request->name, "UTF-8");
+        $user->email = $request->email;
+        $user->ci = $request->ci;
+        $user->phone = $request->phone;
+        $user->management_id = $request->management_id;
+        $user->save();
+        return redirect()->route('users.index');
+
     }
 
     /**

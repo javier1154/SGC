@@ -15,6 +15,7 @@
       <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Resumen</span></a></li>
       <li class="managements"><a href="{!! route('managements.index') !!}"><i class="fa fa-briefcase"></i> <span>Gerencias</span></a></li>
       <li class="users"><a href="{!! route('users.index') !!}"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
+      <li class="vehicles"><a href="{!! route('vehicles.index') !!}"><i class="fa fa-car"></i> <span>Vehiculos</span></a></li>
       {{-- @if ((Auth::user()->tipo() == "Administrador") or (Auth::user()->tipo() == "Root"))
         <li class="caja"><a href="{!! route('caja.index') !!}"><i class="fa fa-desktop"></i><i class="fa fa-spinner fa-spin pull-right"></i> <span>Caja</span></a></li>
         <li class="inventario"><a href="{!! route('inventario.index') !!}"><i class="fa fa-list"></i> <span>Inventario</span></a></li>

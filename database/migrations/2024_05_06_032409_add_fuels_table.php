@@ -15,8 +15,6 @@ class AddFuelsTable extends Migration
         Schema::create('fuels', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 30);
-            $table->integer('vehicle_id')->unsigned();
-            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             $table->timestamps();
         });
     }

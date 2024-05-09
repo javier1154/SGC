@@ -19,11 +19,13 @@ class AddVehiclesTable extends Migration
             $table->string('model', 60);
             $table->integer('year');
             $table->string('color', 20);
-            $table->decimal('liter', 3, 2);
+            $table->float('liter');
             $table->string('observations')->nullable();
             $table->boolean('status');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('fuel_id')->unsigned();
+            $table->foreign('fuel_id')->references('id')->on('fuels')->onDelete('cascade');
             $table->timestamps();
         });
     }
