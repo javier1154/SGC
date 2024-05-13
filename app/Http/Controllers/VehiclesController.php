@@ -66,11 +66,11 @@ class VehiclesController extends Controller
         $vehicle->color = $request->color;
         $vehicle->observations = $request->observations;
         $vehicle->liter = $request->liter;
-        $vehicle->user_id = $request->user_id;
-        $vehicle->fuel_id = $request->fuel_id;
+        $vehicle->user_id = decrypt($request->user_id);
+        $vehicle->fuel_id = decrypt($request->fuel_id);
         $vehicle->status = $status;
         $vehicle->save();
-        return redirect()->route('vehicles.index');
+        return redirect()->back();
     }
 
     /**
@@ -81,7 +81,6 @@ class VehiclesController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -129,7 +128,15 @@ class VehiclesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vehicles = Vehicle::findOrFail(decrypt($id));
+        if($vehicles->destroy_validate()){
+            $vehicles->delete();
+        }else{
+            /* toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); */
+            return redirect()->back();
+        }
+        /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        return redirect()->back();
     }
     public function status($id)
     {

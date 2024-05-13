@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Management;
+use App\Vehicle;
+use App\Fuel;
 
 class UsersController extends Controller
 {
@@ -65,7 +67,13 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail(decrypt($id));
-        return view('users.show', compact('user'));
+        $users = User::orderBy('name')->get();
+        $vehicles = Vehicle::where('user_id', $user->id)->get();
+        $managements = Management::orderBy('name')->get();
+        $fuels = Fuel::orderBy('name')->get();
+        return view('users.show', compact('user', 'vehicles','managements', 'users', 'fuels'));
+
+        
     }
 
     /**
@@ -98,7 +106,7 @@ class UsersController extends Controller
         $user->phone = $request->phone;
         $user->management_id = $request->management_id;
         $user->save();
-        return redirect()->route('users.index');
+        return redirect()->back();
 
     }
 

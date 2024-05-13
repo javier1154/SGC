@@ -47,13 +47,25 @@ Route::group(['middleware'=>['auth']],function(){
     Route::resource('/vehicles', 'VehiclesController');
 
     Route::get('/vehicles/{id}/destroy',[
-        'uses' => 'UsersController@destroy',
+        'uses' => 'VehiclesController@destroy',
         'as'   => 'vehicles.destroy'
     ]);
 
     Route::get('/vehicles/{id}/status',[
-        'uses' => 'UsersController@status',
+        'uses' => 'VehiclesController@status',
         'as'   => 'vehicles.status'
+    ]);
+
+    Route::resource('/permissions', 'PermissionsController');
+
+    Route::get('/permissions/{id}/destroy',[
+        'uses' => 'PermissionsController@destroy',
+        'as'   => 'permissions.destroy'
+    ]);
+
+    Route::get('/permissions/{id}/status',[
+        'uses' => 'PermissionsController@status',
+        'as'   => 'permissions.status'
     ]);
 });
 

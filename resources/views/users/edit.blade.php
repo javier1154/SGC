@@ -7,8 +7,9 @@
     <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">Editar Usuario</div>
+            <form class="form-horizontal" action="{{ route('users.update', $user->id) }}" method="POST">
                 <div class="panel-body">
-                    <form class="form-horizontal" action="{{ route('users.update', $user->id) }}" method="POST">
+                    
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="PUT">
                         <div>
@@ -41,18 +42,18 @@
                             </div>
                             
                         </div>
-                        <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-md-12 text-right">
-                                <a href="{!! route('users.index') !!}">
-                                <button type="button" class="btn btn-default btn-flat">Cancelar</button>   
-                                </a>
-                                <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Guardar</button>
-                            </div>
-                        </div>
-                    </form>
+                    
                 </div>
-                
+                <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <a href="{!! route('users.index') !!}">
+                        <button type="button" class="btn btn-default btn-flat">Cancelar</button>   
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Guardar</button>
+                    </div>
+                </div>
+                </form>
             </div>
             </div>
         </div>

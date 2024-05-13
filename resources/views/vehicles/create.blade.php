@@ -7,8 +7,9 @@
     <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">Registrar Vehículo</div>
+            <form class="form-horizontal" action="{{ route('vehicles.store') }}" method="POST">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('vehicles.store') }}" method="POST">
+                
                 {{ csrf_field() }}
                     @include('layouts.validacion')
                     <div class="row">
@@ -45,7 +46,7 @@
                             <label>Usuario</label>
                             <select name="user_id" class="form-control" required value="" style="width:100%">
                                 @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->name }}</option>
+                                    <option value="{{encrypt($user->id)}}">{{$user->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -53,25 +54,27 @@
                             <label>Combustible</label>
                             <select name="fuel_id" class="form-control" required value="" style="width:100%">
                                 @foreach($fuels as $fuel)
-                                    <option value="{{$fuel->id}}">{{$fuel->name }}</option>
+                                    <option value="{{encrypt($fuel->id)}}">{{$fuel->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
 
-                    <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-md-12 text-right">
-                                <a href="{!! route('users.index') !!}">
-                                <button type="button" class="btn btn-default btn-flat">Cancelar</button>   
-                                </a>
-                                <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    
+                
                 
             </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <a href="{!! route('users.index') !!}">
+                        <button type="button" class="btn btn-default btn-flat">Cancelar</button>   
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Guardar</button>
+                    </div>
+                </div>
+            </div>
+            </form>
             
         </div>
     </div>
