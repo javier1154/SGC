@@ -46,15 +46,7 @@
                                             </select>
                                             
                                         </div>
-
-                                        <div class="form-group col-md-12">
-                                            
-                                            <label>Habilitado</label>
-                                            <input type="checkbox" name="status" value="car">
-                                            
-                                        </div>
-
-                                        
+                                     
                                     </div>
                                 </div>
                                 <div class="modal-footer">

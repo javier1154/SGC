@@ -37,7 +37,14 @@ class PermissionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'type' => 'required',
+            'user_id' => 'required|unique:permissions'
+        ]);
+        $permit = new Permit($request->all());
+        $permit->user_id = $request->user_id;
+        $permit->status = true;
+        $permit->save();
     }
 
     /**
