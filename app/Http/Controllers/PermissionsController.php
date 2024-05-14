@@ -39,12 +39,27 @@ class PermissionsController extends Controller
     {
         $this->validate($request, [
             'type' => 'required',
-            'user_id' => 'required|unique:permissions'
+            'user_id' => 'required'
         ]);
-        $permit = new Permit($request->all());
-        $permit->user_id = $request->user_id;
-        $permit->status = true;
-        $permit->save();
+
+        $user_exist = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
+        if(!empty($user_exist)){
+            $permit_exist = Permit::where('user_id', $user_exist->id)->first();
+            if(empty($permit_exist)){
+                $permit = new Permit($request->all());
+                $permit->user_id = $user_exist->id;
+                $permit->type = mb_strtoupper($request->type, "UTF-8");
+                $permit->status = true;
+                $permit->save();
+                return redirect()->back();
+            }else{
+                //el usuario ya posee permisos
+            }
+            
+        }else{
+            //el usuario no se encuentra registrado
+        }
+
     }
 
     /**
@@ -66,7 +81,8 @@ class PermissionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permit = Permit::findOrFail(decrypt($id));
+        return view('permissions.edit', compact('permit'));
     }
 
     /**
@@ -78,7 +94,12 @@ class PermissionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permit = Permit::find($id);
+        
+        $permit->type = mb_strtoupper($request->type, "UTF-8");
+        $permit->status = $request->status;
+        $permit->save();
+        return redirect()->route('permissions.index');
     }
 
     /**
@@ -89,6 +110,28 @@ class PermissionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permit = Permit::findOrFail(decrypt($id));
+        if($permit->destroy_validate()){
+            $permit->delete();
+        }else{
+            /* toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); */
+            return redirect()->back();
+        }
+        /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        return redirect()->back();    
+    }
+
+    public function status($id)
+    {
+        $permit = Permit::findOrFail(decrypt($id));
+        if($permit->status){
+            $permit->status = 0;
+            /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
+        }else{
+            $permit->status = 1;
+            /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
+        }
+        $permit->save();
+        return redirect()->back();
     }
 }

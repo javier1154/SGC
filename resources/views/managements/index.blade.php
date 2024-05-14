@@ -26,6 +26,10 @@
                                             <label>Nombre</label>
                                             <input type="text" name="name" class="form-control" required value="{{old('name')}}">
                                         </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Cuota</label>
+                                            <input type="number" name="cuota" class="form-control" required value="" min = 1>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -41,7 +45,8 @@
                 <thead>
                     <tr>
                         <th class="text-center">N°</th>
-                        <th class="col-md-8">Nombre</th>
+                        <th class="col-md-6">Nombre</th>
+                        <th class="col-md-2">Cuota</th>
                         <th class="text-center col-md-1">Estado</th>
                         <th class="text-center col-md-2">Fecha de Creación</th>
                         <th class="text-center col-md-1">Opciones</th>
@@ -58,6 +63,7 @@
                         <tr  @if ($management->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
                             <td class="bold">{{$management->name}}</td>
+                            <td class="text-center">{{ $management->cuota }}</td>
                             <td class="text-center">{!! status($management->status) !!}</td>
                             <td class="text-center">{!! fecha_hora($management->created_at) !!}</td>
                             <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($management->id)}}", "name":"{{$management->name}}"}'>
@@ -76,7 +82,7 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="5" class="opciones">
+						<td colspan="6" class="opciones">
 							<center>
 								<i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
 								<i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;

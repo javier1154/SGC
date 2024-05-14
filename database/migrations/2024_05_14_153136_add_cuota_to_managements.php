@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusToUsers extends Migration
+class AddCuotaToManagements extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddStatusToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('status')->default(1)->after('phone');
+        Schema::table('managements', function (Blueprint $table) {
+            $table->integer('cuota')->after('name')->default(1);
         });
     }
 
@@ -25,8 +25,8 @@ class AddStatusToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('managements', function (Blueprint $table) {
+            $table->dropColumn('cuota');
         });
     }
 }

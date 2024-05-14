@@ -19,6 +19,10 @@ class AddUsersTable extends Migration
             $table->string('ci', 20)->unique();
             $table->string('password', 60)->default("PDVSA20");
             $table->string('phone', 20);
+            $table->string('indicator')->nullable();
+            $table->string('extension')->nullable();
+            $table->boolean('status')->default(1);
+            
 
             $table->integer('management_id')->unsigned();
             $table->foreign('management_id')->references('id')->on('managements')->onDelete('cascade');

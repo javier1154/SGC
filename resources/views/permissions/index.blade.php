@@ -23,30 +23,17 @@
                                     @include('layouts.validacion')
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                        
+                                            <label>Cédula o indicador</label>
+                                            <input type="text" required name="user_id" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-12">
                                             <label>Tipo</label>
                                             <select name="type" class="form-control" required value="" style="width:100%">
-                                                
                                                 <option value="administrador">Administrador</option>
                                                 <option value="coordinador">Coordinador</option>
                                                 <option value="lider">Líder</option>
-
-                                                
                                             </select>
-                                            
-                                        
                                         </div>
-                                        <div class="form-group col-md-12">
-                                            
-                                            <label>Usuario</label>
-                                            <select name="user_id" class="form-control" required value="" style="width:100%">
-                                                @foreach($users as $user)
-                                                    <option value="{{$user->id}}">{{$user->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            
-                                        </div>
-                                     
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -62,8 +49,9 @@
                 <thead>
                     <tr>
                         <th class="text-center col-md-2">N°</th>
-                        <th class="text-center col-md-3">Tipo</th>
-                        <th class="text-center col-md-3">Usuario</th>
+                        <th class="text-center col-md-2">Cédula</th>
+                        <th class="text-center col-md-2">Usuario</th>
+                        <th class="text-center col-md-2">Tipo</th>
                         <th class="text-center col-md-2">Estatus</th>
                         <th class="text-center col-md-2">Opciones</th>
                     </tr>
@@ -78,8 +66,10 @@
                         @endphp
                         <tr @if ($permissions->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
-                            <td class="text-center">{{$permissions->type}}</td>
+                            <td class="text-center">{{$permissions->user->ci}}</td>
                             <td class="text-center">{{$permissions->user->name}}</td>
+                            <td class="text-center">{{$permissions->type}}</td>
+                           
                             <td class="text-center">{!!status($permissions->status)!!}</td>
                             <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($permissions->id)}}", "name":"{{$permissions->user->name}}"}'>
                                 @if ($permissions->status == 1)
@@ -87,8 +77,7 @@
 								@else
 									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
 								@endif
-                                <a href="{{route('users.show', encrypt($permissions->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Detalles"><i class="fa fa-cogs"></i></a>
-                                <a href="{{route('users.edit', encrypt($permissions->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
+                                <a href="{{route('permissions.edit', encrypt($permissions->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
                                 @if( $permissions->destroy_validate())
 								    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
 								@endif
@@ -98,9 +87,8 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="5" class="opciones">
+						<td colspan="6" class="opciones">
 							<center>
-                                <i class="fa fa-cogs"></i>&nbsp;Detalles&nbsp;
                                 <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
                                 <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
 								<i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
@@ -150,7 +138,7 @@
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!! url("/") !!}/users/'+id+'/destroy';
+                        url = '{!! url("/") !!}/permissions/'+id+'/destroy';
                         $(location).attr('href', url);
                     }
                 });
@@ -167,7 +155,7 @@
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/users/'+id+'/status';
+                        url = '{!!url("/")!!}/permissions/'+id+'/status';
                         $(location).attr('href', url);
                     }
                 });
@@ -184,7 +172,7 @@
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/users/'+id+'/status';
+                        url = '{!!url("/")!!}/permissions/'+id+'/status';
                         $(location).attr('href', url);
                     }
                 });

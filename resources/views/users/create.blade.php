@@ -43,6 +43,14 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group col-md-4">
+                                    <label>Indicador</label>
+                                    <input type="text" name="indicator" class="form-control" value="">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Extensión</label>
+                                    <input type="text" name="extension" class="form-control" value="">
+                                </div>
                         </div>
 
                         

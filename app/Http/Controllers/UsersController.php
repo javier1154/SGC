@@ -48,12 +48,17 @@ class UsersController extends Controller
             'email' => 'required|unique:users',
             'phone' => 'required',
             'password' => 'required',
-            'management_id' => 'required'
+            'management_id' => 'required',
+            'indicator' => 'unique:users',
+            'extension' => 'unique:users'
+            
         ]);
         $user = new User($request->all());
         $user->name = mb_strtoupper($request->name, "UTF-8");
         $user->password = bcrypt($request->password);
         $user->management_id = $request->management_id;
+        $user->indicator = $request->indicator;
+        $user->extension = $request->extension;
         $user->save();
         return redirect()->route('users.index');
     }
@@ -105,8 +110,10 @@ class UsersController extends Controller
         $user->ci = $request->ci;
         $user->phone = $request->phone;
         $user->management_id = $request->management_id;
+        $user->indicator = $request->indicator;
+        $user->extension = $request->extension;
         $user->save();
-        return redirect()->back();
+        return redirect()->route('users.index');
 
     }
 

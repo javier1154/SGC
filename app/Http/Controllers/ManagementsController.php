@@ -90,6 +90,7 @@ class ManagementsController extends Controller
         
         $management = Management::find($id);
         $management->name = $request->name;
+        $management->cuota = $request->cuota;
         $management->save();
         return redirect()->route('managements.index');
     }

@@ -15,6 +15,10 @@
                 <label>Nombre</label>
                 <input type="text" name="name" class="form-control" required value="{{$management->name}}" required>
             </div>
+            <div class="form-group col-md-12">
+                <label>Cuota</label>
+                <input type="text" name="cuota" class="form-control" required value="{{$management->cuota}}" required>
+            </div>
         </div>
     </div>
     <div>

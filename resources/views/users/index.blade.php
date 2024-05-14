@@ -15,14 +15,16 @@
                 <thead>
                     <tr>
                         <th class="text-center col-md-1">N°</th>
-                        <th class="text-center col-md-3">Nombre</th>
+                        <th class="text-center col-md-2">Nombre</th>
                         <th class="text-center col-md-1">CI</th>
                         <th class="text-center col-md-1">Email</th>
                         <th class="text-center col-md-1">Teléfono</th>
                         <th class="text-center col-md-1">Gerencia</th>
                         <th class="text-center col-md-1">Estado</th>
-                        <th class="text-center col-md-2">Fecha de Creación</th>
-                        <th class="text-center col-md-2">Opciones</th>
+                        <th class="text-center col-md-1">Indicador</th>
+                        <th class="text-center col-md-1">Extensión</th>
+                        <th class="text-center col-md-1">Fecha de Creación</th>
+                        <th class="text-center col-md-1">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +43,8 @@
                             <td class="text-center">{{$user->phone}}</td>
                             <td class="text-center">{{$user->management->name}}</td>
                             <td class="text-center">{!!status($user->status)!!}</td>
+                            <td class="text-center">{{$user->indicator}}</td>
+                            <td class="text-center">{{$user->extension}}</td>
                             <td class="text-center">{!! fecha_hora($user->created_at) !!}</td>
                             <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($user->id)}}", "name":"{{$user->name}}"}'>
                                 @if ($user->status == 1)
@@ -59,7 +63,7 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="9" class="opciones">
+						<td colspan="11" class="opciones">
 							<center>
                                 <i class="fa fa-cogs"></i>&nbsp;Detalles&nbsp;
                                 <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;

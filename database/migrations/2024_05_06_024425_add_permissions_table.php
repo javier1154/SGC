@@ -14,7 +14,7 @@ class AddPermissionsTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type', ['administrador','lider', 'coordinador']);
+            $table->enum('type', ['Administrador','Lider', 'Coordinador']);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('status');
