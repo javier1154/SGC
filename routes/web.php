@@ -67,5 +67,17 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'PermissionsController@status',
         'as'   => 'permissions.status'
     ]);
+
+    Route::resource('/fuel_day', 'Fuel_daysController');
+
+    Route::get('/fuel_day/{id}/destroy',[
+        'uses' => 'Fuel_days@destroy',
+        'as'   => 'fuel_day.destroy'
+    ]);
+
+    Route::get('/fuel_day/{id}/status',[
+        'uses' => 'Fuel_days@status',
+        'as'   => 'fuel_day.status'
+    ]);
 });
 

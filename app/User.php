@@ -31,6 +31,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Vehicle');
 
     }
+    public function fuel_days(){
+
+        return $this->hasMany('App\User_Fuel_day');
+
+    }
     public function management(){
 
         return $this->belongsTo('App\Management');

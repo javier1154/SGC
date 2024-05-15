@@ -16,4 +16,9 @@ class Permit extends Model
     public function destroy_validate(){
         return true;
     }
+    public function fuel_days(){
+
+        return $this->hasMany('App\Fuel_day');
+
+    }
 }
