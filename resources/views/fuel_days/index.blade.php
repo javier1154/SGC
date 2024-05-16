@@ -66,21 +66,21 @@
                         @endphp
                         <tr  @if ($fuel_day->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
-                            <td class="bold">{{$fuel_day->day}}</td>
+                            <td class="bold">{!!fecha($fuel_day->day)!!}</td>
                             <td class="text-center">{{$fuel_day->type}}</td>
                             <td class="text-center">{!! status($fuel_day->status) !!}</td>
                             <td class="text-center">{{$fuel_day->permit->user->name}}</td>
                             
                             
-                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($fuel_day->id)}}", "name":"{{$fuel_day->name}}"}'>
-								<a href="{{route('fuel_day.edit', encrypt($fuel_day->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar gerencia"><i class="fa fa-pencil"></i></a>
+                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($fuel_day->id)}}", "name":"{{fecha_js($fuel_day->day)}}"}'>
+								<a href="{{route('fuel_day.edit', encrypt($fuel_day->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar jornada"><i class="fa fa-pencil"></i></a>
                                 @if ($fuel_day->status == 1)
-									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar gerencia"><i class="fa fa-ban"></i></a>
+									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar jornada"><i class="fa fa-ban"></i></a>
 								@else
-									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar gerencia"><i class="fa fa-check-circle-o"></i></a>
+									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar jornada"><i class="fa fa-check-circle-o"></i></a>
 								@endif
 								@if( $fuel_day->destroy_validate())
-									<a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar gerencia"><i class="fa fa-trash"></i></a>
+									<a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
 								@endif
                             </td>
                         </tr>
@@ -111,7 +111,7 @@
     <script src="{!! asset('plugins/datatables/dataTables.bootstrap.min.js'); !!}"></script>
     <script>
         $(document).ready(function(){
-            $( "ul.sidebar-menu li.managements" ).addClass('active');
+            $( "ul.sidebar-menu li.fuel_days" ).addClass('active');
 
             var errors = "{{$errors->any()}}"; if(errors){ $("div.modal").modal(); }
 
@@ -133,13 +133,13 @@
                 var name = $(this).parents('td').data('valor').name;
                 swal({
                     title: "Aviso!",
-                    text: "¿Desea eliminar la gerencia de <b>"+name+"</b>?",
+                    text: "¿Desea eliminar la jornada de <b>"+name+"</b>?",
                     type: "info",
                     showCancelButton: true,
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!! url("/") !!}/managements/'+id+'/destroy';
+                        url = '{!! url("/") !!}/fuel_day/'+id+'/destroy';
                         $(location).attr('href', url);
                     }
                 });
@@ -150,13 +150,13 @@
                 var name = $(this).parents('td').data('valor').name;
                 swal({
                     title: "Aviso!",
-                    text: "¿Desea habilitar la gerencia <b>"+name+"</b>?",
+                    text: "¿Desea habilitar la jornada <b>"+name+"</b>?",
                     type: "info",
                     showCancelButton: true,
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/managements/'+id+'/status';
+                        url = '{!!url("/")!!}/fuel_day/'+id+'/status';
                         $(location).attr('href', url);
                     }
                 });
@@ -167,13 +167,13 @@
                 var name = $(this).parents('td').data('valor').name;
                 swal({
                     title: "Aviso!",
-                    text: "¿Desea deshabilitar la gerencia <b>"+name+"</b>?",
+                    text: "¿Desea deshabilitar la jornada <b>"+name+"</b>?",
                     type: "info",
                     showCancelButton: true,
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/managements/'+id+'/status';
+                        url = '{!!url("/")!!}/fuel_day/'+id+'/status';
                         $(location).attr('href', url);
                     }
                 });
