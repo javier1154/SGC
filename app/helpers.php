@@ -7,6 +7,13 @@ function fecha($fecha){
 function fecha_js($fecha){
 	return date("d-m-Y", strtotime($fecha));
 }
+function dia($fecha){
+	return date("d", strtotime($fecha));
+}
+
+function mes($fecha){
+	return date("F", strtotime($fecha));
+}
 
 function fecha_hora($fecha){
 	return '<span style="display:none">'.$fecha.'</span>'.date("d-m-Y H:i:s", strtotime($fecha));
