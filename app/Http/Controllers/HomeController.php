@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Fuel_day;
+use App\User_Fuel_day;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $days = Fuel_day::orderBy('day')->get();
+        $user_fuel_day = User_Fuel_day::orderBy('id')->get();
+        return view('home',compact('days', 'user_fuel_day'));
     }
 }

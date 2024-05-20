@@ -45,6 +45,15 @@ class User extends Authenticatable
         return $this->hasOne('App\Permit');
     }
 
+    public function type(){
+        if(!empty($this->permit)){
+            if($this->permit->status){
+                return $this->permit->type;
+            }
+        }
+        return null;
+    }
+
     public function destroy_validate(){
         /*if(count($this->users)){
             return false;

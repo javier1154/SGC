@@ -17,7 +17,7 @@
       <li class="users"><a href="{!! route('users.index') !!}"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
       <li class="vehicles"><a href="{!! route('vehicles.index') !!}"><i class="fa fa-car"></i> <span>Vehiculos</span></a></li>
       <li class="permissions"><a href="{!! route('permissions.index') !!}"><i class="fa fa-book"></i> <span>Permisos</span></a></li>
-      <li class="permissions"><a href="{!! route('fuel_day.index') !!}"><i class="fa fa-oil"></i> <span>Jornadas</span></a></li>
+      <li class="fuel_days"><a href="{!! route('fuel_day.index') !!}"><i class="fa fa-object-group"></i> <span>Jornadas</span></a></li>
       {{-- @if ((Auth::user()->tipo() == "Administrador") or (Auth::user()->tipo() == "Root"))
         <li class="caja"><a href="{!! route('caja.index') !!}"><i class="fa fa-desktop"></i><i class="fa fa-spinner fa-spin pull-right"></i> <span>Caja</span></a></li>
         <li class="inventario"><a href="{!! route('inventario.index') !!}"><i class="fa fa-list"></i> <span>Inventario</span></a></li>
