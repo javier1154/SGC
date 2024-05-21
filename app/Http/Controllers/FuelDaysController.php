@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Fuel_day;
+use App\Fuel;
 
 class FuelDaysController extends Controller
 {
@@ -11,22 +12,23 @@ class FuelDaysController extends Controller
     public function index()
     {
         $fuel_days = Fuel_day::orderBy('day')->get();
-        return view('fuel_days.index', compact('fuel_days'));
+        $fuels = Fuel::where('status', 1)->get();
+        return view('fuel_days.index', compact('fuel_days', 'fuels'));
     }
 
-   
+    
     public function create()
     {
         //
     }
 
-   
+    
     public function store(Request $request)
     {
         $this->validate($request, [
             'day' => 'required',
             'type' => 'required',
-            
+            'fuel_id' => 'required',
         ]);
 
         $exist_day = Fuel_day::where('day', $request->day)->first();
@@ -39,13 +41,14 @@ class FuelDaysController extends Controller
         $fuel_day->type = $request->type;
         $fuel_day->permit_id = \Auth::user()->permit->id;
         $fuel_day->status = true;
+        $fuel_day->fuel_id = decrypt($request->fuel_id);
         $fuel_day->save();
 
         /* toastr()->success('La gerencia ha sido registrada.', 'OPERACIÓN EXITOSA!'); */
         return redirect()->back();
     }
 
-   
+    
     public function show($id)
     {
         //
@@ -58,7 +61,7 @@ class FuelDaysController extends Controller
         return view('fuel_days.edit', compact('fuel_day'));
     }
 
-  
+    
     public function update(Request $request, $id)
     {
         
@@ -71,7 +74,7 @@ class FuelDaysController extends Controller
         
     }
 
-   
+    
     public function destroy($id)
     {
         $fuel_day = Fuel_day::findOrFail(decrypt($id));
