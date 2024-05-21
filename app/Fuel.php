@@ -13,4 +13,13 @@ class Fuel extends Model
         
         return $this->hasMany('App\Vehicle'); 
     }
+    public function day_litres(){
+
+        return $this->hasMany('App\DayLitre');
+
+    }
+    public function fuel_days(){
+
+        return $this->hasMany('App\Fuel_day');
+    }
 }

@@ -27,13 +27,21 @@
                                             <input type="date" name="day" class="form-control" required value="">
                                         </div>
                                         <div class="form-group col-md-6">
-                                        <label>Tipo</label>
-                                        <select name="type" class="form-control" required value="" style="width:100%">
-                                            <option value="normal">Normal</option>
-                                            <option value="especial">Especial</option>
-                                            
-                                        </select>
-                                    </div>
+                                            <label>Tipo</label>
+                                            <select name="type" class="form-control" required value="" style="width:100%">
+                                                <option value="Normal">Normal</option>
+                                                <option value="Especial">Especial</option>
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Combustible</label>
+                                            <select name="fuel_id" class="form-control" required value="" style="width:100%">
+                                                @foreach($fuels as $fuel)
+                                                    <option value="{{encrypt($fuel->id)}}">{{$fuel->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -52,6 +60,7 @@
                         <th class="col-md-4">Fecha</th>
                         <th class="col-md-4">Tipo</th>
                         <th class="col-md-2">Estado</th>
+                        <th class="col-md-2">Tipo de combustible</th>
                         <th class="text-center col-md-1">Usuario</th>
                         <th class="text-center col-md-1">Opciones</th>
                     </tr>
@@ -69,7 +78,9 @@
                             <td class="bold">{!!fecha($fuel_day->day)!!}</td>
                             <td class="text-center">{{$fuel_day->type}}</td>
                             <td class="text-center">{!! status($fuel_day->status) !!}</td>
+                            <td class="text-center">{{$fuel_day->fuel->name}}</td>
                             <td class="text-center">{{$fuel_day->permit->user->name}}</td>
+                            
                             
                             
                             <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($fuel_day->id)}}", "name":"{{fecha_js($fuel_day->day)}}"}'>
@@ -88,7 +99,7 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="6" class="opciones">
+						<td colspan="7" class="opciones">
 							<center>
 								<i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
 								<i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;

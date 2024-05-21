@@ -20,6 +20,16 @@ class Fuel_day extends Model
         return $this->belongsTo('App\Permit');
 
     }
+    public function day_litres(){
+
+        return $this->hasMany('App\DayLitre');
+    }
+    public function fuel(){
+
+        return $this->belongsTo('App\Fuel');
+
+    }
+
     public function destroy_validate(){
         return true;
     }
