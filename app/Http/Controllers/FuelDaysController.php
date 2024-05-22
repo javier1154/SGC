@@ -13,7 +13,7 @@ class FuelDaysController extends Controller
     {
         $fuel_days = Fuel_day::orderBy('day')->get();
         $fuels = Fuel::where('status', 1)->get();
-        return view('fuel_days.index', compact('fuel_days', 'fuels'));
+        return view('fuel_days.index', compact('fuel_days','fuels'));
     }
 
     

@@ -12,7 +12,7 @@
     </div>
     <ul class="sidebar-menu">
       <li class="header">Panel {{-- {{Auth::user()->tipo()}} --}}</li>
-      <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Resumen</span></a></li>
+      <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
       <li class="managements"><a href="{!! route('managements.index') !!}"><i class="fa fa-briefcase"></i> <span>Gerencias</span></a></li>
       <li class="users"><a href="{!! route('users.index') !!}"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
       <li class="vehicles"><a href="{!! route('vehicles.index') !!}"><i class="fa fa-car"></i> <span>Vehiculos</span></a></li>
