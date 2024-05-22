@@ -34,7 +34,7 @@
                                     <i class="fa fa-btn fa-sign-in"></i> Registrar
                                 </button>
                             @else
-                                <label>Litraje Inicial</label> {{$initial_litre}}
+                                <label>Litraje Inicial:</label> {{$initial_litre->litres}}
                             
                              @endif   
                             
@@ -48,30 +48,63 @@
 
 <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1;">
-                <i class="fa fa-btn fa-sign-in"></i> Registrar
+            <!--Modal Agregar Usuario a la Jornada -->
+            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
+                <i class="fa fa-btn fa-sign-in"></i> Agregar Usuario
             </button>
-
+            <div class="modal fade" id="modal-agg">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><b>Agregar usuario</b></h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.add', $fuel_day->id) }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    @include('layouts.validacion')
+                                    <div class="row">
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label>Cédula o indicador</label>
+                                            <input type="text" required name="user_id" class="form-control">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            
+            <!--Modal Litraje Inicial -->
             <div class="modal fade" id="modal-default">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title"><b>Registrar Gerencia</b></h4>
+                                <h4 class="modal-title"><b>Litraje inicial de la jornada</b></h4>
                             </div>
-                            <form class="form-horizontal" action="{{ route('managements.store') }}" method="POST">
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.update', $fuel_day->id)}}" method="POST">
                                 {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="PUT">
                                 <div class="modal-body">
                                     @include('layouts.validacion')
                                     <div class="row">
+                                        
+                                        <input type="hidden" name="type" class="form-control" required value="initial">
+                                        <input type="hidden" name="operation" class="form-control" required value="registrar">
+                                        
                                         <div class="form-group col-md-12">
-                                            <label>Nombre</label>
-                                            <input type="text" name="name" class="form-control" required value="{{old('name')}}">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label>Cuota</label>
-                                            <input type="number" name="cuota" class="form-control" required value="" min = 1>
+                                            <label>Cantidad</label>
+                                            <input type="number" name="litres" class="form-control" required value="" step= "0.01">
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +177,7 @@
     <script src="{!! asset('plugins/datatables/dataTables.bootstrap.min.js'); !!}"></script>
     <script>
         $(document).ready(function(){
-            $( "ul.sidebar-menu li.users" ).addClass('active');
+            $( "ul.sidebar-menu li.inicio" ).addClass('active');
 
             var errors = "{{$errors->any()}}"; if(errors){ $("div.modal").modal(); }
 

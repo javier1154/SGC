@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Fuel_day;
 use App\User_Fuel_day;
+use App\DayLitre;
 
 class UserFuelDaysController extends Controller
 {
@@ -23,15 +24,19 @@ class UserFuelDaysController extends Controller
    
     public function store(Request $request)
     {
-        //
+        
+            
+                
+            
     }
 
   
     public function show($id)
     {
+        $users = User::orderBy('name')->get(); 
         $fuel_day = Fuel_day::findOrFail(decrypt($id));
-         
-        return view('user_fuel_days.show', compact('fuel_day'));
+        $day_litres = DayLitre::where('fuel_day_id')->get();
+        return view('user_fuel_days.show', compact('fuel_day', 'day_litres', 'users'));
     }
 
    
@@ -43,12 +48,62 @@ class UserFuelDaysController extends Controller
     
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, ['type' => 'required']);
+
+        $exists = DayLitre::where('fuel_day_id', $id)->where('type', $request->type)->where('status', 1)->get();
+        foreach($exists as $exist){
+            $exist->status = 0;
+            $exist->save();
+        }
+
+        $day_litres = new DayLitre($request->all());
+        $day_litres->type = $request->type;
+        $day_litres->status = true;
+        $day_litres->litres = $request->litres;
+        $day_litres->fuel_day_id = $id; 
+        $day_litres->save();
+        if($request->operation = 'registrar'){
+            // se ha registrado el litraje inicial
+        }   
+        else{
+            //se ha actualizado el litraje inicial
+        }
+        return redirect()->back();
+
+        
+            
     }
 
   
     public function destroy($id)
     {
         //
+    }
+
+    public function add(Request $request, $id){
+        $this->validate($request, [
+            'user_id' => 'required'
+        ]);
+
+        $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
+        if(!empty($user)){
+            
+            $exist_user = User_fuel_day::where('user_id', $user->id)->first();
+            if(!empty($exist_user)){
+                /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+                return redirect()->back();
+            }
+            $user_fuel_day= new User_fuel_day($request->all());
+            $user_fuel_day->assorted_litre = 20;
+            $user_fuel_day->proposed_litre = 0;
+            $user_fuel_day->status = 1;
+            $user_fuel_day->user_id = $user->id;
+            $user_fuel_day->fuel_day_id = $id;
+            $user_fuel_day->save();
+            return redirect()->back();
+        } return redirect()->back();
+        
+
+        
     }
 }
