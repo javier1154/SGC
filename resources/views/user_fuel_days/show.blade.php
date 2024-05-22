@@ -24,22 +24,19 @@
                 <div class="panel-body">
                    <div class="row">
                         <div class="col-md-4">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">Litraje inicial</div>
+                            @php
+                                $initial_litre = $fuel_day->day_litres->where('type','initial')->where('status', 1)->first();
+                            @endphp
                             
-                                <div class="panel-body">
-                                    @php
-                                        $initial_litre = $fuel_day->day_litres->where('type','initial')->where('status', 1)->first();
-                                    @endphp
-                        
-                                    @if(empty($initial_litre))
-                                        <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default">
-                                            <i class="fa fa-btn fa-sign-in"></i> Registrar
-                                        </button>
-                                    @else
-                                        <label>Litraje Inicial</label> {{$initial_litre}}
-                                    @endif  
-                            </div>
+                            @if(empty($initial_litre))
+                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1;">
+                                    <i class="fa fa-btn fa-sign-in"></i> Registrar
+                                </button>
+                            @else
+                                <label>Litraje Inicial:</label> {{$initial_litre->litres}}
+                            
+                             @endif   
+                            
                         </div>
                     </div> 
                 </div>
@@ -50,10 +47,42 @@
 
 <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1;">
-                <i class="fa fa-btn fa-sign-in"></i> Registrar
+            <!--Modal Agregar Usuario a la Jornada -->
+            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
+                <i class="fa fa-btn fa-sign-in"></i> Agregar Usuario
             </button>
-
+            <div class="modal fade" id="modal-agg">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><b>Agregar usuario</b></h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.add', $fuel_day->id) }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    @include('layouts.validacion')
+                                    <div class="row">
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label>Cédula o indicador</label>
+                                            <input type="text" required name="user_id" class="form-control">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            
+            <!--Modal Litraje Inicial -->
             <div class="modal fade" id="modal-default">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
@@ -62,14 +91,19 @@
                                 <span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title"><b>Litraje inicial de la jornada</b></h4>
                             </div>
-                            <form class="form-horizontal" action="{{ route('user_fuel_day.store') }}" method="POST">
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.update', $fuel_day->id)}}" method="POST">
                                 {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="PUT">
                                 <div class="modal-body">
                                     @include('layouts.validacion')
                                     <div class="row">
+                                        
+                                        <input type="hidden" name="type" class="form-control" required value="initial">
+                                        <input type="hidden" name="operation" class="form-control" required value="registrar">
+                                        
                                         <div class="form-group col-md-12">
-                                            <label>Cantidad de Litros</label>
-                                            <input type="text" name="initial-litre" class="form-control" required value="">
+                                            <label>Cantidad</label>
+                                            <input type="number" name="litres" class="form-control" required value="" step= "0.01">
                                         </div>
                                     </div>
                                 </div>
