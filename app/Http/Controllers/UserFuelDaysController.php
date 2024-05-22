@@ -77,7 +77,15 @@ class UserFuelDaysController extends Controller
   
     public function destroy($id)
     {
-        //
+        $users = User_Fuel_day::findOrFail(decrypt($id));
+        if($users->destroy_validate()){
+            $users->delete();
+        }else{
+            /* toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); */
+            return redirect()->back();
+        }
+        /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        return redirect()->back();
     }
 
     public function add(Request $request, $id){
@@ -94,8 +102,8 @@ class UserFuelDaysController extends Controller
                 return redirect()->back();
             }
             $user_fuel_day= new User_fuel_day($request->all());
-            $user_fuel_day->assorted_litre = 20;
-            $user_fuel_day->proposed_litre = 0;
+            $user_fuel_day->assorted_litre = 0;
+            $user_fuel_day->proposed_litre = 20;
             $user_fuel_day->status = 1;
             $user_fuel_day->user_id = $user->id;
             $user_fuel_day->fuel_day_id = $id;

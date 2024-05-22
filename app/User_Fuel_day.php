@@ -19,6 +19,8 @@ class User_Fuel_day extends Model
         return $this->belongsTo('App\User');
 
     }
-
+    public function destroy_validate(){
+        return true;
+    }
     
 }

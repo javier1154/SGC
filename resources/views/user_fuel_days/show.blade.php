@@ -30,11 +30,14 @@
                             @endphp
                             
                             @if(empty($initial_litre))
-                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1;">
+                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default">
                                     <i class="fa fa-btn fa-sign-in"></i> Registrar
                                 </button>
                             @else
                                 <label>Litraje Inicial:</label> {{$initial_litre->litres}}
+                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-update">
+                                    <i class="fa fa-btn fa-sign-in"></i> editar
+                                </button>
                             
                              @endif   
                             
@@ -116,6 +119,39 @@
                         </div>
                     </div>
                 </div>
+                <!--Modal Litraje actualizar -->
+            <div class="modal fade" id="modal-update">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><b>Litraje inicial de la jornada</b></h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.update', $fuel_day->id)}}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    @include('layouts.validacion')
+                                    <div class="row">
+                                        
+                                        <input type="hidden" name="type" class="form-control" required value="initial">
+                                        <input type="hidden" name="operation" class="form-control" required value="actualizar">
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label>Cantidad</label>
+                                            <input type="number" name="litres" class="form-control" required value="" step= "0.01">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -149,7 +185,7 @@
                             <td class="bold text-center">{{$user_day->fuel_day->day}}</td>
                             <td class="bold text-center">{{$user_day->proposed_litre}}</td>
                             <td class="bold text-center">{{$user_day->assorted_litre}}</td>
-                        <td> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a></td>
+                        <td> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -157,7 +193,7 @@
 					<tr>
 						<td colspan="8" class="opciones">
 							<center>
-								<i class="fa fa-pencil"></i>&nbsp;Agregar&nbsp;
+								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
 							</center>
 						</td>
 					</tr>
