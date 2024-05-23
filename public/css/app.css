@@ -134,11 +134,6 @@ div.nombre{
 
 
 
-.alert-info, .btn-info, .label-info{
-  background-color: #337ab7  !important;
-  border-color: #337ab7 ;
-}
-
 div.salir{
   margin: -12px 17px 11px 13px;
 }
@@ -766,9 +761,6 @@ ul.pagination li{
   border:  0px !important;
 }
 
-.bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
-    background-color: #d64040 !important;
-}
 
 .wrapper{
   background-color: #f9f9f9 !important;

@@ -24,7 +24,7 @@
         
                 <div class="panel-body">
                    <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             @php
                                 $initial_litre = $fuel_day->day_litres->where('type','initial')->where('status', 1)->first();
                             @endphp
@@ -39,7 +39,23 @@
                                     <i class="fa fa-btn fa-sign-in"></i> editar
                                 </button>
                             
-                             @endif   
+                             @endif  
+                             
+                             @php
+                                $final_litre = $fuel_day->day_litres->where('type','final')->where('status', 1)->first();
+                            @endphp
+                            
+                            @if(empty($final_litre))
+                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default2">
+                                    <i class="fa fa-btn fa-sign-in"></i> Registrar
+                                </button>
+                            @else
+                                <label>Litraje Final:</label> {{$final_litre->litres}}
+                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-update2">
+                                    <i class="fa fa-btn fa-sign-in"></i> editar
+                                </button>
+                            
+                             @endif  
                             
                         </div>
                         
@@ -52,9 +68,7 @@
 <div class="row">
         <div class="col-md-12">
             <!--Modal Agregar Usuario a la Jornada -->
-            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
-                <i class="fa fa-btn fa-sign-in"></i> Agregar Usuario
-            </button>
+            
             <div class="modal fade" id="modal-agg">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
@@ -152,6 +166,89 @@
                         </div>
                     </div>
                 </div>
+                 <!--Modal Litraje Final -->
+            <div class="modal fade" id="modal-default2">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><b>Litraje final de la jornada</b></h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.update', $fuel_day->id)}}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    @include('layouts.validacion')
+                                    <div class="row">
+                                        
+                                        <input type="hidden" name="type" class="form-control" required value="final">
+                                        <input type="hidden" name="operation" class="form-control" required value="registrar">
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label>Cantidad</label>
+                                            <input type="number" name="litres" class="form-control" required value="" step= "0.01">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Modal Litraje final actualizar -->
+            <div class="modal fade" id="modal-update2">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><b>Litraje final de la jornada</b></h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.update', $fuel_day->id)}}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    @include('layouts.validacion')
+                                    <div class="row">
+                                        
+                                        <input type="hidden" name="type" class="form-control" required value="final">
+                                        <input type="hidden" name="operation" class="form-control" required value="actualizar">
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label>Cantidad</label>
+                                            <input type="number" name="litres" class="form-control" required value="" step= "0.01">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            @php
+                $hoy = date('Y-m-d');
+
+            @endphp
+
+            @if($fuel_day->day >= $hoy)
+                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
+                    <i class="fa fa-btn fa-sign-in"></i> Agregar
+                </button>
+            @else
+                <div class="alert alert-info">
+                    <h4>Información!!!</h4>
+                    El registro de usuarios en la jornada no se encuentra disponible debido a que el día de la jornada ya pasó
+                </div>
+            @endif
+            
             <table class="table">
                 <thead>
                     <tr>

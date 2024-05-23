@@ -93,22 +93,37 @@ class UserFuelDaysController extends Controller
             'user_id' => 'required'
         ]);
 
+        $now = date('Y-m-d');
+
         $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
         if(!empty($user)){
-            
-            $exist_user = User_fuel_day::where('user_id', $user->id)->first();
-            if(!empty($exist_user)){
-                /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+
+            $fuel_day = Fuel_day::findOrFail($id);
+
+            if($fuel_day->day >= $now){
+                $exist_user = User_fuel_day::where('user_id', $user->id)
+                                        ->whereIn('fuel_day_id', function($query) use ($now){
+                                            $query->select('id')
+                                            ->from('fuel_days')
+                                            ->where('day', '>=', $now);
+                                        })
+                                        ->first();
+
+                if(!empty($exist_user)){
+                    /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+                    return redirect()->back();
+                }
+                $user_fuel_day= new User_fuel_day($request->all());
+                $user_fuel_day->assorted_litre = 20;
+                $user_fuel_day->proposed_litre = 0;
+                $user_fuel_day->status = 1;
+                $user_fuel_day->user_id = $user->id;
+                $user_fuel_day->fuel_day_id = $id;
+                $user_fuel_day->save();
                 return redirect()->back();
             }
-            $user_fuel_day= new User_fuel_day($request->all());
-            $user_fuel_day->assorted_litre = 0;
-            $user_fuel_day->proposed_litre = 20;
-            $user_fuel_day->status = 1;
-            $user_fuel_day->user_id = $user->id;
-            $user_fuel_day->fuel_day_id = $id;
-            $user_fuel_day->save();
-            return redirect()->back();
+            
+            
         } return redirect()->back();
         
 
