@@ -77,19 +77,15 @@ class UserFuelDaysController extends Controller
   
     public function destroy($id)
     {
-       
-        
         $users = User_Fuel_day::findOrFail(decrypt($id));
         if($users->destroy_validate()){
-                $users->delete();
-             } else{
-
-            return redirect()->back();
+            $users->delete();
+        }else{
             /* toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); */
-            }
             return redirect()->back();
-            /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
-        
+        }
+        /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        return redirect()->back();
     }
 
     public function add(Request $request, $id){
@@ -97,22 +93,37 @@ class UserFuelDaysController extends Controller
             'user_id' => 'required'
         ]);
 
+        $now = date('Y-m-d');
+
         $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
         if(!empty($user)){
-            
-            $exist_user = User_fuel_day::where('user_id', $user->id)->first();
-            if(!empty($exist_user)){
-                /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+
+            $fuel_day = Fuel_day::findOrFail($id);
+
+            if($fuel_day->day >= $now){
+                $exist_user = User_fuel_day::where('user_id', $user->id)
+                                        ->whereIn('fuel_day_id', function($query) use ($now){
+                                            $query->select('id')
+                                            ->from('fuel_days')
+                                            ->where('day', '>=', $now);
+                                        })
+                                        ->first();
+
+                if(!empty($exist_user)){
+                    /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+                    return redirect()->back();
+                }
+                $user_fuel_day= new User_fuel_day($request->all());
+                $user_fuel_day->assorted_litre = 20;
+                $user_fuel_day->proposed_litre = 0;
+                $user_fuel_day->status = 1;
+                $user_fuel_day->user_id = $user->id;
+                $user_fuel_day->fuel_day_id = $id;
+                $user_fuel_day->save();
                 return redirect()->back();
             }
-            $user_fuel_day= new User_fuel_day($request->all());
-            $user_fuel_day->assorted_litre = 20;
-            $user_fuel_day->proposed_litre = 0;
-            $user_fuel_day->status = 1;
-            $user_fuel_day->user_id = $user->id;
-            $user_fuel_day->fuel_day_id = $id;
-            $user_fuel_day->save();
-            return redirect()->back();
+            
+            
         } return redirect()->back();
         
 
