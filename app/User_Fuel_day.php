@@ -20,5 +20,9 @@ class User_Fuel_day extends Model
 
     }
 
-    
-}
+    public function destroy_validate(){
+            return true;
+        }
+        
+    }
+
