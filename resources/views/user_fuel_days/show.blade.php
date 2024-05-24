@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('titulo', 'Usuarios')
+@section('titulo', 'Detalles de la jornada')
 @section('subtitulo', '')
 @section('contenido')
 <br>
@@ -29,15 +29,22 @@
                             @endphp
                             
                             @if(empty($initial_litre))
-                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fa fa-btn fa-sign-in"></i> Registrar
-                                </button>
+                            
+                                    <div class="col-md-4">
+                                        <label>Litraje Inicial</label>
+                                        <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" >
+                                            <i class="fa fa-btn fa-sign-in"></i> Registrar
+                                        </button>
+                                    </div>
+                                
+                               
                             @else
+                            <div class="col-md-6">
                                 <label>Litraje Inicial:</label> {{$initial_litre->litres}}
                                 <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-update">
                                     <i class="fa fa-btn fa-sign-in"></i> editar
                                 </button>
-                            
+                            </div>
                              @endif  
                              
                              @php
@@ -45,15 +52,21 @@
                             @endphp
                             
                             @if(empty($final_litre))
-                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default2">
-                                    <i class="fa fa-btn fa-sign-in"></i> Registrar
-                                </button>
+                            
+                                <div class="col-md-4" style="margin-left: 50px; position:relative;">
+                                    <label>Litraje Final</label>
+                                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default2" ">
+                                        <i class="fa fa-btn fa-sign-in"></i> Registrar
+                                    </button>
+                                </div>
+                            
                             @else
+                            <div class="col-md-6">
                                 <label>Litraje Final:</label> {{$final_litre->litres}}
                                 <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-update2">
                                     <i class="fa fa-btn fa-sign-in"></i> editar
                                 </button>
-                            
+                            </div>
                              @endif  
                             
                         </div>
@@ -254,7 +267,6 @@
                         <th class="text-center col-md-2">Nombre</th>
                         <th class="text-center col-md-1">CI</th>
                         <th class="text-center col-md-1">Indicador</th>
-                        <th class="text-center col-md-1">Jornada</th>
                         <th class="text-center col-md-1">Litraje propuesto</th>
                         <th class="text-center col-md-1">Litraje surtido</th>
                         <th class="text-center col-md-1">Opciones</th>
@@ -277,16 +289,15 @@
                             <td class="bold text-center">{{$user_day->user->name}}</td>
                             <td class="text-center">{{$user_day->user->ci}}</td>
                             <td class="text-center">{{$user_day->user->indicator}}</td>
-                            <td class="bold text-center">{{$user_day->fuel_day->day}}</td>
                             <td class="bold text-center">{{$user_day->proposed_litre}}</td>
                             <td class="bold text-center">{{$user_day->assorted_litre}}</td>
-                        <td> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
+                        <td> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="8" class="opciones">
+						<td colspan="7" class="opciones">
 							<center>
 								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
 							</center>
