@@ -23,7 +23,7 @@
             <div class="panel-heading">Datos de la jornada</div>
                 <div class="panel-body">
                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12" style="margin-left: 57px;">
                             @php
                                 $initial_litre = $fuel_day->day_litres->where('type','initial')->where('status', 1)->first();
                             @endphp

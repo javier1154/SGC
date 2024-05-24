@@ -194,7 +194,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label>Estado</label>
-                            <p>{!!status($vehicle->status)!!}</p>
+                            <p>{!!status_new($vehicle->new, $vehicle->status)!!}</p>
                         </div>
                         <div class="col-sm-6">
                             <label>Litraje</label>
@@ -209,6 +209,7 @@
                             @if( $vehicle->destroy_validate())
                                 <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar vehículo"><i class="fa fa-trash"></i></a>
                             @endif
+                            <a href="{{route('vehicles.edit', encrypt($vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar vehículo"><i class="fa fa-pencil"></i></a>
                         </div>
                         <div class= "">
                             

@@ -43,14 +43,9 @@
                         <label>Litraje</label>
                         <input type="number" step= "0.01" name="liter" class="form-control" required value="{{$vehicle->liter}}" >
                     </div>
-                    <div class="form-group col-md-4">
-                        <label>Usuario</label>
-                        <select name="user_id" class="form-control" required value="" style="width:100%">
-                            @foreach($users as $user)
-                                <option @if($vehicle->user_id == $user->id) selected @endif value="{{$user->id}}">{{$user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+
+                    <input type="hidden" name="user_id" class="form-control" required value="{{$vehicle->user_id}}" >
+                    
                     <div class="form-group col-md-4">
                         <label>Combustible</label>
                         <select name="fuel_id" class="form-control" required value="" style="width:100%">

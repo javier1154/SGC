@@ -4,12 +4,6 @@
 @section('contenido')
 <div class="row">
         <div class="col-md-12">
-            <a href="{!! route('vehicles.create') !!}">
-            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1;">
-                <i class="fa fa-btn fa-sign-in"></i> Registrar
-            </button>
-            </a>
-
             
             <table class="table">
                 <thead>
@@ -45,7 +39,7 @@
                             <td class="text-center">{{$vehicle->color}}</td>
                             <td class="text-center">{{$vehicle->liter}}</td>
                             <td class="text-center">{{$vehicle->observations}}</td>
-                            <td class="text-center">{!!status($vehicle->status)!!}</td>
+                            <td class="text-center">{!!status_new($vehicle->new, $vehicle->status)!!}</td>
                             <td class="text-center">{{$vehicle->user->name}}</td>
                             <td class="text-center">{!! fecha_hora($vehicle->created_at) !!}</td>
                             <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($vehicle->id)}}", "name":"{{$vehicle->plate}}"}'>
@@ -54,7 +48,6 @@
 								@else
 									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar vehículo"><i class="fa fa-check-circle-o"></i></a>
 								@endif
-                                <a href="{{route('vehicles.edit', encrypt($vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar vehículo"><i class="fa fa-pencil"></i></a>
                                 @if( $vehicle->destroy_validate())
 								    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar vehículo"><i class="fa fa-trash"></i></a>
 								@endif
@@ -68,7 +61,6 @@
 							<center>
                                 <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
                                 <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
-								<i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
 								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
 							</center>
 						</td>

@@ -92,7 +92,7 @@ class VehiclesController extends Controller
     public function edit($id)
     {
         $vehicle = Vehicle::findOrFail(decrypt($id));
-        $users = User::orderBy('name')->get();
+
         $fuels = Fuel::orderBy('name')->get();
         return view('vehicles.edit', compact('vehicle', 'users', 'fuels'));
     }
@@ -117,7 +117,7 @@ class VehiclesController extends Controller
         $vehicle->user_id = $request->user_id;
         $vehicle->fuel_id = $request->fuel_id;
         $vehicle->save();
-        return redirect()->route('vehicles.index');
+        return redirect()->route('users.show', encrypt($request->user_id));
     }
 
     /**
@@ -143,9 +143,21 @@ class VehiclesController extends Controller
         $vehicle = Vehicle::findOrFail(decrypt($id));
         if($vehicle->status){
             $vehicle->status = 0;
+            $vehicle->new = 0;
             /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
         }else{
+
+            //consultar todos los vehiculos habilitados del usuario
+            //luego con un foreach deshabilitar todos los q posea habilitados
+            $vehicles = Vehicle::where('status', 1)->where('user_id', $vehicle->user_id)->get();
+            foreach($vehicles as $veh){
+                $veh->status = 0;
+                $veh->save();
+            }
+
+
             $vehicle->status = 1;
+            $vehicle->new = 0;
             /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
         }
         $vehicle->save();
