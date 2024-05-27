@@ -11,9 +11,12 @@ use App\DayLitre;
 class UserFuelDaysController extends Controller
 {
     
-    public function index($id)
+    public function manage($id)
     {
-        
+        $users = User::orderBy('name')->get(); 
+        $fuel_day = Fuel_day::findOrFail(decrypt($id));
+        $day_litres = DayLitre::where('fuel_day_id')->get();
+        return view('user_fuel_days.manage', compact('fuel_day', 'day_litres', 'users'));  
     }
 
     public function create()

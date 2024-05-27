@@ -7,10 +7,13 @@ use App\User;
 use App\Management;
 use App\Vehicle;
 use App\Fuel;
+use App\Fuel_day;
 
 class UsersController extends Controller
 {
   
+
+
     public function index()
     {
         $users = User::orderBy('name')->get();
@@ -54,8 +57,6 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail(decrypt($id));
-        $users = User::orderBy('name')->get();
-        $vehicles = Vehicle::where('user_id', $user->id)->get();
         $managements = Management::orderBy('name')->get();
         $fuels = Fuel::orderBy('name')->get();
         return view('users.show', compact('user', 'vehicles','managements', 'users', 'fuels'));
@@ -115,4 +116,5 @@ class UsersController extends Controller
         $users->save();
         return redirect()->back();
     }
+
 }

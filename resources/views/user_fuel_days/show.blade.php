@@ -250,9 +250,20 @@
             @endphp
 
             @if($fuel_day->day >= $hoy)
-                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
-                    <i class="fa fa-btn fa-sign-in"></i> Agregar
-                </button>
+            <div class="row">
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
+                        <i class="fa fa-btn fa-sign-in"></i> Agregar
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
+                    <button type="button" class="btn btn-primary btn-flat opciones">
+                        <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
+                    </button>
+                    </a>
+                </div>
+            </div>
             @else
                 <div class="alert alert-info">
                     <h4>Información!!!</h4>
@@ -265,7 +276,7 @@
                     <tr>
                         <th class="text-center col-md-1">N°</th>
                         <th class="text-center col-md-2">Nombre</th>
-                        <th class="text-center col-md-1">CI</th>
+                        <th class="text-center col-md-1">Cédula</th>
                         <th class="text-center col-md-1">Indicador</th>
                         <th class="text-center col-md-1">Litraje propuesto</th>
                         <th class="text-center col-md-1">Litraje surtido</th>

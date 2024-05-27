@@ -15,8 +15,15 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        $vehicles = Vehicle::orderBy('brand')->get();
+        $vehicles = Vehicle::orderBy('brand')->where('new', 0)->get();
         return view('vehicles.index', compact('vehicles'));
+    }
+
+
+    public function newVehicles()
+    {
+        $vehicles = Vehicle::orderBy('brand')->where('new', 1)->get();
+        return view('vehicles.new_vehicles', compact('vehicles'));
     }
 
     /**
@@ -53,10 +60,6 @@ class VehiclesController extends Controller
         ]);
 
         $status = 0;
-        $usuario_vehiculos = Vehicle::where('user_id', $request->user_id)->where('status', 1)->first();
-        if(empty($usuario_vehiculos)){
-            $status = 1;
-        }
 
         $vehicle = new Vehicle($request->all());
         $vehicle->plate = mb_strtoupper($request->plate, "UTF-8");
@@ -154,7 +157,6 @@ class VehiclesController extends Controller
                 $veh->status = 0;
                 $veh->save();
             }
-
 
             $vehicle->status = 1;
             $vehicle->new = 0;
