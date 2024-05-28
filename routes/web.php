@@ -110,6 +110,10 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'UserFuelDaysController@add',
         'as'   => 'user_fuel_day.add'
     ]);
+    Route::put('/fuel_day_manage/{id}',[
+        'uses' => 'UserFuelDaysController@autorizeUser',
+        'as'   => 'user_fuel_day.autorizeUser'
+    ]);
     
 });
 
