@@ -58,6 +58,15 @@ function status($status){
         ?><span class="label label-danger">Deshabilitado</span><?php
     }
 }
+function status_new($new, $status){
+    if ($new == "1"){
+        ?><span class="label label-warning">Por Aprobar</span><?php
+    }elseif ($status == "1"){
+        ?><span class="label label-success">Habilitado</span><?php
+    }elseif ($status == "0"){
+        ?><span class="label label-danger">Deshabilitado</span><?php
+    }
+}
 
 function DTstatus($status){
     if ($status == "Habilitado"){

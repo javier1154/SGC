@@ -56,6 +56,17 @@ Route::group(['middleware'=>['auth']],function(){
         'as'   => 'vehicles.status'
     ]);
 
+    Route::get('/newVehicles',[
+        'uses' => 'VehiclesController@newVehicles',
+        'as'   => 'vehicles.newVehicles'
+    ]);
+
+    Route::get('/manage/{id}',[
+        'uses' => 'UserFuelDaysController@manage',
+        'as'   => 'user_fuel_day.manage'
+    ]);
+
+
     Route::resource('/permissions', 'PermissionsController');
 
     Route::get('/permissions/{id}/destroy',[
@@ -98,6 +109,10 @@ Route::group(['middleware'=>['auth']],function(){
     Route::put('/fuel_days_add/{id}',[
         'uses' => 'UserFuelDaysController@add',
         'as'   => 'user_fuel_day.add'
+    ]);
+    Route::put('/fuel_day_manage/{id}',[
+        'uses' => 'UserFuelDaysController@autorizeUser',
+        'as'   => 'user_fuel_day.autorizeUser'
     ]);
     
 });
