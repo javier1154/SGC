@@ -331,7 +331,7 @@
                 '<option value="-1">Todos</option>'+
                 '</select></div>',
                 },
-                "columnDefs": [ { targets: 4, sortable: false }],
+                "columnDefs": [ { targets: 4, sortable: false }],++
             });
 
         });
