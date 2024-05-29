@@ -41,8 +41,8 @@
                             <td class="bold text-center"><input type="hidden" name= "ids[]" value = "{{encrypt($user_day->id)}}"><input class= "form-control" name=proposed_litre[] type="number" min = 0 required value= "{{$user_day->proposed_litre}}"></td>
                             <td class="bold text-center">{{$user_day->estado}}</td>
                             
-                        <td class="text-center" data-valor='{"id":"{{encrypt($user_day->id)}}", "name":"{{$user_day->user->name}}"}'> 
-                            @if($user_day->estado== "Propuesto")
+                        <td class="text-center t-opciones" data-valor='{"id":"{{encrypt($user_day->id)}}", "name":"{{$user_day->user->name}}"}'> 
+                            @if($user_day->estado == "Propuesto")
                             <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Cancelar usuario"><i class="fa fa-ban"></i></a>
                             @endif    
 							

@@ -118,7 +118,7 @@ class UserFuelDaysController extends Controller
                 }
                 $user_fuel_day= new User_fuel_day($request->all());
                 $user_fuel_day->assorted_litre = 20;
-                $user_fuel_day->proposed_litre = 0;
+                $user_fuel_day->proposed_litre = 20;
                 $user_fuel_day->status = 1;
                 $user_fuel_day->user_id = $user->id;
                 $user_fuel_day->fuel_day_id = $id;
@@ -142,16 +142,30 @@ class UserFuelDaysController extends Controller
         $user_fuel_day->save();
         return redirect()->back();
     }
+
+    public function attendance($id)
+    {
+        $user_fuel_day = User_Fuel_day::findOrFail(decrypt($id));
+        if($user_fuel_day->estado == "Autorizado"){
+            /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
+        }
+
+        $user_fuel_day->save();
+        return redirect()->back();
+    }
+
     public function autorizeUser(Request $request, $id){
 
         for($i=0;$i<count($request->ids);$i++){
             $user_fuel_day = User_Fuel_day::find(decrypt($request->ids[$i]));
-            if(!empty($user_fuel_day) && $user_fuel_day->estado = "Propuesto"){
+            if(!empty($user_fuel_day) && $user_fuel_day->estado == "Propuesto"){
                 $user_fuel_day->proposed_litre = $request->proposed_litre[$i];
-                $user_fuel_day->estado = "Aprobado";
+                $user_fuel_day->estado = "Autorizado";
                 $user_fuel_day->save();
             }
-        };
+        }
         return redirect()->back();
     }
+
+
 }
