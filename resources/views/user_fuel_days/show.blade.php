@@ -251,11 +251,13 @@
 
             @if($fuel_day->day >= $hoy)
             <div class="row">
+                @if($fuel_day->manage_level == "Nueva")
                 <div class="col-md-2">
                     <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
                         <i class="fa fa-btn fa-sign-in"></i> Agregar
                     </button>
                 </div>
+                @endif
                 <div class="col-md-2">
                     <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
                     <button type="button" class="btn btn-primary btn-flat opciones">
@@ -263,6 +265,7 @@
                     </button>
                     </a>
                 </div>
+                
             </div>
             @else
                 <div class="alert alert-info">
@@ -280,7 +283,10 @@
                         <th class="text-center col-md-1">Indicador</th>
                         <th class="text-center col-md-1">Litraje propuesto</th>
                         <th class="text-center col-md-1">Litraje surtido</th>
+                        @if($fuel_day->manage_level == "Nueva")
                         <th class="text-center col-md-1">Opciones</th>
+                        @endif
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -302,7 +308,10 @@
                             <td class="text-center">{{$user_day->user->indicator}}</td>
                             <td class="bold text-center">{{$user_day->proposed_litre}}</td>
                             <td class="bold text-center">{{$user_day->assorted_litre}}</td>
-                        <td> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
+                            @if($fuel_day->manage_level == "Nueva")
+                             <td class="text-center t-opciones"> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
+                            @endif
+                        
                         </tr>
                     @endforeach
                 </tbody>
@@ -310,7 +319,10 @@
 					<tr>
 						<td colspan="7" class="opciones">
 							<center>
-								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                @if($fuel_day->manage_level == "Nueva")
+                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                @endif
+								
 							</center>
 						</td>
 					</tr>
