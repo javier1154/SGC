@@ -3,10 +3,9 @@
 @section('subtitulo', '')
 @section('contenido')
 <br>        
-<div class="row">
-    <div class="col-md-12">
-         <form action="{{ route('user_fuel_day.autorizeUser', $fuel_day->id) }}" method="POST">
 
+            <form action="{{ route('user_fuel_day.autorizeUser', $fuel_day->id) }}" method="POST">
+                {{ csrf_field() }}
             <input type="hidden" name="_method" value="PUT">
             <table class="table table-bordered">
                 <thead>
@@ -43,7 +42,7 @@
                             <td class="bold text-center">{{$user_day->estado}}</td>
                             
                         <td class="text-center" data-valor='{"id":"{{encrypt($user_day->id)}}", "name":"{{$user_day->user->name}}"}'> 
-                            @if($user_day->estado == "Propuesto")
+                            @if($user_day->estado== "Propuesto")
                             <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Cancelar usuario"><i class="fa fa-ban"></i></a>
                             @endif    
 							
@@ -55,21 +54,20 @@
                 <tfoot>
                     <tr>
                         <td colspan="8">
-                            <a href="{{ route('user_fuel_day.autorizeUser', $fuel_day->id) }}">    
-                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-left: 950px;margin-bottom: -100px; position: relative; z-index: 1;">
+                            
+                            <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-left: 950px;margin-bottom: -100px; position: relative; z-index: 1;">
                                 <i class="fa fa-btn fa-sign-in"></i> Autorizar Usuarios
                                 </button>
-                            </a>
+                           
                         </td>
                         
                     </tr>
                     
 				</tfoot>
             </table>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
-       
 @endsection
 @section('css')
     <link href="{!! asset('plugins/datatables/jquery.dataTables.min.css'); !!}" rel="stylesheet">
