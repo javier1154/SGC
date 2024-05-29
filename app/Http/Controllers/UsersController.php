@@ -40,7 +40,7 @@ class UsersController extends Controller
             'password' => 'required',
             'management_id' => 'required',
             'indicator' => 'unique:users',
-            'extension' => 'unique:users'
+            'extension' => 'required'
             
         ]);
         $user = new User($request->all());

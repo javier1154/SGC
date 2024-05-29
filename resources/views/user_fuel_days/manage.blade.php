@@ -5,7 +5,7 @@
 <br>        
 
             <form action="{{ route('user_fuel_day.autorizeUser', $fuel_day->id) }}" method="POST">
-
+                {{ csrf_field() }}
             <input type="hidden" name="_method" value="PUT">
             <table class="table table-bordered">
                 <thead>
@@ -54,11 +54,11 @@
                 <tfoot>
                     <tr>
                         <td colspan="8">
-                            <a href="">    
-                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-left: 950px;margin-bottom: -100px; position: relative; z-index: 1;">
+                            
+                            <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-left: 950px;margin-bottom: -100px; position: relative; z-index: 1;">
                                 <i class="fa fa-btn fa-sign-in"></i> Autorizar Usuarios
                                 </button>
-                            </a>
+                           
                         </td>
                         
                     </tr>
