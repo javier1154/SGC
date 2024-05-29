@@ -144,6 +144,14 @@ class UserFuelDaysController extends Controller
     }
     public function autorizeUser(Request $request, $id){
 
-        dd("Hello");
+        for($i=0;$i<count($request->ids);$i++){
+            $user_fuel_day = User_Fuel_day::find(decrypt($request->ids[$i]));
+            if(!empty($user_fuel_day) && $user_fuel_day->estado = "Propuesto"){
+                $user_fuel_day->proposed_litre = $request->proposed_litre[$i];
+                $user_fuel_day->estado = "Aprobado";
+                $user_fuel_day->save();
+            }
+        };
+        return redirect()->back();
     }
 }
