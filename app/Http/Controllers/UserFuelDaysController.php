@@ -143,16 +143,6 @@ class UserFuelDaysController extends Controller
         return redirect()->back();
     }
 
-    public function attendance($id)
-    {
-        $user_fuel_day = User_Fuel_day::findOrFail(decrypt($id));
-        if($user_fuel_day->estado == "Autorizado"){
-            /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
-        }
-
-        $user_fuel_day->save();
-        return redirect()->back();
-    }
 
     public function autorizeUser(Request $request, $id){
 
