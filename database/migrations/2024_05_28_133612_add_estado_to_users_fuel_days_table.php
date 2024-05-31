@@ -6,11 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddEstadoToUsersFuelDaysTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+   
     public function up()
     {
         Schema::table('users_fuel_days', function (Blueprint $table) {
@@ -18,11 +14,7 @@ class AddEstadoToUsersFuelDaysTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    
     public function down()
     {
         Schema::table('users_fuel_days', function (Blueprint $table) {
