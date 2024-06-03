@@ -116,7 +116,8 @@ class UserFuelDaysController extends Controller
                     /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
                     return redirect()->back();
                 }
-                $user_fuel_day= new User_fuel_day($request->all());
+                $user_fuel_day = new User_fuel_day($request->all());
+                $user_fuel_day->permit_id = \Auth::user()->id;
                 $user_fuel_day->assorted_litre = 20;
                 $user_fuel_day->proposed_litre = 20;
                 $user_fuel_day->status = 1;

@@ -1,5 +1,24 @@
 <?php  
 // HELPERS
+function diff_fecha($fecha){
+    if($fecha != null){
+        $fecha = strtotime($fecha);
+        $fecha =  strtotime(date('Y-m-d'))- $fecha;
+        $fecha = $fecha / 86400;
+
+        if($fecha == "1"){
+            $fecha = $fecha . " día"; 
+        }else{
+            $fecha = $fecha . " días";
+        }
+        
+
+    }
+    $fecha = "No ha surtido";
+    return $fecha;
+    
+}
+
 function fecha($fecha){
 	return '<span style="display:none">'.$fecha.'</span>'.date("d-m-Y", strtotime($fecha));
 }

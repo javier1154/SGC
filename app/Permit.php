@@ -13,6 +13,12 @@ class Permit extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function users_fuel_days(){
+
+        return $this->hasMany('App\User_Fuel_day');
+
+    }
+
     public function destroy_validate(){
         return true;
     }
