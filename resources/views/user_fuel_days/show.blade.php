@@ -252,7 +252,7 @@
             @if($fuel_day->day >= $hoy)
             <div class="row">
                 @if($fuel_day->manage_level == "Nueva")
-                <div class="col-md-2">
+                <div class="col-md-2" >
                     <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
                         <i class="fa fa-btn fa-sign-in"></i> Agregar
                     </button>

@@ -15,7 +15,6 @@
                         <th class="text-center col-md-1">Cédula</th>
                         <th class="text-center col-md-1">Indicador</th>
                         <th class="text-center col-md-1">Gerencia</th>
-                        <th class="text-center col-md-1">Autorizado</th>
                         @if ($fuel_day->manage_level == 'Nueva')
                         <th class="text-center col-md-1">Litraje propuesto</th>
                         @endif
@@ -25,6 +24,7 @@
                         <th class= "text-center col-md-1">Fecha de último surtido</th>
                         <th class= "text-center col-md-1">Dias desde último surtido</th>
                         <th class="text-center col-md-1">Estado</th>
+                        <th class="text-center col-md-1">Encargado</th>
                         @if ($fuel_day->manage_level == 'Nueva')
                         <th class="text-center col-md-1">Opciones</th>
                         @endif
@@ -41,7 +41,7 @@
                     @foreach ($fuel_day->fuel_days as $user_day)
                         @php
                           $i++;
-                          
+                          $autorizo = $user_day->user_day_permit->last();
                         @endphp
                         <tr>
                             @if($user_day->estado != 'Cancelado')
@@ -50,7 +50,6 @@
                                 <td class="text-center">{{$user_day->user->ci}}</td>
                                 <td class="text-center">{{$user_day->user->indicator}}</td>
                                 <td class="text-center">{{$user_day->user->management->name}}</td>
-                                <td class="text-center"></td>
                                 @if ($fuel_day->manage_level == 'Nueva')
                                 <td class="bold text-center"><input type="hidden" name= "ids[]" value = "{{encrypt($user_day->id)}}"><input class= "form-control" name=proposed_litre[] type="number" min = 0 required value= "{{$user_day->proposed_litre}}"></td>
                                 @endif
@@ -67,6 +66,7 @@
                                 @endif
                                 <td class=" bold text-center">{{diff_fecha($user_day->last_day())}}</td>
                                 <td class="bold text-center">{{$user_day->estado}}</td>
+                                <td class="text-center">{{$autorizo->permit->user->name}}</td>
                                 @if ($fuel_day->manage_level == 'Autorizada' || $fuel_day->manage_level == 'Nueva' )
                                 <td class="text-center t-opciones" data-valor='{"id":"{{encrypt($user_day->id)}}", "name":"{{$user_day->user->name}}"}'> 
                                 @endif  

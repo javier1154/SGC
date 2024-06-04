@@ -19,6 +19,12 @@ class Permit extends Model
 
     }
 
+    public function user_day_permit(){
+
+        return $this->hasMany('App\UserDayPermit');
+
+    }
+
     public function destroy_validate(){
         return true;
     }

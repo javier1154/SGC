@@ -12,11 +12,18 @@
                         <div class="col-md-2 ">
                             <div class="panel panel-primary " style="border-radius:20px;">
                                 <!-- Default panel contents -->
-                                <div class="panel-heading" style="text-align:center; font-size:30px; border-top-left-radius:17px; border-top-right-radius:17px; "><p>{{mes($day->day)}}</p></div>
-                                    <div class="well">
-                                            <a href="{{route('user_fuel_day.show', encrypt($day->id))}}" class="a"><strong style="text-align:center; font-size:60px; color: black;"><p>{{dia($day->day)}}</p></strong></a>
-                                    </div>
-                                <div class="panel-body">      
+                                <div class="panel-heading" style="text-align:center; font-size:30px; border-top-left-radius:17px; border-top-right-radius:17px; "><p>{{fechaCastellano(mes($day->day))}}</p></div>
+                                    <div class="panel-body">
+                                            <a href="{{route('user_fuel_day.show', encrypt($day->id))}}" class="a"><strong style="text-align:center; font-size:60px; color: #3f3b3a;"><p>{{dia($day->day)}}</p></strong></a>
+                                </div>
+                                
+
+                                <div class="" >
+                                    
+                                <div class="well" style="text-align:center; font-size:25px; border-bottom-left-radius:24px; border-bottom-right-radius:24px; color: #3f3b3a;">  
+                                <label for="">{{anio($day->day)}}</label>
+                                </div>
+                                
                             </div>
                         </div>
                     </div> 
@@ -26,8 +33,6 @@
                         @endforeach
                     @endif
 
-                    
-           
     
 @endsection
 @section('css')

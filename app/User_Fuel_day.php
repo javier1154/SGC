@@ -24,6 +24,11 @@ class User_Fuel_day extends Model
         return $this->belongsTo('App\Permit');
 
     }
+    public function user_day_permit(){
+
+        return $this->hasMany('App\UserDayPermit', 'user_fuel_day_id');
+
+    }
     
     public function destroy_validate(){
         return true;

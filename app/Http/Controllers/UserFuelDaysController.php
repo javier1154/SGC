@@ -7,6 +7,7 @@ use App\User;
 use App\Fuel_day;
 use App\User_Fuel_day;
 use App\DayLitre;
+use App\UserDayPermit;
 
 class UserFuelDaysController extends Controller
 {
@@ -117,13 +118,21 @@ class UserFuelDaysController extends Controller
                     return redirect()->back();
                 }
                 $user_fuel_day = new User_fuel_day($request->all());
-                $user_fuel_day->permit_id = \Auth::user()->id;
+                $user_fuel_day->permit_id = \Auth::user()->permit->id;
                 $user_fuel_day->assorted_litre = 20;
                 $user_fuel_day->proposed_litre = 20;
                 $user_fuel_day->status = 1;
                 $user_fuel_day->user_id = $user->id;
                 $user_fuel_day->fuel_day_id = $id;
                 $user_fuel_day->save();
+                
+                $user_day_permit = new UserDayPermit();
+                $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
+                $user_day_permit->permit_id = \Auth::user()->permit->id;
+                $user_day_permit->estado = "Propuesto";
+                $user_day_permit->save();
+
+
                 return redirect()->back();
             }
             
@@ -135,9 +144,15 @@ class UserFuelDaysController extends Controller
     }
     public function status($id)
     {
+        
         $user_fuel_day = User_Fuel_day::findOrFail(decrypt($id));
+        $user_day_permit = new UserDayPermit();
+        $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
+        $user_day_permit->permit_id = \Auth::user()->id;
         if($user_fuel_day->estado == "Propuesto"){
             $user_fuel_day->estado = "Cancelado";
+            $user_day_permit->estado = "Cancelado";
+            $user_day_permit->save();
             /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
         }
         $user_fuel_day->save();
@@ -151,10 +166,19 @@ class UserFuelDaysController extends Controller
           for($i = 0; $i < count($request->ids); $i++){
             $user_fuel_day = User_fuel_day::find(decrypt($request->ids[$i]));
             if(!empty($user_fuel_day) && $user_fuel_day->estado == "Autorizado"){
+                $user_day_permit = new UserDayPermit();
+                $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
+                $user_day_permit->permit_id = \Auth::user()->id;
                 if($request->assorted_litre[$i] > 0){
+
                     $user_fuel_day->estado = "Asistió";
+                    $user_day_permit->estado = "Asistió";
+                    $user_day_permit->save();
+
                 }else{
                     $user_fuel_day->estado = "No asistió";
+                    $user_day_permit->estado = "No asistió";
+                    $user_day_permit->save();
                 }
                 $user_fuel_day->assorted_litre = $request->assorted_litre[$i];
                 $fuel_day->manage_level = 'Finalizada';
@@ -167,10 +191,15 @@ class UserFuelDaysController extends Controller
                 
             for($i = 0; $i < count($request->ids); $i++){
                 $user_fuel_day = User_fuel_day::find(decrypt($request->ids[$i]));
+                $user_day_permit = new UserDayPermit();
+                $user_day_permit->user_fuel_day_id = $user_fuel_day->id;;
+                $user_day_permit->permit_id = \Auth::user()->id;
                 if(!empty($user_fuel_day) && $user_fuel_day->estado == "Propuesto"){
                     $user_fuel_day->proposed_litre = $request->proposed_litre[$i];
                     $user_fuel_day->estado = "Autorizado";
+                    $user_day_permit->estado = "Autorizado";
                     $user_fuel_day->save();
+                    $user_day_permit->save();
                 }
                 if($fuel_day->manage_level == 'Nueva'){
                     $fuel_day->manage_level = 'Autorizada';
