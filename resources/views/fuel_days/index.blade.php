@@ -57,12 +57,12 @@
                 <thead>
                     <tr>
                         <th class="text-center">N°</th>
-                        <th class="col-md-4">Fecha</th>
-                        <th class="col-md-4">Tipo</th>
-                        <th class="col-md-2">Estado</th>
-                        <th class="col-md-2">Tipo de combustible</th>
-                        <th class="text-center col-md-1">Usuario</th>
-                        <th class="text-center col-md-1">Opciones</th>
+                        <th class="text-center col-md-1">Fecha</th>
+                        <th class="text-center col-md-2">Tipo</th>
+                        <th class="text-center col-md-2">Estado</th>
+                        <th class="text-center col-md-2">Tipo de combustible</th>
+                        <th class="text-center col-md-2">Usuario</th>
+                        <th class="text-center col-md-2">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,7 +75,7 @@
                         @endphp
                         <tr  @if ($fuel_day->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
-                            <td class="bold">{!!fecha($fuel_day->day)!!}</td>
+                            <td class="text-center bold">{!!fecha($fuel_day->day)!!}</td>
                             <td class="text-center">{{$fuel_day->type}}</td>
                             <td class="text-center">{!! status($fuel_day->status) !!}</td>
                             <td class="text-center">{{$fuel_day->fuel->name}}</td>

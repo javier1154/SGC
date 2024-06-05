@@ -25,6 +25,11 @@ class Permit extends Model
 
     }
 
+    public function cisterns(){
+
+        return $this->hasMany('App\Cistern');
+    }
+
     public function destroy_validate(){
         return true;
     }

@@ -43,6 +43,14 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group col-md-12">
+                                <label>Indicador</label>
+                                <input type="text" name="indicator" class="form-control" value="{{$user->indicator}}">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Extensión</label>
+                                <input type="text" name="extension" class="form-control" value="{{$user->extension}}">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -150,6 +158,14 @@
                     <div class=" col-md-4">
                         <label>Gerencia</label>
                         <p>{{$user->management->name}}</p>
+                    </div>
+                    <div class=" col-md-4">
+                        <label>Extension</label>
+                        <p>{{$user->extension}}</p>
+                    </div>
+                    <div class=" col-md-4">
+                        <label>Indicador</label>
+                        <p>{{$user->indicator}}</p>
                     </div>
                 </div>
             </div>

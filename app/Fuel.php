@@ -22,4 +22,7 @@ class Fuel extends Model
 
         return $this->hasMany('App\Fuel_day');
     }
+    public function tanks(){
+        return $this->hasMany('App\Tank');
+    }
 }

@@ -16,7 +16,7 @@
                     <tr>
                         <th class="text-center col-md-1">N°</th>
                         <th class="text-center col-md-2">Nombre</th>
-                        <th class="text-center col-md-1">CI</th>
+                        <th class="text-center col-md-1">Cédula</th>
                         <th class="text-center col-md-1">Email</th>
                         <th class="text-center col-md-1">Teléfono</th>
                         <th class="text-center col-md-1">Gerencia</th>
@@ -37,7 +37,7 @@
                         @endphp
                         <tr @if ($user->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
-                            <td class="bold">{{$user->name}}</td>
+                            <td class="text-center bold">{{$user->name}}</td>
                             <td class="text-center">{{$user->ci}}</td>
                             <td class="text-center">{{$user->email}}</td>
                             <td class="text-center">{{$user->phone}}</td>
