@@ -114,6 +114,28 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'UserFuelDaysController@autorizeUser',
         'as'   => 'user_fuel_day.autorizeUser'
     ]);
+    Route::resource('/tank', 'TankController');
+
+    Route::get('/tank/{id}/destroy',[
+        'uses' => 'tankController@destroy',
+        'as'   => 'tank.destroy'
+    ]);
+
+    Route::get('/tank/{id}/status',[
+        'uses' => 'tank@status',
+        'as'   => 'tank.status'
+    ]);
+    Route::resource('/cistern', 'CisternController');
+
+    Route::get('/cistern/{id}/destroy',[
+        'uses' => 'cisternController@destroy',
+        'as'   => 'cistern.destroy'
+    ]);
+
+    Route::get('/cistern/{id}/status',[
+        'uses' => 'cistern@status',
+        'as'   => 'cistern.status'
+    ]);
    
 });
 

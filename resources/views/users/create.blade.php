@@ -44,13 +44,13 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
-                                    <label>Indicador</label>
-                                    <input type="text" name="indicator" class="form-control" value="{{ old('indicator') }}">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label>Extensión</label>
-                                    <input type="text" name="extension" class="form-control" value="{{ old('extension') }}">
-                                </div>
+                                <label>Indicador</label>
+                                <input type="text" name="indicator" class="form-control" value="{{ old('indicator') }}">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Extensión</label>
+                                <input type="text" name="extension" class="form-control" value="{{ old('extension') }}">
+                            </div>
                         </div>
 
                         
