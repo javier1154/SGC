@@ -8,6 +8,7 @@ use App\Fuel_day;
 use App\User_Fuel_day;
 use App\DayLitre;
 use App\UserDayPermit;
+use App\Tank;
 
 class UserFuelDaysController extends Controller
 {
@@ -171,9 +172,18 @@ class UserFuelDaysController extends Controller
                 $user_day_permit->permit_id = \Auth::user()->id;
                 if($request->assorted_litre[$i] > 0){
 
-                    $user_fuel_day->estado = "Asistió";
-                    $user_day_permit->estado = "Asistió";
-                    $user_day_permit->save();
+                    
+                    
+
+                    $assorted = Tank::where('status', 1)->first();
+                    if($assorted->available_litre >= $request->assorted_litre[$i]){
+                        $assorted->available_litre = $assorted->available_litre - $request->assorted_litre[$i];
+                        $user_fuel_day->estado = "Asistió";
+                        $user_day_permit->estado = "Asistió";
+                        $assorted->save();
+                        $user_day_permit->save();
+                    }
+                    
 
                 }else{
                     $user_fuel_day->estado = "No asistió";

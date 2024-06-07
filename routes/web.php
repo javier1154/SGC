@@ -128,7 +128,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::resource('/cistern', 'CisternController');
 
     Route::get('/cistern/{id}/destroy',[
-        'uses' => 'cisternController@destroy',
+        'uses' => 'CisternController@destroy',
         'as'   => 'cistern.destroy'
     ]);
 

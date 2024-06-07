@@ -15,5 +15,8 @@ class Cistern extends Model
     public function tank(){
         return $this->belongsTo('App\Tank');
     }
+    public function destroy_validate(){
+        return true;
+    }
 
 }

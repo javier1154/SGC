@@ -41,7 +41,7 @@
 @section('js')
     <script>
         $(document).ready(function(){
-            $( "ul.sidebar-menu li.inicio" ).addClass('active');
+            $( "ul.sidebar-menu li.tank" ).addClass('active');
         });
     </script>
 @endsection

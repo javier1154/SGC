@@ -21,6 +21,7 @@
                         <th class="text-center col-md-1">Combustible</th>
                         <th class="text-center col-md-1">Litros recepcionados</th>
                         <th class="text-center col-md-1">Fecha de Creación</th>
+                        <th class="text-center col-md-1">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,11 +39,22 @@
                             <td class="text-center">{{$cistern->tank->fuel->name}}</td>
                             <td class="text-center">{{$cistern->received_litre}}</td>
                             <td class="text-center">{!! fecha($cistern->created_at) !!}</td>
+                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($cistern->id)}}"}'>
+								
+								<a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
+								
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
-					
+                <tr>
+						<td colspan="7" class="opciones">
+							<center>
+								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+							</center>
+						</td>
+					</tr>
 				</tfoot>
             </table>
         </div>
@@ -64,14 +76,10 @@
                                     @include('layouts.validacion')
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label>Descripción</label>
-                                            <input type="text" name="description" class="form-control" required value="{{old('name')}}">
-                                        </div>
-                                        <div class="form-group col-md-12">
                                             <label>Combustible</label>
                                             <select name="tank_id" class="form-control" required value="" style="width:100%">
-                                                @foreach($cisterns as $cistern)
-                                                    <option value="{{encrypt($cistern->tank->id)}}">@if($cistern->tank->name) {{$cistern->tank->fuel->name}} [{{$cistern->tank->name}}] @else {{$cistern->tank->fuel->name}}  @endif</option>
+                                                @foreach($tanks as $tank)
+                                                    <option value="{{$tank->id}}">@if(strlen($tank->name)) {{$tank->fuel->name}} [{{$tank->name}}] @else {{$tank->fuel->name}}  @endif</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -79,7 +87,10 @@
                                             <label>Litros recepcionados</label>
                                             <input type="number" name="received_litre" class="form-control" required value="" min = 1>
                                         </div>
-                                        <input type="hidden" name = "permit_id" value = "{{\Auth::user()->permit->id}}">
+                                        <div class="form-group col-md-12">
+                                            <label>Observación</label>
+                                            <input type="text" name="description" class="form-control"  value="{{old('name')}}">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -105,7 +116,7 @@
     <script src="{!! asset('plugins/datatables/dataTables.bootstrap.min.js'); !!}"></script>
     <script>
         $(document).ready(function(){
-            $( "ul.sidebar-menu li.users" ).addClass('active');
+            $( "ul.sidebar-menu li.cistern" ).addClass('active');
 
             var errors = "{{$errors->any()}}"; if(errors){ $("div.modal").modal(); }
 
@@ -123,6 +134,23 @@
             });
 
            
+            $("table.table").on('click', 'a.eliminar', function() {
+                var id = $(this).parents('td').data('valor').id;
+                var name = $(this).parents('td').data('valor').name;
+                swal({
+                    title: "Aviso!",
+                    text: "¿Desea eliminar la recepción?",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false
+                },function(isConfirm){
+                    if (isConfirm){
+                        url = '{!! url("/") !!}/cistern/'+id+'/destroy';
+                        $(location).attr('href', url);
+                    }
+                });
+            }); 
+
         });
     </script>
 @endsection
