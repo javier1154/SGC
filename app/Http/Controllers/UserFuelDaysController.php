@@ -103,6 +103,15 @@ class UserFuelDaysController extends Controller
 
             $fuel_day = Fuel_day::findOrFail($id);
 
+            $ultimaAsistencia = Fuel_day::whereIn('id', function($query){
+                                            $query->select('fuel_day_id')
+                                            ->from('user_fuel_day')
+                                            ->where('estado', '==', "Asitió");
+                                        
+            })
+            ->first();
+
+
             if($fuel_day->day >= $now){
                 $exist_user = User_fuel_day::where('user_id', $user->id)
                                         ->whereIn('fuel_day_id', function($query) use ($now){

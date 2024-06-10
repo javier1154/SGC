@@ -317,7 +317,7 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="8" class="opciones">
+						<td colspan="7" class="opciones">
 							<center>
                                 @if($fuel_day->manage_level == "Nueva")
                                     <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
