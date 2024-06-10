@@ -20,7 +20,6 @@
       <li class="fuel_days"><a href="{!! route('fuel_day.index') !!}"><i class="fa fa-object-group"></i> <span>Jornadas</span></a></li>
       <li class="tank"><a href="{!! route('tank.index') !!}"><i class="fa fa-cubes"></i> <span>Inventario</span></a></li>
       <li class="cistern"><a href="{!! route('cistern.index') !!}"><i class="fa fa-cube"></i> <span>Recepción</span></a></li>
-      @if(\Auth::user()->permit->type != "Lider")
       <li class="new_vehicles"><a href="{!! route('vehicles.newVehicles') !!}"><i class="fa fa-car"></i> <span>Vehiculos Pendientes</span></a></li>
       
       {{-- @if ((Auth::user()->tipo() == "Administrador") or (Auth::user()->tipo() == "Root"))
