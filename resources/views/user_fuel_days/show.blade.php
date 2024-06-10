@@ -252,7 +252,7 @@
             @if($fuel_day->day >= $hoy)
             <div class="row">
                 @if($fuel_day->manage_level == "Nueva")
-                <div class="col-md-2">
+                <div class="col-md-2" >
                     <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg">
                         <i class="fa fa-btn fa-sign-in"></i> Agregar
                     </button>
@@ -283,6 +283,7 @@
                         <th class="text-center col-md-1">Indicador</th>
                         <th class="text-center col-md-1">Litraje propuesto</th>
                         <th class="text-center col-md-1">Litraje surtido</th>
+                        <th class="text-center col-md-1">Propuesto por</th>
                         @if($fuel_day->manage_level == "Nueva")
                         <th class="text-center col-md-1">Opciones</th>
                         @endif
@@ -308,6 +309,7 @@
                             <td class="text-center">{{$user_day->user->indicator}}</td>
                             <td class="bold text-center">{{$user_day->proposed_litre}}</td>
                             <td class="bold text-center">{{$user_day->assorted_litre}}</td>
+                            <td class="bold text-center">{{$user_day->permit->user->name}}</td>
                             @if($fuel_day->manage_level == "Nueva")
                              <td class="text-center t-opciones"> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
                             @endif
@@ -317,7 +319,7 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="7" class="opciones">
+						<td colspan="8" class="opciones">
 							<center>
                                 @if($fuel_day->manage_level == "Nueva")
                                     <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;

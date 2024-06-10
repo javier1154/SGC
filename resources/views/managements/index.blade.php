@@ -40,16 +40,17 @@
                         </div>
                     </div>
                 </div>
+            
 
             <table class="table">
                 <thead>
                     <tr>
                         <th class="text-center">N°</th>
-                        <th class="col-md-6">Nombre</th>
-                        <th class="col-md-2">Cuota</th>
-                        <th class="text-center col-md-1">Estado</th>
+                        <th class="text-center col-md-2">Nombre</th>
+                        <th class="text-center col-md-2">Cuota</th>
+                        <th class="text-center col-md-2">Estado</th>
                         <th class="text-center col-md-2">Fecha de Creación</th>
-                        <th class="text-center col-md-1">Opciones</th>
+                        <th class="text-center col-md-2">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +63,7 @@
                         @endphp
                         <tr  @if ($management->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
-                            <td class="bold">{{$management->name}}</td>
+                            <td class="text-center bold">{{$management->name}}</td>
                             <td class="text-center">{{ $management->cuota }}</td>
                             <td class="text-center">{!! status($management->status) !!}</td>
                             <td class="text-center">{!! fecha_hora($management->created_at) !!}</td>

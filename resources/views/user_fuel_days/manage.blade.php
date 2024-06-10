@@ -11,7 +11,7 @@
                 <thead>
                     <tr>
                         <th class="text-center col-md-1">N°</th>
-                        <th class="text-center col-md-2">Nombre</th>
+                        <th class="text-center col-md-1">Nombre</th>
                         <th class="text-center col-md-1">Cédula</th>
                         <th class="text-center col-md-1">Indicador</th>
                         <th class="text-center col-md-1">Gerencia</th>
@@ -21,7 +21,10 @@
                         @if ($fuel_day->manage_level == 'Autorizada' || $fuel_day->manage_level == 'Finalizada' )
                         <th class="text-center col-md-1">Litraje surtido</th>
                         @endif
+                        <th class= "text-center col-md-1">Fecha de último surtido</th>
+                        <th class= "text-center col-md-1">Dias desde último surtido</th>
                         <th class="text-center col-md-1">Estado</th>
+                        <th class="text-center col-md-1">Encargado</th>
                         @if ($fuel_day->manage_level == 'Nueva')
                         <th class="text-center col-md-1">Opciones</th>
                         @endif
@@ -38,7 +41,7 @@
                     @foreach ($fuel_day->fuel_days as $user_day)
                         @php
                           $i++;
-                          
+                          $autorizo = $user_day->user_day_permit->last();
                         @endphp
                         <tr>
                             @if($user_day->estado != 'Cancelado')
@@ -56,7 +59,14 @@
                                 @if ($fuel_day->manage_level == 'Finalizada')
                                 <td class="bold text-center">{{$user_day->assorted_litre}}</td>
                                 @endif
+                                @if($user_day->last_day() != null)
+                                <td class="text-center">{{$user_day->last_day()}}</td>
+                                @else
+                                <td class=" bold text-center">No ha surtido</td>
+                                @endif
+                                <td class=" bold text-center">{{diff_fecha($user_day->last_day())}}</td>
                                 <td class="bold text-center">{{$user_day->estado}}</td>
+                                <td class="text-center">{{$autorizo->permit->user->name}}</td>
                                 @if ($fuel_day->manage_level == 'Autorizada' || $fuel_day->manage_level == 'Nueva' )
                                 <td class="text-center t-opciones" data-valor='{"id":"{{encrypt($user_day->id)}}", "name":"{{$user_day->user->name}}"}'> 
                                 @endif  

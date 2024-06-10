@@ -19,6 +19,8 @@ class AddUsersFuelDaysTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('fuel_day_id')->unsigned();
             $table->foreign('fuel_day_id')->references('id')->on('fuel_days')->onDelete('cascade');
+            $table->integer('permit_id')->unsigned();
+            $table->foreign('permit_id')->references('id')->on('permissions')->onDelete('cascade');
             $table->float('proposed_litre');
             $table->float('assorted_litre')->default(0);
             $table->boolean('status');
