@@ -51,7 +51,7 @@ Route::group(['middleware'=>['auth']],function(){
         'as'   => 'vehicles.destroy'
     ]);
 
-    Route::get('/vehicles/{id}/status',[
+    Route::get('/vehicles/{id}/status/{status}',[
         'uses' => 'VehiclesController@status',
         'as'   => 'vehicles.status'
     ]);

@@ -120,7 +120,7 @@ class UserFuelDaysController extends Controller
                 }
                 $user_fuel_day = new User_fuel_day($request->all());
                 $user_fuel_day->permit_id = \Auth::user()->permit->id;
-                $user_fuel_day->assorted_litre = 20;
+                $user_fuel_day->assorted_litre = 0;
                 $user_fuel_day->proposed_litre = 20;
                 $user_fuel_day->status = 1;
                 $user_fuel_day->user_id = $user->id;

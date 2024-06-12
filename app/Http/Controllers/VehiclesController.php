@@ -141,12 +141,15 @@ class VehiclesController extends Controller
         /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
         return redirect()->back();
     }
-    public function status($id)
+    public function status($id, $status)
     {
+
         $vehicle = Vehicle::findOrFail(decrypt($id));
-        if($vehicle->status){
+        if($status == 0){
+            
             $vehicle->status = 0;
             $vehicle->new = 0;
+               
             /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
         }else{
 

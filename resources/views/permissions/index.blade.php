@@ -52,7 +52,7 @@
                         <th class="text-center col-md-2">Cédula</th>
                         <th class="text-center col-md-2">Usuario</th>
                         <th class="text-center col-md-2">Tipo</th>
-                        <th class="text-center col-md-2">Estatus</th>
+                        <th class="text-center col-md-2">Estado</th>
                         <th class="text-center col-md-2">Opciones</th>
                     </tr>
                 </thead>

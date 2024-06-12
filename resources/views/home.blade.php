@@ -22,7 +22,7 @@
                                     <div class="" >
                                         
                                     <div class="well" style="text-align:center; font-size:25px; border-bottom-left-radius:24px; border-bottom-right-radius:24px; color: #3f3b3a;">  
-                                    <label for="">{{anio($day->day)}}</label>
+                                    <label for="">{{$day->fuel->name}}</label>
                                     </div>
                                     
                                 </div>

@@ -35,6 +35,7 @@ class ManagementsController extends Controller
 
         $management = new Management();
         $management->name = mb_strtoupper($request->name, "UTF-8");
+        $management->code = $request->code;
         $management->status = 1;
         $management->save();
 
@@ -61,6 +62,7 @@ class ManagementsController extends Controller
         
         $management = Management::find($id);
         $management->name = $request->name;
+        $management->code = $request->code;
         $management->cuota = $request->cuota;
         $management->save();
         return redirect()->route('managements.index');
