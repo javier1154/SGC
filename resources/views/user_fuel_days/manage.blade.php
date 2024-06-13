@@ -2,8 +2,97 @@
 @section('titulo', 'Detalles de la jornada')
 @section('subtitulo', '')
 @section('contenido')
-<br>        
+<br>    
+        @if ($fuel_day->manage_level == 'Autorizada')
+            <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg" style="margin-bottom: 15px; position: relative; z-index: 1;">
+                <i class="fa fa-btn fa-sign-in"></i> Agregar usuario
+            </button>
+        @endif
+        @if ($fuel_day->manage_level == 'Finalizada')
+            <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg-fin" style="margin-bottom: 15px; position: relative; z-index: 1;">
+                <i class="fa fa-btn fa-sign-in"></i> Agregar usuario
+            </button>
+        @endif
+        
+        
+        <!--Modal Agregar Usuario a la Jornada -->
+        <div class="modal fade" id="modal-agg">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><b>Agregar usuario</b></h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.manage_add', encrypt($fuel_day->id)) }}" method="POST">  
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    @include('layouts.validacion')
+                                    <div class="row">
 
+                                        <div class="form-group col-md-12">
+                                            <label>Cédula o indicador</label>
+                                            <input type="text" required name="user_id" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Litraje propuesto</label>
+                                            <input type="number" required name="proposed_litre" class="form-control">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <!--Final Modal-->
+            <!--Modal Agregar Usuario a la Jornada -->
+                <div class="modal fade" id="modal-agg-fin">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><b>Agregar usuario</b></h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.manage_add', encrypt($fuel_day->id)) }}" method="POST">  
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    @include('layouts.validacion')
+                                    <div class="row">
+
+                                        <div class="form-group col-md-12">
+                                            <label>Cédula o indicador</label>
+                                            <input type="text" required name="user_id" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Litraje propuesto</label>
+                                            <input type="number" required name="proposed_litre" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label>Litraje surtido</label>
+                                            <input type="number" required name="assorted_litre" class="form-control">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <!--Final Modal-->
+            
+            <!--Tabla de postulados-->
             <form action="{{ route('user_fuel_day.autorizeUser', encrypt($fuel_day->id)) }}" method="POST">
                 {{ csrf_field() }}
             <input type="hidden" name="_method" value="PUT">

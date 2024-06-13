@@ -93,56 +93,7 @@ class UserFuelDaysController extends Controller
         return redirect()->back();
     }
 
-    public function add(Request $request, $id){
-        $this->validate($request, [
-            'user_id' => 'required'
-        ]);
-
-        $now = date('Y-m-d');
-
-        $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
-        if(!empty($user)){
-
-            $fuel_day = Fuel_day::findOrFail($id);
-
-            if($fuel_day->day >= $now){
-                $exist_user = User_fuel_day::where('user_id', $user->id)
-                                        ->whereIn('fuel_day_id', function($query) use ($now){
-                                            $query->select('id')
-                                            ->from('fuel_days')
-                                            ->where('day', '>=', $now);
-                                        })
-                                        ->first();
-
-                if(!empty($exist_user)){
-                    /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
-                    return redirect()->back();
-                }
-                $user_fuel_day = new User_fuel_day($request->all());
-                $user_fuel_day->permit_id = \Auth::user()->permit->id;
-                $user_fuel_day->assorted_litre = 0;
-                $user_fuel_day->proposed_litre = 20;
-                $user_fuel_day->status = 1;
-                $user_fuel_day->user_id = $user->id;
-                $user_fuel_day->fuel_day_id = $id;
-                $user_fuel_day->save();
-                
-                $user_day_permit = new UserDayPermit();
-                $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
-                $user_day_permit->permit_id = \Auth::user()->permit->id;
-                $user_day_permit->estado = "Propuesto";
-                $user_day_permit->save();
-
-
-                return redirect()->back();
-            }
-            
-            
-        } return redirect()->back();
-        
-
-        
-    }
+   
     public function status($id)
     {
         
@@ -222,4 +173,142 @@ class UserFuelDaysController extends Controller
         
         return redirect()->back();
     }
-}
+    public function add(Request $request, $id){
+        $this->validate($request, [
+            'user_id' => 'required'
+        ]);
+
+        $now = date('Y-m-d');
+
+        $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
+        if(!empty($user)){
+
+            $fuel_day = Fuel_day::findOrFail($id);
+
+            if($fuel_day->day >= $now){
+                $exist_user = User_fuel_day::where('user_id', $user->id)
+                                        ->whereIn('fuel_day_id', function($query) use ($now){
+                                            $query->select('id')
+                                            ->from('fuel_days')
+                                            ->where('day', '>=', $now);
+                                        })
+                                        ->first();
+
+                if(!empty($exist_user)){
+                    /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+                    return redirect()->back();
+                }
+                $user_fuel_day = new User_fuel_day($request->all());
+                $user_fuel_day->permit_id = \Auth::user()->permit->id;
+                $user_fuel_day->assorted_litre = 0;
+                $user_fuel_day->proposed_litre = 20;
+                $user_fuel_day->status = 1;
+                $user_fuel_day->user_id = $user->id;
+                $user_fuel_day->fuel_day_id = $id;
+                $user_fuel_day->save();
+                
+                
+                $user_day_permit = new UserDayPermit();
+                $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
+                $user_day_permit->permit_id = \Auth::user()->permit->id;
+                $user_day_permit->estado = "Propuesto";
+                $user_day_permit->save();
+
+
+                return redirect()->back();
+            }
+            
+            
+        } return redirect()->back();
+        
+
+    }
+    
+        public function manage_add(Request $request, $id){
+            $this->validate($request, [
+                'user_id' => 'required'
+            ]);
+
+            $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
+
+            $fuel_day = Fuel_day::find(decrypt($id));
+            $exist_user = User_fuel_day::where('user_id', $user->id)->first();
+
+            if(!empty($exist_user)){
+                /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+                return redirect()->back();
+            }
+
+            if($fuel_day->manage_level == "Finalizada"){
+
+                $user_fuel_day = new User_fuel_day($request->all());
+                $user_fuel_day->permit_id = \Auth::user()->permit->id;
+                $user_fuel_day->proposed_litre = $request->proposed_litre;
+                $user_fuel_day->assorted_litre = $request->assorted_litre;
+                $user_fuel_day->status = 1;
+                $user_fuel_day->user_id = $user->id;
+                $user_fuel_day->fuel_day_id = $fuel_day->id;
+                
+                if($user_fuel_day->assorted_litre > 0){
+                    $user_fuel_day->estado = "Asistió";
+                }else{
+
+                    $user_fuel_day->estado = "No asistió";
+                }
+                
+                
+                        
+                $user_fuel_day->save();
+                
+                $user_day_permit = new UserDayPermit();
+                
+                $user_day_permit->user_fuel_day_id = $user_fuel_day->id;
+                $user_day_permit->permit_id = \Auth::user()->permit->id;
+
+                if($user_fuel_day->assorted_litre > 0){
+                    $user_day_permit->estado = "Asistió";
+                    $assorted = Tank::where('status', 1)->first();
+                    if($assorted->available_litre >= $request->assorted_litre){
+                        $assorted->available_litre = $assorted->available_litre - $request->assorted_litre;
+                        $assorted->save();
+                        
+                    }
+                }else{
+                    
+                    $user_day_permit->estado = "No asistió";
+                }
+            
+                $user_day_permit->save();
+
+            }else if($fuel_day->manage_level == "Autorizada"){
+                
+                $user_fuel_day = new User_fuel_day($request->all());
+                $user_fuel_day->permit_id = \Auth::user()->permit->id;
+                $user_fuel_day->proposed_litre = $request->proposed_litre;
+                $user_fuel_day->status = 1;
+                $user_fuel_day->user_id = $user->id;
+                $user_fuel_day->fuel_day_id = $fuel_day->id;
+                
+                $user_fuel_day->estado = "Autorizado";
+                
+                        
+                $user_fuel_day->save();
+                
+                $user_day_permit = new UserDayPermit();
+                
+                $user_day_permit->user_fuel_day_id = $user_fuel_day->id;
+                $user_day_permit->permit_id = \Auth::user()->permit->id;
+                $user_day_permit->estado = "Autorizado";
+                $user_day_permit->save();
+                
+            }
+            
+            
+            
+            
+
+            return redirect()->back();
+        }
+    }
+            
+           

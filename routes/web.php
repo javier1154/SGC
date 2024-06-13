@@ -114,6 +114,10 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'UserFuelDaysController@autorizeUser',
         'as'   => 'user_fuel_day.autorizeUser'
     ]);
+    Route::put('/fuel_days_manage_add/{id}',[
+        'uses' => 'UserFuelDaysController@manage_add',
+        'as'   => 'user_fuel_day.manage_add'
+    ]);
     Route::resource('/tank', 'TankController');
 
     Route::get('/tank/{id}/destroy',[
