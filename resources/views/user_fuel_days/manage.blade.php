@@ -8,7 +8,10 @@
                 <i class="fa fa-btn fa-sign-in"></i> Agregar usuario
             </button>
         @endif
-        @if ($fuel_day->manage_level == 'Finalizada')
+        @php
+            $final_litre = $fuel_day->day_litres->where('type','final')->where('status', 1)->first();
+        @endphp
+        @if ($fuel_day->manage_level == 'Finalizada' && empty($final_litre))
             <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg-fin" style="margin-bottom: 15px; position: relative; z-index: 1;">
                 <i class="fa fa-btn fa-sign-in"></i> Agregar usuario
             </button>

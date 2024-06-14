@@ -18,4 +18,10 @@ class Tank extends Model
     public function fuel(){
         return $this->belongsTo('App\Fuel');
     }
+
+    public function day_litres_tanks(){
+
+        return $this->hasMany('App\DayLitreTank');
+    }
+    
 }
