@@ -9,6 +9,7 @@ use App\User_Fuel_day;
 use App\DayLitre;
 use App\UserDayPermit;
 use App\Tank;
+use App\DayLitreTank;
 
 class UserFuelDaysController extends Controller
 {
@@ -66,7 +67,16 @@ class UserFuelDaysController extends Controller
         $day_litres->status = true;
         $day_litres->litres = $request->litres;
         $day_litres->fuel_day_id = $id; 
+        
+
+        $day_litre_tank = new DayLitreTank();
         $day_litres->save();
+        
+        $day_litre_tank->day_litre_id = $day_litres->id;
+        $day_litre_tank->tank_id = 1;
+        $day_litre_tank->save();
+        
+
         if($request->operation = 'registrar'){
             // se ha registrado el litraje inicial
         }   

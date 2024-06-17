@@ -23,6 +23,7 @@
       @if(\Auth::user()->permit->type != "Lider")
       <li class="new_vehicles"><a href="{!! route('vehicles.newVehicles') !!}"><i class="fa fa-car"></i> <span>Vehiculos Pendientes</span></a></li>
       @endif
+      <li class="litre_tank"><a href="{!! route('litre_tank.index') !!}"><i class="fa fa-cube"></i> <span>Historial de litraje</span></a></li>
       {{-- @if ((Auth::user()->tipo() == "Administrador") or (Auth::user()->tipo() == "Root"))
         <li class="caja"><a href="{!! route('caja.index') !!}"><i class="fa fa-desktop"></i><i class="fa fa-spinner fa-spin pull-right"></i> <span>Caja</span></a></li>
         <li class="inventario"><a href="{!! route('inventario.index') !!}"><i class="fa fa-list"></i> <span>Inventario</span></a></li>

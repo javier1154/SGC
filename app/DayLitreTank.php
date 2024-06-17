@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DayLitreTank extends Model
 {
-    protected $table = 'day_litre_tank';
+    protected $table = 'day_litre_tanks';
 
     public function tank(){
         return $this->belongsTo('App\Tank');

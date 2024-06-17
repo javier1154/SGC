@@ -140,6 +140,18 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'cistern@status',
         'as'   => 'cistern.status'
     ]);
+
+    Route::resource('/litre_tank', 'DayLitreTanksController');
+
+    Route::get('/litre_tank/{id}/destroy',[
+        'uses' => 'DayLitreTanksController@destroy',
+        'as'   => 'litre_tank.destroy'
+    ]);
+
+    Route::get('/litre_tank/{id}/status',[
+        'uses' => 'litre_tank@status',
+        'as'   => 'litre_tank.status'
+    ]);
    
 });
 

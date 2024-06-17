@@ -11,7 +11,6 @@ class AddDayLitreTanksTable extends Migration
     {
         Schema::create('day_litre_tanks', function (Blueprint $table) {
             $table->increments('id');
-
             $table->integer('day_litre_id')->unsigned();
             
             $table->foreign('day_litre_id')
