@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('titulo', 'Gerencias')
+@section('titulo', 'Historial de litraje')
 @section('subtitulo', '')
 @section('contenido')
     <div class="row">
@@ -94,7 +94,7 @@
     <script src="{!! asset('plugins/datatables/dataTables.bootstrap.min.js'); !!}"></script>
     <script>
         $(document).ready(function(){
-            $( "ul.sidebar-menu li.managements" ).addClass('active');
+            $( "ul.sidebar-menu li.litre_tank" ).addClass('active');
 
             var errors = "{{$errors->any()}}"; if(errors){ $("div.modal").modal(); }
 
