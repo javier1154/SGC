@@ -14,6 +14,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('pdf', function () {
+    $pdf = PDF::loadView('pdf.invoice');
+    return $pdf->download('invoice.pdf');
+});
+
 Auth::routes();
 
 Route::group(['middleware'=>['auth']],function(){
@@ -152,6 +157,7 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'litre_tank@status',
         'as'   => 'litre_tank.status'
     ]);
+
    
 });
 

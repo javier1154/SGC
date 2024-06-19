@@ -67,9 +67,9 @@
                         @endphp
                         <tr>
                             <td class="text-center">{{$i}}</td>
-                            <td class="text-center bold">{{$litre_tank->day_litre->type}}</td>
+                            <td class="text-center bold">{{to_spanish($litre_tank->day_litre->type)}}</td>
                             <td class="text-center bold">{{$litre_tank->day_litre->litres}}</td>
-                            <td class="text-center">{{ $litre_tank->day_litre->fuel_day->day }}</td>
+                            <td class="text-center">{!!fecha($litre_tank->day_litre->fuel_day->day)!!}</td>
                             <td class="text-center">{{ $litre_tank->tank->name }}</td>
                             <td class="text-center">{!! fecha($litre_tank->created_at) !!}</td>
                         </tr>

@@ -13,10 +13,25 @@ function diff_fecha($fecha){
         }
         
 
+    }else{
+        $fecha = "No ha surtido";
     }
-    $fecha = "No ha surtido";
+    
     return $fecha;
     
+}
+function to_spanish($word){
+    if($word == "initial"){
+        $word = "Litraje inicial";
+    }
+    if($word == "final"){
+        $word = "Litraje final";
+    }
+    if($word == "decrease"){
+        $word = "Litraje mermado";
+    }
+    return $word;
+
 }
 
 function fecha($fecha){

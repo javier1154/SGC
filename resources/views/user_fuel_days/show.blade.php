@@ -247,35 +247,7 @@
                     </div>
                 </div>
 
-            @php
-                $hoy = date('Y-m-d');
-
-            @endphp
-
-            @if($fuel_day->day >= $hoy)
-            
-            @if($fuel_day->manage_level == "Nueva")
-                
-                <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; z-index: 1; " data-toggle="modal" data-target="#modal-agg">
-                    <i class="fa fa-btn fa-sign-in"></i> Agregar
-                </button>
-            
-            @endif
-                
-                <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
-                <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px; z-index: 1;">
-                    <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
-                </button>
-                </a>
-                
-            @else
-
-                <div class="alert alert-info">
-                    <h4>Información!!!</h4>
-                    El registro de usuarios en la jornada no se encuentra disponible debido a que el día de la jornada ya pasó
-                </div>
-
-            @endif
+           
             
             <table class="table">
                 <thead>
@@ -319,6 +291,38 @@
                         
                         </tr>
                     @endforeach
+                    @php
+                $hoy = date('Y-m-d');
+
+            @endphp
+
+            @if($fuel_day->day >= $hoy)
+            
+            @if($fuel_day->manage_level == "Nueva")
+                
+                <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; z-index: 1; " data-toggle="modal" data-target="#modal-agg">
+                    <i class="fa fa-btn fa-sign-in"></i> Agregar
+                </button>
+            
+            @endif
+            @if($i>0)
+                <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
+                <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px; z-index: 1;">
+                    <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
+                </button>
+                </a>
+            @endif
+            
+                
+                
+            @else
+
+                <div class="alert alert-info">
+                    <h4>Información!!!</h4>
+                    El registro de usuarios en la jornada no se encuentra disponible debido a que el día de la jornada ya pasó
+                </div>
+
+            @endif
                 </tbody>
                 <tfoot>
 					<tr>

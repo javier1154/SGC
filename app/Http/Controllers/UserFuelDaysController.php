@@ -168,40 +168,47 @@ class UserFuelDaysController extends Controller
         $fuel_day = Fuel_day::find(decrypt($id));
        
         if($fuel_day->manage_level == "Autorizada"){
-
+          $assorted_litre = 0;
+          $assorted = Tank::where('status', 1)->first();  
           for($i = 0; $i < count($request->ids); $i++){
-            $user_fuel_day = User_fuel_day::find(decrypt($request->ids[$i]));
-            if(!empty($user_fuel_day) && $user_fuel_day->estado == "Autorizado"){
-                $user_day_permit = new UserDayPermit();
-                $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
-                $user_day_permit->permit_id = \Auth::user()->id;
-                if($request->assorted_litre[$i] > 0){
+            $assorted_litre +=$request->assorted_litre[$i];
+          }
+          if($assorted->available_litre>= $assorted_litre){
 
-                    
-                    
-
-                    $assorted = Tank::where('status', 1)->first();
-                    if($assorted->available_litre >= $request->assorted_litre[$i]){
-                        $assorted->available_litre = $assorted->available_litre - $request->assorted_litre[$i];
-                        $user_fuel_day->estado = "Asistió";
-                        $user_day_permit->estado = "Asistió";
-                        $assorted->save();
+            for($i = 0; $i < count($request->ids); $i++){
+                $user_fuel_day = User_fuel_day::find(decrypt($request->ids[$i]));
+                if(!empty($user_fuel_day) && $user_fuel_day->estado == "Autorizado"){
+                    $user_day_permit = new UserDayPermit();
+                    $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
+                    $user_day_permit->permit_id = \Auth::user()->id;
+                    if($request->assorted_litre[$i] > 0){
+    
+                        $assorted = Tank::where('status', 1)->first();
+                        if($assorted->available_litre >= $request->assorted_litre[$i]){
+                            $assorted->available_litre = $assorted->available_litre - $request->assorted_litre[$i];
+                            $user_fuel_day->estado = "Asistió";
+                            $user_day_permit->estado = "Asistió";
+                            $assorted->save();
+                            $user_day_permit->save();
+                        }                    
+    
+                    }else{
+                        $user_fuel_day->estado = "No asistió";
+                        $user_day_permit->estado = "No asistió";
                         $user_day_permit->save();
                     }
-                    
-
-                }else{
-                    $user_fuel_day->estado = "No asistió";
-                    $user_day_permit->estado = "No asistió";
-                    $user_day_permit->save();
+                    $user_fuel_day->assorted_litre = $request->assorted_litre[$i];
+                    $fuel_day->manage_level = 'Finalizada';
+                    $fuel_day->save();
+                    $user_fuel_day->save();
                 }
-                $user_fuel_day->assorted_litre = $request->assorted_litre[$i];
-                $fuel_day->manage_level = 'Finalizada';
-                $fuel_day->save();
-                $user_fuel_day->save();
-            }
+    
+             }; 
 
-         };  
+          }else{
+            dd("La cantidad solicitada no se encuentra disponible en el tanque");
+          }
+           
         }else{
                 
             for($i = 0; $i < count($request->ids); $i++){
