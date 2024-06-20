@@ -70,7 +70,8 @@
                                     </button>
                                 </div>
                                 @endif  
-                            @endif    
+                            @endif
+                               
                             
                         </div>
                 </div> 
@@ -313,8 +314,7 @@
                 </a>
             @endif
             
-                
-                
+            
             @else
 
                 <div class="alert alert-info">
@@ -323,6 +323,14 @@
                 </div>
 
             @endif
+            @if ($fuel_day->manage_level == 'Finalizada' && !empty($final_litre))
+                <a href="{{route('reports.show', encrypt($fuel_day->id)) }}">
+                   <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg" style="margin-bottom: 15px; position: relative; z-index: 1;">
+                    <i class="fa fa-btn fa-sign-in"></i> Generar PDF
+                    </button> 
+                </a>
+                
+            @endif 
                 </tbody>
                 <tfoot>
 					<tr>

@@ -14,10 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('pdf', function () {
-    $pdf = PDF::loadView('pdf.invoice');
-    return $pdf->download('invoice.pdf');
-});
+
+
+
 
 Auth::routes();
 
@@ -36,6 +35,8 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'ManagementsController@status',
         'as'   => 'managements.status'
     ]);
+    Route::resource('/reports', 'ReportsController');
+
 
     Route::resource('/users', 'UsersController');
 
@@ -123,12 +124,7 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'UserFuelDaysController@manage_add',
         'as'   => 'user_fuel_day.manage_add'
     ]);
-    Route::resource('/tank', 'TankController');
-
-    Route::get('/tank/{id}/destroy',[
-        'uses' => 'tankController@destroy',
-        'as'   => 'tank.destroy'
-    ]);
+    Route::resource('/tank', 'TanksController');
 
     Route::get('/tank/{id}/status',[
         'uses' => 'tank@status',

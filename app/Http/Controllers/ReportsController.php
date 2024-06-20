@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Tank;
+use PDF;
+use App\Fuel_day;
 
-class TankController extends Controller
+
+
+class ReportsController extends Controller
 {
    
     public function index()
     {
-        $tanks = Tank::orderBy('name')->get(); 
-        return view('tank.index', compact('tanks'));
+
+
+        
     }
 
    
@@ -20,25 +24,26 @@ class TankController extends Controller
         //
     }
 
-    
     public function store(Request $request)
     {
         //
     }
 
-   
+    
     public function show($id)
     {
-       
+        $user_days = Fuel_day::findOrFail(decrypt($id));
+        return view('pdf.invoice', compact('user_days'));
+        
     }
 
-    
+  
     public function edit($id)
     {
         //
     }
 
-   
+    
     public function update(Request $request, $id)
     {
         //
