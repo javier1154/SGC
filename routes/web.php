@@ -14,6 +14,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/report/pdf', function () {
+
+
+    $pdf = PDF::loadView('pdf.hello');
+    return $pdf->download('hello.pdf');
+});
 
 
 
@@ -36,6 +42,11 @@ Route::group(['middleware'=>['auth']],function(){
         'as'   => 'managements.status'
     ]);
     Route::resource('/reports', 'ReportsController');
+
+    Route::get('/reports', function (){
+        $pdf = PDF::loadView('pdf.invoice', $user_days);
+        return $pdf->download('invoice.pdf');
+    });
 
 
     Route::resource('/users', 'UsersController');

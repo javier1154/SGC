@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Vehicle;
 use App\Fuel;
 use App\User;
+use App\UserVehicle;
 class VehiclesController extends Controller
 {
     /**
@@ -73,6 +74,13 @@ class VehiclesController extends Controller
         $vehicle->fuel_id = decrypt($request->fuel_id);
         $vehicle->status = $status;
         $vehicle->save();
+        //trazabilidad
+        $user_vehicle = new UserVehicle();
+        $user_vehicle->user_id = $vehicle->user_id;
+        $user_vehicle->vehicle_id = $vehicle->id;
+        $user_vehicle->save();
+        //trazabilidad
+        
         return redirect()->back();
     }
 
@@ -166,6 +174,12 @@ class VehiclesController extends Controller
             /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
         }
         $vehicle->save();
+        //trazabilidad
+        $user_vehicle = new UserVehicle();
+        $user_vehicle->user_id = $vehicle->user_id;
+        $user_vehicle->vehicle_id = $vehicle->id;
+        $user_vehicle->save();
+        //trazabilidad
         return redirect()->back();
     }
 }

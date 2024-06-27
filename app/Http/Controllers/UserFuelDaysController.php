@@ -10,6 +10,8 @@ use App\DayLitre;
 use App\UserDayPermit;
 use App\Tank;
 use App\DayLitreTank;
+use App\Vehicle;
+use App\Management;
 
 class UserFuelDaysController extends Controller
 {
@@ -244,7 +246,14 @@ class UserFuelDaysController extends Controller
         $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
         if(!empty($user)){
 
+           
             $fuel_day = Fuel_day::findOrFail($id);
+            $management = Management::findOrFail($id);
+            $vehicle = Vehicle::where('user_id', $user->id)->where('status', 1)->first();
+            
+            if($vehicle == null){
+                return redirect()->back();
+            }
 
             if($fuel_day->day >= $now){
                 $exist_user = User_fuel_day::where('user_id', $user->id)
@@ -265,6 +274,8 @@ class UserFuelDaysController extends Controller
                 $user_fuel_day->proposed_litre = 20;
                 $user_fuel_day->status = 1;
                 $user_fuel_day->user_id = $user->id;
+                $user_fuel_day->management_id = $user->management_id;
+                $user_fuel_day->vehicle_id = $vehicle->id;
                 $user_fuel_day->fuel_day_id = $id;
                 $user_fuel_day->save();
                 
@@ -294,6 +305,11 @@ class UserFuelDaysController extends Controller
 
             $fuel_day = Fuel_day::find(decrypt($id));
             $exist_user = User_fuel_day::where('user_id', $user->id)->first();
+            $vehicle = Vehicle::where('user_id', $user->id)->where('status', 1)->first();
+            
+            if($vehicle == null){
+                return redirect()->back();
+            }
 
             if(!empty($exist_user)){
                 /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
@@ -309,6 +325,9 @@ class UserFuelDaysController extends Controller
                 $user_fuel_day->status = 1;
                 $user_fuel_day->user_id = $user->id;
                 $user_fuel_day->fuel_day_id = $fuel_day->id;
+                $user_fuel_day->vehicle_id = $vehicle->id;
+                $user_fuel_day->management_id = $user->management_id;
+
                 
                 if($user_fuel_day->assorted_litre > 0){
                     $user_fuel_day->estado = "Asistió";
@@ -349,6 +368,8 @@ class UserFuelDaysController extends Controller
                 $user_fuel_day->status = 1;
                 $user_fuel_day->user_id = $user->id;
                 $user_fuel_day->fuel_day_id = $fuel_day->id;
+                $user_fuel_day->vehicle_id = $vehicle->id;
+                $user_fuel_day->management_id = $user->management_id;
                 
                 $user_fuel_day->estado = "Autorizado";
                 

@@ -8,6 +8,7 @@ use App\Management;
 use App\Vehicle;
 use App\Fuel;
 use App\Fuel_day;
+use App\UserManagement;
 
 class UsersController extends Controller
 {
@@ -34,9 +35,9 @@ class UsersController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'ci' => 'required|unique:users',
+            'ci' => 'required|numeric|unique:users',
             'email' => 'required|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|numeric',
             'password' => 'required',
             'management_id' => 'required',
             'indicator' => 'unique:users',
@@ -47,6 +48,12 @@ class UsersController extends Controller
         $user->name = mb_strtoupper($request->name, "UTF-8");
         $user->password = bcrypt($request->password);
         $user->management_id = $request->management_id;
+        /*Trazabilidad*/
+        $user_management = new UserManagement();
+        $user_management->user_id = $user->id;
+        $user_management->management_id = $user->management_id;
+        $user_management->save();
+        /*Trazabilidad*/
         $user->indicator = $request->indicator;
         $user->extension = $request->extension;
         $user->save();
@@ -82,6 +89,12 @@ class UsersController extends Controller
         $user->ci = $request->ci;
         $user->phone = $request->phone;
         $user->management_id = $request->management_id;
+        /*Trazabilidad*/
+        $user_management = new UserManagement();
+        $user_management->user_id = $user->id;
+        $user_management->management_id = $user->management_id;
+        $user_management->save();
+        /*Trazabilidad*/
         $user->indicator = $request->indicator;
         $user->extension = $request->extension;
         $user->save();
