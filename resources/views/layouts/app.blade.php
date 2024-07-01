@@ -25,6 +25,9 @@
             </section>
         </div>
     </div>
+   
 @include('partials.js')
+@include('partials.toastr')
+
 </body>
 </html>

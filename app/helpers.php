@@ -188,4 +188,9 @@ function fechaCastellano ($fecha) {
 
     return $nombreMes;
   }
+
+  function toastr($tipo, $titulo, $mensaje)
+  {
+    \Session::flash('toasts', array($tipo, $titulo, $mensaje));
+  }
 ?>

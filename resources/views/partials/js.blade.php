@@ -22,8 +22,6 @@
 
 <script src="{!! asset('plugins/toastr/toastr.min.js') !!}"></script>
 
-@toastr_render
-
 @yield('js')
 
 <script type="text/javascript">
@@ -59,5 +57,5 @@ $(function() {
     $("select").select2();
 
 });
-</script>
 
+</script>
