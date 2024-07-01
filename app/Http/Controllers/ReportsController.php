@@ -16,7 +16,9 @@ class ReportsController extends Controller
     public function index()
     {
 
-
+        $pdf = App::PDF('dompdf.wrapper');
+        $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream();
         
     }
 
@@ -36,15 +38,11 @@ class ReportsController extends Controller
     {
     
         $user_days = Fuel_day::findOrFail(decrypt($id));
-       
-        $data = [
-            'user' => $user_days,
-            'title' => 'Perfil de usuario: ' . $user_days->proposed_litre,
-        ];
 
         // Generar y descargar PDF
-        $pdf = PDF::loadView('pdf.invoice', $data);
-        return $pdf->download('invoice.pdf' . $user_days->id . '.pdf');
+        $pdf = app('dompdf.wrapper', array('user_days' => $user_days));
+        $pdf->loadView('pdf.invoice');
+        return $pdf->stream('invoice.pdf' . $user_days->id . '.pdf');
     
     }
 

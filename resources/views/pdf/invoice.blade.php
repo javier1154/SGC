@@ -5,7 +5,7 @@
 <div class="container">
         <div class="row">
             <div class="col-md-12" style="position:relative; left: 15px;">
-                <img src="{!! asset('img/logo.png') !!}" style="width: 200px;">
+                
             </div>
         </div>
 
@@ -76,34 +76,30 @@
                     </tr>
                 </thead>
                 <tbody>
+                @php
                     
+                    $i = 0;
+                @endphp
+                @foreach($data['user_days']->fuel_days as $user_day)
                     @php
-                    
-                        $i = 0;
+                      $i++;
+
                     @endphp
-
-                  
-                    @foreach($user_days->fuel_days as $user_day)
-                    
-                        @php
-                          $i++;
-
-                        @endphp
-                        <tr>
-                            <td class="text-center bold">{{$i}}</td>
-                            <td class="text-center">{{$user_day->user->management->name}}</td>
-                            <td class="text-center">{{$user_day->user->name}}</td>
-                            <td class="text-center">{{$user_day->user->ci}}</td>
-                            <td class="text-center">{{$user_day->vehicle->brand}}</td>
-                            <td class="text-center">{{$user_day->vehicle->model}}</td>
-                            <td class="text-center">{{$user_day->vehicle->color}}</td>
-                            <td class="text-center">{{$user_day->vehicle->plate}}</td>
-                            <td class="text-center">{{$user_day->assorted_litre}}</td>
-                            <td></td>
-                            <td class="text-center">{{$user_day->permit->user->name}}</td>
-                            <td></td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <td class="text-center bold">{{$i}}</td>
+                        <td class="text-center">{{$user_day->user->management->name}}</td>
+                        <td class="text-center">{{$user_day->user->name}}</td>
+                        <td class="text-center">{{$user_day->user->ci}}</td>
+                        <td class="text-center">{{$user_day->vehicle->brand}}</td>
+                        <td class="text-center">{{$user_day->vehicle->model}}</td>
+                        <td class="text-center">{{$user_day->vehicle->color}}</td>
+                        <td class="text-center">{{$user_day->vehicle->plate}}</td>
+                        <td class="text-center">{{$user_day->assorted_litre}}</td>
+                        <td></td>
+                        <td class="text-center">{{$user_day->permit->user->name}}</td>
+                        <td></td>
+                    </tr>
+                @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
@@ -143,71 +139,4 @@
         </div>
     </div>
         
-          
-@section('css')
-    <link href="{!! asset('plugins/datatables/jquery.dataTables.min.css'); !!}" rel="stylesheet">
-    <link href="{!! asset('plugins/datatables/dataTables.bootstrap.min.css'); !!}" rel="stylesheet">
-@endsection
-@section('js')
-    <script src="{!! asset('plugins/datatables/jquery.dataTables.min.js'); !!}"></script>
-    <script src="{!! asset('plugins/datatables/dataTables.bootstrap.min.js'); !!}"></script>
-    <script>
-        $(document).ready(function(){
-            $( "ul.sidebar-menu li.inicio" ).addClass('active');
-
-            var errors = "{{$errors->any()}}"; if(errors){ $("div.modal").modal(); }
-
-           
-            $("table.table").on('click', 'a.habilitar', function() {
-                var id = $(this).parents('td').data('valor').id;
-                var name = $(this).parents('td').data('valor').name;
-                swal({
-                    title: "Aviso!",
-                    text: "¿Desea aprobar al usuario <b>"+name+"</b>?",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false
-                },function(isConfirm){
-                    if (isConfirm){
-                        url = '{!!url("/")!!}/user_fuel_day/'+id+'/status';
-                        $(location).attr('href', url);
-                    }
-                });
-            });
-
-            $("table.table").on('click', 'a.deshabilitar', function() {
-                var id = $(this).parents('td').data('valor').id;
-                var name = $(this).parents('td').data('valor').name;
-                swal({
-                    title: "Aviso!",
-                    text: "¿Desea denegar al usuario <b>"+name+"</b>?",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false
-                },function(isConfirm){
-                    if (isConfirm){
-                        url = '{!!url("/")!!}/user_fuel_day/'+id+'/status';
-                        $(location).attr('href', url);
-                    }
-                });
-            });
-            $("table.table").on('click', 'a.asistio', function() {
-                var id = $(this).parents('td').data('valor').id;
-                var name = $(this).parents('td').data('valor').name;
-                swal({
-                    title: "Aviso!",
-                    text: "¿Desea confirmar la asistencia del usuario <b>"+name+"</b>?",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false
-                },function(isConfirm){
-                    if (isConfirm){
-                        url = '{!!url("/")!!}/fuel_day_manage/'+id;
-                        $(location).attr('href', url);
-                    }
-                });
-            });
-
-        });
-    </script>
 @endsection

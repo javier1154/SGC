@@ -50,12 +50,12 @@ class VehiclesController extends Controller
     {
         $this->validate($request, [
             'plate' => 'required|unique:vehicles',
-            'brand' => 'required',
+            'brand' => 'required|regex:/^[\pL\s]+$/u',
             'model' => 'required',
-            'year' => 'required',
-            'color' => 'required',
-            'observations' => 'required',
-            'liter'=> 'required',
+            'year' => 'required|numeric',
+            'color' => 'required|regex:/^[\pL\s]+$/u',
+            'observations' => 'required|regex:/^[\pL\s]+$/u',
+            'liter'=> 'required|numeric',
             'user_id' => 'required',
             'fuel_id' => 'required'
         ]);
@@ -117,6 +117,17 @@ class VehiclesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'plate' => 'required',
+            'brand' => 'required|regex:/^[\pL\s]+$/u',
+            'model' => 'required',
+            'year' => 'required|numeric',
+            'color' => 'required|regex:/^[\pL\s]+$/u',
+            'observations' => 'required|regex:/^[\pL\s]+$/u',
+            'liter'=> 'required|numeric',
+            'user_id' => 'required',
+            'fuel_id' => 'required'
+        ]);
         $vehicle = Vehicle::find($id);
         $vehicle->plate = mb_strtoupper($request->plate, "UTF-8");
         $vehicle->brand = $request->brand;

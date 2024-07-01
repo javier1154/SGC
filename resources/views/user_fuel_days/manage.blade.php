@@ -133,7 +133,6 @@
                     @foreach ($fuel_day->fuel_days as $user_day)
                         @php
                           $i++;
-                          $autorizo = $user_day->user_day_permit->last();
                         @endphp
                         <tr>
                             @if($user_day->estado != 'Cancelado')
@@ -158,10 +157,10 @@
                                 @endif
                                 <td class=" bold text-center">{{diff_fecha($user_day->last_day())}}</td>
                                 <td class="bold text-center">{{$user_day->estado}}</td>
-                                <td class="text-center">{{$autorizo->permit->user->name}}</td>
+                                <td class="text-center">{{$user_day->permit->user->name}}</td>
                                 @if ($fuel_day->manage_level == 'Autorizada' || $fuel_day->manage_level == 'Nueva' )
                                 <td class="text-center t-opciones" data-valor='{"id":"{{encrypt($user_day->id)}}", "name":"{{$user_day->user->name}}"}'> 
-                                @endif  
+                                @endif
                                 @if($user_day->estado == "Propuesto")
                                     <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Cancelar usuario"><i class="fa fa-ban"></i></a>
                                 @endif  

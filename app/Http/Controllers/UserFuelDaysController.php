@@ -248,7 +248,6 @@ class UserFuelDaysController extends Controller
 
            
             $fuel_day = Fuel_day::findOrFail($id);
-            $management = Management::findOrFail($id);
             $vehicle = Vehicle::where('user_id', $user->id)->where('status', 1)->first();
             
             if($vehicle == null){

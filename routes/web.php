@@ -44,7 +44,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::resource('/reports', 'ReportsController');
 
     Route::get('/reports', function (){
-        $pdf = PDF::loadView('pdf.invoice', $user_days);
+        $pdf = PDF::loadView('pdf.invoice');
         return $pdf->download('invoice.pdf');
     });
 
@@ -165,6 +165,5 @@ Route::group(['middleware'=>['auth']],function(){
         'as'   => 'litre_tank.status'
     ]);
 
-   
 });
 

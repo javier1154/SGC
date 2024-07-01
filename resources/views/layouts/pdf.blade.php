@@ -7,7 +7,15 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{config('app.name')}} | @yield('titulo')</title>
-  @include('partials.css')
+  <style>
+    @page{
+      margin-top: 2cm;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body class="hold-transition skin-red sidebar-mini fixed">
     

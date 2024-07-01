@@ -34,7 +34,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|regex:/^[\pL\s]+$/u',
             'ci' => 'required|numeric|unique:users',
             'email' => 'required|unique:users',
             'phone' => 'required|numeric',
@@ -48,15 +48,16 @@ class UsersController extends Controller
         $user->name = mb_strtoupper($request->name, "UTF-8");
         $user->password = bcrypt($request->password);
         $user->management_id = $request->management_id;
+        $user->indicator = $request->indicator;
+        $user->extension = $request->extension;
+        $user->save();
         /*Trazabilidad*/
         $user_management = new UserManagement();
         $user_management->user_id = $user->id;
         $user_management->management_id = $user->management_id;
         $user_management->save();
         /*Trazabilidad*/
-        $user->indicator = $request->indicator;
-        $user->extension = $request->extension;
-        $user->save();
+        
         return redirect()->route('users.index');
     }
 
@@ -82,6 +83,16 @@ class UsersController extends Controller
     
     public function update(Request $request, $id)
     {   
+        $this->validate($request, [
+            'name' => 'required|regex:/^[\pL\s]+$/u',
+            'ci' => 'required|numeric',
+            'email' => 'required',
+            'phone' => 'required|numeric',
+            'management_id' => 'required',
+            'indicator' => 'required',
+            'extension' => 'required'
+            
+        ]);
 
         $user = User::find($id);
         $user->name = mb_strtoupper($request->name, "UTF-8");

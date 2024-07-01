@@ -107,7 +107,7 @@
                             <div class="form-group col-md-12">
                                 <input type="hidden" name="user_id" value ="{{encrypt($user->id)}}">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-12">
                                 <label>Combustible</label>
                                 <select name="fuel_id" class="form-control" required value="" style="width:100%">
                                     @foreach($fuels as $fuel)
@@ -217,15 +217,7 @@
                             <p>{{$vehicle->liter}}</p>
                         </div>
                         <div class = "col-sm-6" data-id="{{encrypt($vehicle->id)}}" data-plate="{{$vehicle->plate}}">
-                            @if(\Auth::user()->permit->type != "Lider" && $vehicle->new == 1)
-                                <a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Aprobar vehículo"><i class="fa fa-check-circle-o"></i></a>
-							    <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Denegar vehiculo"><i class="fa fa-ban"></i></a>
-                    
-                            @elseif ($vehicle->status == 1 && \Auth::user()->permit->type != "Lider")
-                                <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar usuario"><i class="fa fa-ban"></i></a>
-                            @elseif($vehicle->status == 0 && \Auth::user()->permit->type != "Lider")
-                                <a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
-                            @endif
+                           
                             @if( $vehicle->destroy_validate() && \Auth::user()->permit->type != "Lider")
                                 <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar vehículo"><i class="fa fa-trash"></i></a>
                             @endif
