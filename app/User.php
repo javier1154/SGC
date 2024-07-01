@@ -44,6 +44,17 @@ class User extends Authenticatable
     public function permit(){
         return $this->hasOne('App\Permit');
     }
+    public function user_managements(){
+
+        return $this->hasMany('App\UserManagement');
+
+    }
+
+    public function user_vehicles(){
+
+        return $this->hasMany('App\UserVehicle');
+
+    }
 
     public function type(){
         if(!empty($this->permit)){

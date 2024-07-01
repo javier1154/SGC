@@ -14,6 +14,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/report/pdf', function () {
+
+
+    $pdf = PDF::loadView('pdf.hello');
+    return $pdf->download('hello.pdf');
+});
+
+
+
+
 Auth::routes();
 
 Route::group(['middleware'=>['auth']],function(){
@@ -31,6 +41,13 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'ManagementsController@status',
         'as'   => 'managements.status'
     ]);
+    Route::resource('/reports', 'ReportsController');
+
+    Route::get('/reports', function (){
+        $pdf = PDF::loadView('pdf.invoice');
+        return $pdf->download('invoice.pdf');
+    });
+
 
     Route::resource('/users', 'UsersController');
 
@@ -51,7 +68,7 @@ Route::group(['middleware'=>['auth']],function(){
         'as'   => 'vehicles.destroy'
     ]);
 
-    Route::get('/vehicles/{id}/status',[
+    Route::get('/vehicles/{id}/status/{status}',[
         'uses' => 'VehiclesController@status',
         'as'   => 'vehicles.status'
     ]);
@@ -114,12 +131,11 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'UserFuelDaysController@autorizeUser',
         'as'   => 'user_fuel_day.autorizeUser'
     ]);
-    Route::resource('/tank', 'TankController');
-
-    Route::get('/tank/{id}/destroy',[
-        'uses' => 'tankController@destroy',
-        'as'   => 'tank.destroy'
+    Route::put('/fuel_days_manage_add/{id}',[
+        'uses' => 'UserFuelDaysController@manage_add',
+        'as'   => 'user_fuel_day.manage_add'
     ]);
+    Route::resource('/tank', 'TanksController');
 
     Route::get('/tank/{id}/status',[
         'uses' => 'tank@status',
@@ -136,6 +152,18 @@ Route::group(['middleware'=>['auth']],function(){
         'uses' => 'cistern@status',
         'as'   => 'cistern.status'
     ]);
-   
+
+    Route::resource('/litre_tank', 'DayLitreTanksController');
+
+    Route::get('/litre_tank/{id}/destroy',[
+        'uses' => 'DayLitreTanksController@destroy',
+        'as'   => 'litre_tank.destroy'
+    ]);
+
+    Route::get('/litre_tank/{id}/status',[
+        'uses' => 'litre_tank@status',
+        'as'   => 'litre_tank.status'
+    ]);
+
 });
 

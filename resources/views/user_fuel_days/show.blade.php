@@ -51,23 +51,27 @@
                                 $final_litre = $fuel_day->day_litres->where('type','final')->where('status', 1)->first();
                             @endphp
                             
-                            @if(empty($final_litre))
-                            
-                                <div class="col-md-4" style="margin-left: 50px; position:relative;">
-                                    <label>Litraje Final</label>
-                                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default2" ">
-                                        <i class="fa fa-btn fa-sign-in"></i> Registrar
+                            @if( $fuel_day->manage_level == "Finalizada")
+
+                                @if(empty($final_litre))
+                                
+                                    <div class="col-md-4" style="margin-left: 50px; position:relative;">
+                                        <label>Litraje Final</label>
+                                        <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default2" ">
+                                            <i class="fa fa-btn fa-sign-in"></i> Registrar
+                                        </button>
+                                    </div>
+                                
+                                @else
+                                <div class="col-md-6">
+                                    <label>Litraje Final:</label> {{$final_litre->litres}}
+                                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-update2">
+                                        <i class="fa fa-btn fa-sign-in"></i> editar
                                     </button>
                                 </div>
-                            
-                            @else
-                            <div class="col-md-6">
-                                <label>Litraje Final:</label> {{$final_litre->litres}}
-                                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-update2">
-                                    <i class="fa fa-btn fa-sign-in"></i> editar
-                                </button>
-                            </div>
-                             @endif  
+                                @endif  
+                            @endif
+                               
                             
                         </div>
                 </div> 
@@ -244,31 +248,7 @@
                     </div>
                 </div>
 
-            @php
-                $hoy = date('Y-m-d');
-
-            @endphp
-
-            @if($fuel_day->day >= $hoy)
            
-                @if($fuel_day->manage_level == "Nueva")
-                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg" style="position: absolute; z-index: 1;">
-                        <i class="fa fa-btn fa-sign-in"></i> Agregar
-                    </button>
-                
-                @endif
-               
-                    <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
-                    <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px ; z-index: 1;">
-                        <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
-                    </button>
-                    </a>
-            @else
-                <div class="alert alert-info">
-                    <h4>Información!!!</h4>
-                    El registro de usuarios en la jornada no se encuentra disponible debido a que el día de la jornada ya pasó
-                </div>
-            @endif
             
             <table class="table">
                 <thead>
@@ -312,6 +292,45 @@
                         
                         </tr>
                     @endforeach
+                    @php
+                $hoy = date('Y-m-d');
+
+            @endphp
+
+            @if($fuel_day->day >= $hoy)
+            
+            @if($fuel_day->manage_level == "Nueva")
+                
+                <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; z-index: 1; " data-toggle="modal" data-target="#modal-agg">
+                    <i class="fa fa-btn fa-sign-in"></i> Agregar
+                </button>
+            
+            @endif
+            @if($i>0)
+                <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
+                <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px; z-index: 1;">
+                    <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
+                </button>
+                </a>
+            @endif
+            
+            
+            @else
+
+                <div class="alert alert-info">
+                    <h4>Información!!!</h4>
+                    El registro de usuarios en la jornada no se encuentra disponible debido a que el día de la jornada ya pasó
+                </div>
+
+            @endif
+            @if ($fuel_day->manage_level == 'Finalizada' && !empty($final_litre))
+                <a href="{{route('reports.show', encrypt($fuel_day->id)) }}">
+                   <button type="submit" class="btn btn-primary btn-flat opciones" style="margin-bottom: 15px; position: relative; z-index: 1;">
+                    <i class="fa fa-btn fa-sign-in"></i> Generar PDF
+                    </button> 
+                </a>
+                
+            @endif 
                 </tbody>
                 <tfoot>
 					<tr>

@@ -15,7 +15,7 @@
                         <th class="text-center col-md-1">Año</th>
                         <th class="text-center col-md-1">Color</th>
                         <th class="text-center col-md-1">Litraje</th>
-                        <th class="text-center col-md-1">Oberservaciones</th>
+                        <th class="text-center col-md-1">Observaciones</th>
                         <th class="text-center col-md-1">Estado</th>
                         <th class="text-center col-md-1">Usuario</th>
                         <th class="text-center col-md-1">Fecha de Creación</th>
@@ -124,7 +124,7 @@
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/vehicles/'+id+'/status';
+                        url = '{!!url("/")!!}/vehicles/'+id+'/status/1';
                         $(location).attr('href', url);
                     }
                 });
@@ -141,7 +141,7 @@
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/vehicles/'+id+'/status';
+                        url = '{!!url("/")!!}/vehicles/'+id+'/status/0';
                         $(location).attr('href', url);
                     }
                 });

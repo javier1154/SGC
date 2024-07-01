@@ -105,7 +105,7 @@
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/vehicles/'+id+'/status';
+                        url = '{!!url("/")!!}/vehicles/'+id+'/status/1';
                         $(location).attr('href', url);
                     }
                 });
@@ -122,7 +122,7 @@
                     closeOnConfirm: false
                 },function(isConfirm){
                     if (isConfirm){
-                        url = '{!!url("/")!!}/vehicles/'+id+'/status';
+                        url = '{!!url("/")!!}/vehicles/'+id+'/status/0';
                         $(location).attr('href', url);
                     }
                 });

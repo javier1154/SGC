@@ -27,6 +27,10 @@
                                             <input type="text" name="name" class="form-control" required value="{{old('name')}}">
                                         </div>
                                         <div class="form-group col-md-12">
+                                            <label>Código</label>
+                                            <input type="text" name="code" class="form-control" required value="{{old('code')}}">
+                                        </div>
+                                        <div class="form-group col-md-12">
                                             <label>Cuota</label>
                                             <input type="number" name="cuota" class="form-control" required value="" min = 1>
                                         </div>
@@ -46,7 +50,8 @@
                 <thead>
                     <tr>
                         <th class="text-center">N°</th>
-                        <th class="text-center col-md-2">Nombre</th>
+                        <th class="text-center col-md-4">Nombre</th>
+                        <th class="text-center col-md-2">Código</th>
                         <th class="text-center col-md-2">Cuota</th>
                         <th class="text-center col-md-2">Estado</th>
                         <th class="text-center col-md-2">Fecha de Creación</th>
@@ -64,6 +69,7 @@
                         <tr  @if ($management->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
                             <td class="text-center bold">{{$management->name}}</td>
+                            <td class="text-center bold">{{$management->code}}</td>
                             <td class="text-center">{{ $management->cuota }}</td>
                             <td class="text-center">{!! status($management->status) !!}</td>
                             <td class="text-center">{!! fecha_hora($management->created_at) !!}</td>
@@ -83,7 +89,7 @@
                 </tbody>
                 <tfoot>
 					<tr>
-						<td colspan="6" class="opciones">
+						<td colspan="7" class="opciones">
 							<center>
 								<i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
 								<i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;

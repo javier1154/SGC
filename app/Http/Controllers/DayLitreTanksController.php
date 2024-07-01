@@ -3,50 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Tank;
+use App\DayLitreTank;
 
-class TankController extends Controller
+class DayLitreTanksController extends Controller
 {
    
     public function index()
     {
-        $tanks = Tank::orderBy('name')->get(); 
-        return view('tank.index', compact('tanks'));
+        $day_litre_tank = DayLitreTank::orderBy('id')->get();
+        return view('day_litre_tank.index', compact('day_litre_tank'));
     }
-
-   
+    
     public function create()
     {
-        //
-    }
-
-    
-    public function store(Request $request)
-    {
-        //
+        
     }
 
    
-    public function show($id)
+    public function store(Request $request)
     {
-       
+        
     }
 
-    
+  
+    public function show($id)
+    {
+        
+    }
     public function edit($id)
     {
-        //
+        
     }
 
    
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
-    
+  
     public function destroy($id)
     {
-        //
+        
     }
 }

@@ -14,12 +14,19 @@ class Vehicle extends Model
         return $this->belongsTo('App\User');
     }
     
+    public function user_fuel_days(){
+        return $this->hasMany('App\User_Fuel_day');
+    }
    
 
     public function fuel(){
         return $this->belongsTo('App\Fuel');
     }
+    public function user_vehicles(){
 
+        return $this->hasMany('App\UserVehicle');
+
+    }
     public function destroy_validate(){
         /*if(count($this->users)){
             return false;

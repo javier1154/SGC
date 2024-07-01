@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Vehicle;
 use App\Fuel;
 use App\User;
+use App\UserVehicle;
 class VehiclesController extends Controller
 {
     /**
@@ -49,12 +50,12 @@ class VehiclesController extends Controller
     {
         $this->validate($request, [
             'plate' => 'required|unique:vehicles',
-            'brand' => 'required',
+            'brand' => 'required|regex:/^[\pL\s]+$/u',
             'model' => 'required',
-            'year' => 'required',
-            'color' => 'required',
-            'observations' => 'required',
-            'liter'=> 'required',
+            'year' => 'required|numeric',
+            'color' => 'required|regex:/^[\pL\s]+$/u',
+            'observations' => 'required|regex:/^[\pL\s]+$/u',
+            'liter'=> 'required|numeric',
             'user_id' => 'required',
             'fuel_id' => 'required'
         ]);
@@ -73,6 +74,13 @@ class VehiclesController extends Controller
         $vehicle->fuel_id = decrypt($request->fuel_id);
         $vehicle->status = $status;
         $vehicle->save();
+        //trazabilidad
+        $user_vehicle = new UserVehicle();
+        $user_vehicle->user_id = $vehicle->user_id;
+        $user_vehicle->vehicle_id = $vehicle->id;
+        $user_vehicle->save();
+        //trazabilidad
+        
         return redirect()->back();
     }
 
@@ -109,6 +117,17 @@ class VehiclesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'plate' => 'required',
+            'brand' => 'required|regex:/^[\pL\s]+$/u',
+            'model' => 'required',
+            'year' => 'required|numeric',
+            'color' => 'required|regex:/^[\pL\s]+$/u',
+            'observations' => 'required|regex:/^[\pL\s]+$/u',
+            'liter'=> 'required|numeric',
+            'user_id' => 'required',
+            'fuel_id' => 'required'
+        ]);
         $vehicle = Vehicle::find($id);
         $vehicle->plate = mb_strtoupper($request->plate, "UTF-8");
         $vehicle->brand = $request->brand;
@@ -141,12 +160,15 @@ class VehiclesController extends Controller
         /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
         return redirect()->back();
     }
-    public function status($id)
+    public function status($id, $status)
     {
+
         $vehicle = Vehicle::findOrFail(decrypt($id));
-        if($vehicle->status){
+        if($status == 0){
+            
             $vehicle->status = 0;
             $vehicle->new = 0;
+               
             /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
         }else{
 
@@ -163,6 +185,12 @@ class VehiclesController extends Controller
             /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
         }
         $vehicle->save();
+        //trazabilidad
+        $user_vehicle = new UserVehicle();
+        $user_vehicle->user_id = $vehicle->user_id;
+        $user_vehicle->vehicle_id = $vehicle->id;
+        $user_vehicle->save();
+        //trazabilidad
         return redirect()->back();
     }
 }
