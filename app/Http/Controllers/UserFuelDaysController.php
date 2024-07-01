@@ -107,7 +107,7 @@ class UserFuelDaysController extends Controller
 
             $ultimaAsistencia = Fuel_day::whereIn('id', function($query){
                                             $query->select('fuel_day_id')
-                                            ->from('user_fuel_day')
+                                            ->from('users_fuel_days')
                                             ->where('estado', '==', "Asitió");
                                         
             })

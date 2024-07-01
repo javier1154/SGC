@@ -4,14 +4,12 @@
 @section('contenido')
 <br>
 
-                
-                    
 
                     @if((\Auth::user()->type() == "Administrador") or (\Auth::user()->type() == "Coordinador"))
                         @foreach($days as $day)
                         @if($day->status == 1)
                             <div class="col-md-2 ">
-                                <div class="panel panel-primary " style="border-radius:20px;">
+                                <div class="panel panel-primary" style="border-radius:20px;">
                                     <!-- Default panel contents -->
                                     <div class="panel-heading" style="text-align:center; font-size:30px; border-top-left-radius:17px; border-top-right-radius:17px; "><p>{{fechaCastellano(mes($day->day))}}</p></div>
                                         <div class="panel-body">
@@ -22,7 +20,7 @@
                                     <div class="" >
                                         
                                     <div class="well" style="text-align:center; font-size:25px; border-bottom-left-radius:24px; border-bottom-right-radius:24px; color: #3f3b3a;">  
-                                    <label for="">{{anio($day->day)}}</label>
+                                    <label for="">{{$day->fuel->name}}</label>
                                     </div>
                                     
                                 </div>

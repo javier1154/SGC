@@ -3,7 +3,6 @@
 @section('subtitulo', '')
 @section('contenido')
 <br>
-
 <div class="row">
         <div class="col-md-12">
             <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-received" style="margin-bottom: -50px; position: relative; z-index: 1;">
@@ -33,13 +32,13 @@
                             $i++;
                         @endphp
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center bold">{{$i}}</td>
                             <td class="text-center bold">{{$cistern->description}}</td>
-                            <td class="text-center">{{$cistern->permit->user->name}}</td>
-                            <td class="text-center">{{$cistern->tank->fuel->name}}</td>
-                            <td class="text-center">{{$cistern->received_litre}}</td>
-                            <td class="text-center">{!! fecha($cistern->created_at) !!}</td>
-                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($cistern->id)}}"}'>
+                            <td class="text-center bold">{{$cistern->permit->user->name}}</td>
+                            <td class="text-center bold">{{$cistern->tank->fuel->name}}</td>
+                            <td class="text-center bold">{{$cistern->received_litre}}</td>
+                            <td class="text-center bold">{!! fecha($cistern->created_at) !!}</td>
+                            <td class="text-center bold t-opciones"  data-valor='{"id":"{{encrypt($cistern->id)}}"}'>
 								
 								<a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
 								
