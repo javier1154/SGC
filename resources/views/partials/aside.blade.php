@@ -21,7 +21,6 @@
       <li class="tank"><a href="{!! route('tank.index') !!}"><i class="fa fa-cubes"></i> <span>Inventario</span></a></li>
       <li class="cistern"><a href="{!! route('cistern.index') !!}"><i class="fa fa-cube"></i> <span>Recepción</span></a></li>
       <li class="new_vehicles"><a href="{!! route('vehicles.newVehicles') !!}"><i class="fa fa-car"></i> <span>Vehiculos Pendientes</span></a></li>
-      @endif
       <li class="litre_tank"><a href="{!! route('litre_tank.index') !!}"><i class="fa fa-cube"></i> <span>Historial de litraje</span></a></li>
       {{-- @if ((Auth::user()->tipo() == "Administrador") or (Auth::user()->tipo() == "Root"))
         <li class="caja"><a href="{!! route('caja.index') !!}"><i class="fa fa-desktop"></i><i class="fa fa-spinner fa-spin pull-right"></i> <span>Caja</span></a></li>

@@ -5,7 +5,7 @@
 <br>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" style="border-radius: 5px;">
             <div class="panel-heading">Editar Jornadas</div>
                 <form class="form-horizontal" action="{{ route('fuel_day.update', $fuel_day->id) }}" method="POST">
                     <div class="panel-body">
@@ -39,9 +39,9 @@
                     <div class="row">
                         <div class="col-md-12 text-right">
                             <a href="{!! route('fuel_day.index') !!}">
-                            <button type="button" class="btn btn-default btn-flat">Cancelar</button>   
+                            <button type="button" class="btn btn-default btn-flat" style="border-radius: 5px;">Cancelar</button>   
                             </a>
-                            <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Guardar</button>
+                            <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Guardar</button>
                         </div>
                     </div>
                     </form>

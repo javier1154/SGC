@@ -54,8 +54,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal" style="border-radius: 5px;">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Registrar</button>
                     </div>
                 </form>
             </div>
@@ -119,8 +119,8 @@
                     
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal" style="border-radius: 5px;">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Registrar</button>
                     </div>
                 </form>
             </div>
@@ -128,9 +128,9 @@
     </div>
 
     <div class="col-md-8">
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" style="border-radius: 5px;">
             <div class="panel-heading">Datos del Usuario 
-                <button type="button" class="btn btn-default btn-flat pull-right" style="margin-top: -6px; margin-right: -13px;" data-toggle="modal" data-target="#modal-edit"  ><i class="fa fa-pencil"></i> Editar</button>
+                <button type="button" class="btn btn-default btn-flat pull-right" style="margin-top: -6px; margin-right: -13px; border-radius: 5px;" data-toggle="modal" data-target="#modal-edit"  ><i class="fa fa-pencil"></i> Editar</button>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -172,11 +172,10 @@
         </div>
     </div>
     
-    <div class="col-md-4">
-
-    <div class="panel panel-primary">
+<div class="col-md-4">
+    <div class="panel panel-primary" style="border-radius: 5px;">
         <div class="panel-heading">Datos del Vehiculo 
-                <button type="button" class="btn btn-default btn-flat pull-right" style="margin-top: -6px; margin-right: -13px;" data-toggle="modal" data-target="#modal-register"  ><i class="fa fa-sign-in"></i> Registrar</button>
+                <button type="button" class="btn btn-default btn-flat pull-right" style="margin-top: -6px; margin-right: -13px; border-radius: 5px;" data-toggle="modal" data-target="#modal-register"  ><i class="fa fa-sign-in"></i> Registrar</button>
             </div>
             <div class="panel-body" style="max-height: 500px; overflow-y:auto;">
                 @php
@@ -222,7 +221,7 @@
                                 <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar vehículo"><i class="fa fa-trash"></i></a>
                             @endif
                             @if(\Auth::user()->permit->type != "Lider")
-                            <a href="{{route('vehicles.edit', encrypt($vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar vehículo"><i class="fa fa-pencil"></i></a>
+                            <a href="{{route('vehicles.edit', encrypt($vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar vehículo" style="border-radius: 5px;"><i class="fa fa-pencil"></i></a>
                             @endif
                             
                         </div>

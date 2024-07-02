@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
 
-            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1;">
+            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1; border-radius:5px;">
                 <i class="fa fa-btn fa-sign-in"></i> Registrar
             </button>
 
@@ -45,8 +45,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal" style="border-radius: 5px;">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;><i class="fa fa-save"></i> Registrar</button>
                                 </div>
                             </form>
                         </div>
@@ -57,7 +57,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">N°</th>
-                        <th class="text-center col-md-1">Fecha</th>
+                        <th class="text-center col-md-2">Fecha</th>
                         <th class="text-center col-md-2">Tipo</th>
                         <th class="text-center col-md-2">Estado</th>
                         <th class="text-center col-md-2">Tipo de combustible</th>
