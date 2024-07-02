@@ -132,12 +132,13 @@ class UsersController extends Controller
         $users = User::findOrFail(decrypt($id));
         if($users->status){
             $users->status = 0;
-            /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
+            toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido deshabilitado.");
         }else{
             $users->status = 1;
-            /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
+            toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido habilitado.");
         }
         $users->save();
+
         return redirect()->back();
     }
 
