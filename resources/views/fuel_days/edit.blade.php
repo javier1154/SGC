@@ -19,31 +19,28 @@
                                             <label>Fecha</label>
                                             <input type="date" name="day" class="form-control" required value="{{$fuel_day->day}}">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                        <label>Tipo</label>
-                                            <select name="type" class="form-control" required value="" style="width:100%">
-                                                <option @if($fuel_day->type == "Normal") selected @endif value="normal">Normal</option>
-                                                <option @if($fuel_day->type == "Especial") selected @endif value="especial">Especial</option>
-                                                
-                                            </select>
+                                            <div class="form-group col-md-6">
+                                                <label>Tipo</label>
+                                                <select name="type" class="form-control" required value="" style="width:100%">
+                                                    <option @if($fuel_day->type == "Normal") selected @endif value="normal">Normal</option>
+                                                    <option @if($fuel_day->type == "Especial") selected @endif value="especial">Especial</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        
-                                    </div>
                                     </div>
                                 </div>
-                                
-                            </div>
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <a href="{!! route('fuel_day.index') !!}">
+                                            <button type="button" class="btn btn-default btn-flat" style="border-radius: 5px;">Cancelar</button>   
+                                            </a>
+                                            <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
                         
-                    </div>
-                    <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <a href="{!! route('fuel_day.index') !!}">
-                            <button type="button" class="btn btn-default btn-flat" style="border-radius: 5px;">Cancelar</button>   
-                            </a>
-                            <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Guardar</button>
-                        </div>
-                    </div>
+                            </div>
                     </form>
                 </div>
             </div>

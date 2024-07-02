@@ -4,7 +4,7 @@
 @section('contenido')
 <br>    
         @if ($fuel_day->manage_level == 'Autorizada')
-            <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg" style="margin-bottom: 15px; position: relative; z-index: 1;">
+            <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg" style="margin-bottom: 15px; position: relative; z-index: 1; border-radius: 5px;">
                 <i class="fa fa-btn fa-sign-in"></i> Agregar usuario
             </button>
         @endif
@@ -12,7 +12,7 @@
             $final_litre = $fuel_day->day_litres->where('type','final')->where('status', 1)->first();
         @endphp
         @if ($fuel_day->manage_level == 'Finalizada' && empty($final_litre))
-            <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg-fin" style="margin-bottom: 15px; position: relative; z-index: 1;">
+            <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-agg-fin" style="margin-bottom: 15px; position: relative; z-index: 1; border-radius: 5px">
                 <i class="fa fa-btn fa-sign-in"></i> Agregar usuario
             </button>
         @endif
@@ -46,8 +46,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal" style="border-radius: 5px;">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Registrar</button>
                                 </div>
                             </form>
                         </div>
@@ -86,8 +86,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal" style="border-radius: 5px;">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Registrar</button>
                                 </div>
                             </form>
                         </div>
@@ -178,12 +178,12 @@
 
                         <td colspan="@if($fuel_day->manage_level == 'Nueva') 8 @else 7 @endif">
                             @if ($fuel_day->manage_level == 'Nueva')
-                                <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-left: 950px;margin-bottom: -100px; position: relative; z-index: 1;">
+                                <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-left: 950px;margin-bottom: -100px; position: relative; z-index: 1; border-radius: 5px;">
                                 <i class="fa fa-btn fa-sign-in"></i> Autorizar Usuarios
                                 </button>
                             @endif
                             @if ($fuel_day->manage_level == 'Autorizada')
-                                <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-left: 950px;margin-bottom: -100px; position: relative; z-index: 1;">
+                                <button type="submit" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-left: 950px;margin-bottom: -100px; position: relative; z-index: 1; border-radius: 5px">
                                 <i class="fa fa-btn fa-sign-in"></i> Confirmar Asistencia
                                 </button>
                             @endif
