@@ -80,7 +80,7 @@ class VehiclesController extends Controller
         $user_vehicle->vehicle_id = $vehicle->id;
         $user_vehicle->save();
         //trazabilidad
-        
+        toastr('success', 'OPERACIÓN EXITOSA!', "El vehiculo ha sido guardado.");
         return redirect()->back();
     }
 
@@ -139,6 +139,7 @@ class VehiclesController extends Controller
         $vehicle->user_id = $request->user_id;
         $vehicle->fuel_id = $request->fuel_id;
         $vehicle->save();
+        toastr('success', 'OPERACIÓN EXITOSA!', "El vehiculo ha sido actualizado.");
         return redirect()->route('users.show', encrypt($request->user_id));
     }
 
@@ -191,6 +192,12 @@ class VehiclesController extends Controller
         $user_vehicle->vehicle_id = $vehicle->id;
         $user_vehicle->save();
         //trazabilidad
+        if($status == 1){
+          toastr('success', 'OPERACIÓN EXITOSA!', "El vehiculo ha sido aprobado.");  
+        }else{
+          toastr('success', 'OPERACIÓN EXITOSA!', "El vehiculo ha sido denegado.");  
+        }
+        
         return redirect()->back();
     }
 }

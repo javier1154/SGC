@@ -51,13 +51,16 @@ class PermissionsController extends Controller
                 $permit->type = mb_strtoupper($request->type, "UTF-8");
                 $permit->status = true;
                 $permit->save();
+                toastr('success', 'OPERACIÓN EXITOSA!', "El permiso ha sido añadido");
                 return redirect()->back();
             }else{
-                //el usuario ya posee permisos
+                toastr('error', 'OPERACIÓN INVÁLIDA!', "El usuario ya posee permisos");
+                return redirect()->back();
             }
             
         }else{
-            //el usuario no se encuentra registrado
+            toastr('error', 'OPERACIÓN INVÁLIDA!', "El usuario no existe");
+            return redirect()->back();
         }
 
     }
@@ -99,6 +102,7 @@ class PermissionsController extends Controller
         $permit->type = mb_strtoupper($request->type, "UTF-8");
         $permit->status = $request->status;
         $permit->save();
+        toastr('success', 'OPERACIÓN EXITOSA!', "El permiso ha sido actualizado.");
         return redirect()->route('permissions.index');
     }
 
@@ -113,11 +117,9 @@ class PermissionsController extends Controller
         $permit = Permit::findOrFail(decrypt($id));
         if($permit->destroy_validate()){
             $permit->delete();
-        }else{
-            /* toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); */
-            return redirect()->back();
         }
-        /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        
+        toastr('success', 'OPERACIÓN EXITOSA!', "El permiso ha sido eliminado.");
         return redirect()->back();    
     }
 
@@ -126,9 +128,11 @@ class PermissionsController extends Controller
         $permit = Permit::findOrFail(decrypt($id));
         if($permit->status){
             $permit->status = 0;
+            toastr('success', 'OPERACIÓN EXITOSA!', "El permiso ha sido deshabilitado.");
             /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
         }else{
             $permit->status = 1;
+            toastr('success', 'OPERACIÓN EXITOSA!', "El permiso ha sido habilitado.");
             /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
         }
         $permit->save();

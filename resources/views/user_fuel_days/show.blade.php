@@ -251,104 +251,106 @@
                         </div>
                     </div>
                 </div>
+                @php
+                $i = 0;
+                            
+                @endphp
+                @php
+                    $hoy = date('Y-m-d');
 
-           
-            
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center col-md-1">N°</th>
-                        <th class="text-center col-md-2">Nombre</th>
-                        <th class="text-center col-md-1">Cédula</th>
-                        <th class="text-center col-md-1">Indicador</th>
-                        <th class="text-center col-md-1">Litraje propuesto</th>
-                        <th class="text-center col-md-1">Litraje surtido</th>
-                        <th class="text-center col-md-1">Propuesto por</th>
-                        @if($fuel_day->manage_level == "Nueva")
-                        <th class="text-center col-md-1">Opciones</th>
-                        @endif
-                        
-                    </tr>
-                </thead>
-                <tbody>
+                @endphp
+
+                @if($fuel_day->day >= $hoy)
+                
+                @if($fuel_day->manage_level == "Nueva")
                     
-                    @php
-                        $i = 0;
-                        
-                    @endphp
+                    <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; z-index: 1; border-radius:5px; " data-toggle="modal" data-target="#modal-agg">
+                        <i class="fa fa-btn fa-sign-in"></i> Agregar
+                    </button>
+                
+                @endif
+                @if($i>0)
+                    <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
+                    <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px; z-index: 1;">
+                        <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
+                    </button>
+                    </a>
+                @endif
+                
+                
+                @else
 
-                    @foreach ($fuel_day->fuel_days as $user_day)
-                        @php
-                          $i++;
-                          
-                        @endphp
+                    <div class="alert alert-info">
+                        <h4>Información!!!</h4>
+                        El registro de usuarios en la jornada no se encuentra disponible debido a que el día de la jornada ya pasó
+                    </div>
+
+                @endif
+                @if ($fuel_day->manage_level == 'Finalizada' && !empty($final_litre))
+                    <a href="{{route('reports.show', encrypt($fuel_day->id)) }}">
+                    <button type="submit" class="btn btn-primary btn-flat opciones" style="margin-bottom: 15px; position: relative; z-index: 1; border-radius: 5px;">
+                        <i class="fa fa-btn fa-sign-in"></i> Generar PDF
+                        </button> 
+                    </a>
+                    
+                @endif 
+           
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td class="text-center">{{$i}}</td>
-                            <td class="bold text-center">{{$user_day->user->name}}</td>
-                            <td class="text-center">{{$user_day->user->ci}}</td>
-                            <td class="text-center">{{$user_day->user->indicator}}</td>
-                            <td class="bold text-center">{{$user_day->proposed_litre}}</td>
-                            <td class="bold text-center">{{$user_day->assorted_litre}}</td>
-                            <td class="bold text-center">{{$user_day->permit->user->name}}</td>
+                            <th class="text-center col-md-1">N°</th>
+                            <th class="text-center col-md-2">Nombre</th>
+                            <th class="text-center col-md-1">Cédula</th>
+                            <th class="text-center col-md-1">Indicador</th>
+                            <th class="text-center col-md-1">Litraje propuesto</th>
+                            <th class="text-center col-md-1">Litraje surtido</th>
+                            <th class="text-center col-md-1">Propuesto por</th>
                             @if($fuel_day->manage_level == "Nueva")
-                             <td class="text-center t-opciones"> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
+                            <th class="text-center col-md-1">Opciones</th>
                             @endif
-                        
+                            
                         </tr>
-                    @endforeach
-                    @php
-                $hoy = date('Y-m-d');
+                    </thead>
+                    <tbody>
+                        
+                        
 
-            @endphp
-
-            @if($fuel_day->day >= $hoy)
-            
-            @if($fuel_day->manage_level == "Nueva")
-                
-                <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; z-index: 1; border-radius:5px; " data-toggle="modal" data-target="#modal-agg">
-                    <i class="fa fa-btn fa-sign-in"></i> Agregar
-                </button>
-            
-            @endif
-            @if($i>0)
-                <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
-                <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px; z-index: 1;">
-                    <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
-                </button>
-                </a>
-            @endif
-            
-            
-            @else
-
-                <div class="alert alert-info">
-                    <h4>Información!!!</h4>
-                    El registro de usuarios en la jornada no se encuentra disponible debido a que el día de la jornada ya pasó
-                </div>
-
-            @endif
-            @if ($fuel_day->manage_level == 'Finalizada' && !empty($final_litre))
-                <a href="{{route('reports.show', encrypt($fuel_day->id)) }}">
-                   <button type="submit" class="btn btn-primary btn-flat opciones" style="margin-bottom: 15px; position: relative; z-index: 1; border-radius: 5px;">
-                    <i class="fa fa-btn fa-sign-in"></i> Generar PDF
-                    </button> 
-                </a>
-                
-            @endif 
-                </tbody>
-                <tfoot>
-					<tr>
-						<td colspan="8" class="opciones">
-							<center>
+                        @foreach ($fuel_day->fuel_days as $user_day)
+                            @php
+                            $i++;
+                            
+                            @endphp
+                            <tr>
+                                <td class="text-center">{{$i}}</td>
+                                <td class="bold text-center">{{$user_day->user->name}}</td>
+                                <td class="text-center">{{$user_day->user->ci}}</td>
+                                <td class="text-center">{{$user_day->user->indicator}}</td>
+                                <td class="bold text-center">{{$user_day->proposed_litre}}</td>
+                                <td class="bold text-center">{{$user_day->assorted_litre}}</td>
+                                <td class="bold text-center">{{$user_day->permit->user->name}}</td>
                                 @if($fuel_day->manage_level == "Nueva")
-                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                <td class="text-center t-opciones"> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
                                 @endif
-								
-							</center>
-						</td>
-					</tr>
-				</tfoot>
-            </table>
+                            
+                            </tr>
+                        @endforeach
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8" class="opciones">
+                                <center>
+                                    @if($fuel_day->manage_level == "Nueva")
+                                        <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                    @endif
+                                    
+                                </center>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

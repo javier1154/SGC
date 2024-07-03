@@ -39,6 +39,7 @@ class CisternController extends Controller
         $tank->available_litre = $tank->available_litre + $request->received_litre;
         $tank->save();
         $cistern->save();
+        toastr('success', 'OPERACIÓN EXITOSA!', "La recepción ha sido guardada.");
         return redirect()->back();
     }
 
@@ -71,6 +72,7 @@ class CisternController extends Controller
             return redirect()->back();
         }
         /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        toastr('success', 'OPERACIÓN EXITOSA!', "La recepción ha sido eliminada.");
         return redirect()->back();
     }
 }

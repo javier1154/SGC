@@ -30,12 +30,15 @@ class FuelDaysController extends Controller
             'type' => 'required',
             'fuel_id' => 'required',
         ]);
-
+    
         $exist_day = Fuel_day::where('day', $request->day)->first();
         if(!empty($exist_day)){
-            /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+            
             return redirect()->back();
         }
+
+        if(((\Auth::user()->permit->type == "Administrador") || (\Auth::user()->permit->type == "Coordinador")) && (\Auth::user()->permit->status == 1 )){ 
+        
         $fuel_day = new Fuel_day();
         $fuel_day->day = $request->day;
         $fuel_day->type = $request->type;
@@ -44,7 +47,12 @@ class FuelDaysController extends Controller
         $fuel_day->fuel_id = decrypt($request->fuel_id);
         $fuel_day->save();
 
-        /* toastr()->success('La gerencia ha sido registrada.', 'OPERACIÓN EXITOSA!'); */
+        toastr('success', 'OPERACIÓN EXITOSA!', "La jornada ha sido guardada .");
+        return redirect()->back();
+
+        }
+
+        toastr('error', 'OPERACIÓN INVÁLIDA!', "No posees permisos para realizar esta acción.");
         return redirect()->back();
     }
 
@@ -70,6 +78,7 @@ class FuelDaysController extends Controller
         $fuel_day->day = $request->day;
         $fuel_day->type = $request->type;
         $fuel_day->save();
+        toastr('success', 'OPERACIÓN EXITOSA!', "La jornada ha sido actualizada .");
         return redirect()->route('fuel_day.index');
         
     }
@@ -85,6 +94,7 @@ class FuelDaysController extends Controller
             return redirect()->back();
         }
         /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        toastr('success', 'OPERACIÓN EXITOSA!', "El permiso ha sido eliminado .");
         return redirect()->back();
     }
     public function status($id)
@@ -93,9 +103,11 @@ class FuelDaysController extends Controller
         if($fuel_day->status){
             $fuel_day->status = 0;
             /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
+            toastr('success', 'OPERACIÓN EXITOSA!', "El permiso ha sido deshabilitado .");
         }else{
             $fuel_day->status = 1;
             /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
+            toastr('success', 'OPERACIÓN EXITOSA!', "El permiso ha sido habilitado .");
         }
         $fuel_day->save();
         return redirect()->back();

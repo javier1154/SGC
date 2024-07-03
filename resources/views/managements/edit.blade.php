@@ -5,7 +5,7 @@
 <br>
 <div class="row">
     <div class="col-md-5 col-md-offset-3">
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" style="border-radius: 5px;">
             <div class="panel-heading">Editar Gerencia</div>
                 <form class="form-horizontal" action="{{ route('managements.update', $management->id) }}" method="POST">
                 <div class="panel-body">
@@ -33,8 +33,8 @@
                 <div class="panel-footer">
                     <div class="row">
                     <div class="col-md-12 text-right">
-                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Guardar</button>
+                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal" style="border-radius: 5px;">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Guardar</button>
                     </div>
             </div>
         </div>

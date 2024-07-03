@@ -10,52 +10,53 @@
             </button>
             
 
-            
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center col-md-1">N°</th>
-                        <th class="text-center col-md-1">Descripción</th>
-                        <th class="text-center col-md-2">Recepcionado por</th>
-                        <th class="text-center col-md-1">Combustible</th>
-                        <th class="text-center col-md-1">Litros recepcionados</th>
-                        <th class="text-center col-md-1">Fecha de Creación</th>
-                        <th class="text-center col-md-1">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $i = 0;
-                    @endphp
-                    @foreach ($cisterns as $cistern)
-                        @php
-                            $i++;
-                        @endphp
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td class="text-center bold">{{$i}}</td>
-                            <td class="text-center bold">{{$cistern->description}}</td>
-                            <td class="text-center bold">{{$cistern->permit->user->name}}</td>
-                            <td class="text-center bold">{{$cistern->tank->fuel->name}}</td>
-                            <td class="text-center bold">{{$cistern->received_litre}}</td>
-                            <td class="text-center bold">{!! fecha($cistern->created_at) !!}</td>
-                            <td class="text-center bold t-opciones"  data-valor='{"id":"{{encrypt($cistern->id)}}"}'>
-								
-								<a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
-								
+                            <th class="text-center col-md-1">N°</th>
+                            <th class="text-center col-md-1">Descripción</th>
+                            <th class="text-center col-md-2">Recepcionado por</th>
+                            <th class="text-center col-md-1">Combustible</th>
+                            <th class="text-center col-md-1">Litros recepcionados</th>
+                            <th class="text-center col-md-1">Fecha de Creación</th>
+                            <th class="text-center col-md-1">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $i = 0;
+                        @endphp
+                        @foreach ($cisterns as $cistern)
+                            @php
+                                $i++;
+                            @endphp
+                            <tr>
+                                <td class="text-center bold">{{$i}}</td>
+                                <td class="text-center bold">{{$cistern->description}}</td>
+                                <td class="text-center bold">{{$cistern->permit->user->name}}</td>
+                                <td class="text-center bold">{{$cistern->tank->fuel->name}}</td>
+                                <td class="text-center bold">{{$cistern->received_litre}}</td>
+                                <td class="text-center bold">{!! fecha($cistern->created_at) !!}</td>
+                                <td class="text-center bold t-opciones"  data-valor='{"id":"{{encrypt($cistern->id)}}"}'>
+                                    
+                                    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
+                                    
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                            <td colspan="7" class="opciones">
+                                <center>
+                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                </center>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-						<td colspan="7" class="opciones">
-							<center>
-								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
-							</center>
-						</td>
-					</tr>
-				</tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 

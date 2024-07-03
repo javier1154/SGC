@@ -10,71 +10,72 @@
             </button>
             </a>
 
-            
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center col-md-1">N°</th>
-                        <th class="text-center col-md-2">Nombre</th>
-                        <th class="text-center col-md-1">Cédula</th>
-                        <th class="text-center col-md-1">Email</th>
-                        <th class="text-center col-md-1">Teléfono</th>
-                        <th class="text-center col-md-1">Gerencia</th>
-                        <th class="text-center col-md-1">Estado</th>
-                        <th class="text-center col-md-1">Indicador</th>
-                        <th class="text-center col-md-1">Extensión</th>
-                        <th class="text-center col-md-1">Fecha de Creación</th>
-                        <th class="text-center col-md-1">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $i = 0;
-                    @endphp
-                    @foreach ($users as $user)
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center col-md-1">N°</th>
+                            <th class="text-center col-md-2">Nombre</th>
+                            <th class="text-center col-md-1">Cédula</th>
+                            <th class="text-center col-md-1">Email</th>
+                            <th class="text-center col-md-1">Teléfono</th>
+                            <th class="text-center col-md-1">Gerencia</th>
+                            <th class="text-center col-md-1">Estado</th>
+                            <th class="text-center col-md-1">Indicador</th>
+                            <th class="text-center col-md-1">Extensión</th>
+                            <th class="text-center col-md-1">Fecha de Creación</th>
+                            <th class="text-center col-md-1">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @php
-                            $i++;
+                            $i = 0;
                         @endphp
-                        <tr @if ($user->status == 0) class="danger" @endif>
-                            <td class="text-center">{{$i}}</td>
-                            <td class="text-center bold">{{$user->name}}</td>
-                            <td class="text-center">{{$user->ci}}</td>
-                            <td class="text-center">{{$user->email}}</td>
-                            <td class="text-center">{{$user->phone}}</td>
-                            <td class="text-center">{{$user->management->name}}</td>
-                            <td class="text-center">{!!status($user->status)!!}</td>
-                            <td class="text-center">{{$user->indicator}}</td>
-                            <td class="text-center">{{$user->extension}}</td>
-                            <td class="text-center">{!! fecha_hora($user->created_at) !!}</td>
-                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($user->id)}}", "name":"{{$user->name}}"}'>
-                                @if ($user->status == 1)
-									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar usuario"><i class="fa fa-ban"></i></a>
-								@else
-									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
-								@endif
-                                <a href="{{route('users.show', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Detalles"><i class="fa fa-cogs"></i></a>
-                                <a href="{{route('users.edit', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
-                                @if( $user->destroy_validate())
-								    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
-								@endif
+                        @foreach ($users as $user)
+                            @php
+                                $i++;
+                            @endphp
+                            <tr @if ($user->status == 0) class="danger" @endif>
+                                <td class="text-center">{{$i}}</td>
+                                <td class="text-center bold">{{$user->name}}</td>
+                                <td class="text-center">{{$user->ci}}</td>
+                                <td class="text-center">{{$user->email}}</td>
+                                <td class="text-center">{{$user->phone}}</td>
+                                <td class="text-center">{{$user->management->name}}</td>
+                                <td class="text-center">{!!status($user->status)!!}</td>
+                                <td class="text-center">{{$user->indicator}}</td>
+                                <td class="text-center">{{$user->extension}}</td>
+                                <td class="text-center">{!! fecha_hora($user->created_at) !!}</td>
+                                <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($user->id)}}", "name":"{{$user->name}}"}'>
+                                    @if ($user->status == 1)
+                                        <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar usuario"><i class="fa fa-ban"></i></a>
+                                    @else
+                                        <a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
+                                    @endif
+                                    <a href="{{route('users.show', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Detalles"><i class="fa fa-cogs"></i></a>
+                                    <a href="{{route('users.edit', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
+                                    @if( $user->destroy_validate())
+                                        <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="11" class="opciones">
+                                <center>
+                                    <i class="fa fa-cogs"></i>&nbsp;Detalles&nbsp;
+                                    <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
+                                    <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
+                                    <i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
+                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                </center>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-					<tr>
-						<td colspan="11" class="opciones">
-							<center>
-                                <i class="fa fa-cogs"></i>&nbsp;Detalles&nbsp;
-                                <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
-                                <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
-								<i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
-								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
-							</center>
-						</td>
-					</tr>
-				</tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

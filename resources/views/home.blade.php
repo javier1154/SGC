@@ -5,7 +5,7 @@
 <br>
 
 
-@if((\Auth::user()->type() == "Administrador") or (\Auth::user()->type() == "Coordinador"))
+@if((\Auth::user()->type() == "Administrador") || (\Auth::user()->type() == "Coordinador"))
     @foreach($days as $day)
         @if($day->status == 1)
             <div class="col-md-4">                     

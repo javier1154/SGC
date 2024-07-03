@@ -52,64 +52,65 @@
                         </div>
                     </div>
                 </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center">N°</th>
-                        <th class="text-center col-md-2">Fecha</th>
-                        <th class="text-center col-md-2">Tipo</th>
-                        <th class="text-center col-md-2">Estado</th>
-                        <th class="text-center col-md-2">Tipo de combustible</th>
-                        <th class="text-center col-md-2">Usuario</th>
-                        <th class="text-center col-md-2">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $i = 0;
-                    @endphp
-                    @foreach ($fuel_days as $fuel_day)
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">N°</th>
+                            <th class="text-center col-md-2">Fecha</th>
+                            <th class="text-center col-md-2">Tipo</th>
+                            <th class="text-center col-md-2">Estado</th>
+                            <th class="text-center col-md-2">Tipo de combustible</th>
+                            <th class="text-center col-md-2">Usuario</th>
+                            <th class="text-center col-md-2">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @php
-                            $i++;
+                            $i = 0;
                         @endphp
-                        <tr  @if ($fuel_day->status == 0) class="danger" @endif>
-                            <td class="text-center">{{$i}}</td>
-                            <td class="text-center bold">{!!fecha($fuel_day->day)!!}</td>
-                            <td class="text-center">{{$fuel_day->type}}</td>
-                            <td class="text-center">{!! status($fuel_day->status) !!}</td>
-                            <td class="text-center">{{$fuel_day->fuel->name}}</td>
-                            <td class="text-center">{{$fuel_day->permit->user->name}}</td>
-                            
-                            
-                            
-                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($fuel_day->id)}}", "name":"{{fecha_js($fuel_day->day)}}"}'>
-								<a href="{{route('fuel_day.edit', encrypt($fuel_day->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar jornada"><i class="fa fa-pencil"></i></a>
-                                @if ($fuel_day->status == 1)
-									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar jornada"><i class="fa fa-ban"></i></a>
-								@else
-									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar jornada"><i class="fa fa-check-circle-o"></i></a>
-								@endif
-								@if( $fuel_day->destroy_validate())
-									<a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
-								@endif
+                        @foreach ($fuel_days as $fuel_day)
+                            @php
+                                $i++;
+                            @endphp
+                            <tr  @if ($fuel_day->status == 0) class="danger" @endif>
+                                <td class="text-center">{{$i}}</td>
+                                <td class="text-center bold">{!!fecha($fuel_day->day)!!}</td>
+                                <td class="text-center">{{$fuel_day->type}}</td>
+                                <td class="text-center">{!! status($fuel_day->status) !!}</td>
+                                <td class="text-center">{{$fuel_day->fuel->name}}</td>
+                                <td class="text-center">{{$fuel_day->permit->user->name}}</td>
+                                
+                                
+                                
+                                <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($fuel_day->id)}}", "name":"{{fecha_js($fuel_day->day)}}"}'>
+                                    <a href="{{route('fuel_day.edit', encrypt($fuel_day->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar jornada"><i class="fa fa-pencil"></i></a>
+                                    @if ($fuel_day->status == 1)
+                                        <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar jornada"><i class="fa fa-ban"></i></a>
+                                    @else
+                                        <a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar jornada"><i class="fa fa-check-circle-o"></i></a>
+                                    @endif
+                                    @if( $fuel_day->destroy_validate())
+                                        <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7" class="opciones">
+                                <center>
+                                    <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
+                                    <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
+                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                    <i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
+                                </center>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-					<tr>
-						<td colspan="7" class="opciones">
-							<center>
-								<i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
-								<i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
-								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
-                                <i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
-							</center>
-						</td>
-					</tr>
-				</tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

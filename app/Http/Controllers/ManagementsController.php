@@ -29,6 +29,7 @@ class ManagementsController extends Controller
 
         $exist_management = Management::where('name', $request->name)->first();
         if(!empty($exist_management)){
+            toastr('danger', 'OPERACIÓN INVÁLIDA!', "La gerencia tiene el mismo nombre");
             /* toastr()->error('Ya existe una gerencia con el mismo nombre.', 'ERROR!'); */
             return redirect()->back();
         }
@@ -38,7 +39,7 @@ class ManagementsController extends Controller
         $management->code = $request->code;
         $management->status = 1;
         $management->save();
-
+        toastr('success', 'OPERACIÓN EXITOSA!', "La gerencia ha sido guardada.");
         /* toastr()->success('La gerencia ha sido registrada.', 'OPERACIÓN EXITOSA!'); */
         return redirect()->back();
     }
@@ -65,6 +66,7 @@ class ManagementsController extends Controller
         $management->code = $request->code;
         $management->cuota = $request->cuota;
         $management->save();
+        toastr('success', 'OPERACIÓN EXITOSA!', "La gerencia ha sido actualizada.");
         return redirect()->route('managements.index');
     }
 
@@ -74,11 +76,9 @@ class ManagementsController extends Controller
         $management = Management::findOrFail(decrypt($id));
         if($management->destroy_validate()){
             $management->delete();
-        }else{
-            /* toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); */
-            return redirect()->back();
         }
         /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        toastr('success', 'OPERACIÓN EXITOSA!', "La gerencia ha sido eliminada.");
         return redirect()->back();
     }
 
@@ -87,9 +87,11 @@ class ManagementsController extends Controller
         $management = Management::findOrFail(decrypt($id));
         if($management->status){
             $management->status = 0;
+            toastr('success', 'OPERACIÓN EXITOSA!', "La gerencia ha sido deshabilitada.");
             /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
         }else{
             $management->status = 1;
+            toastr('success', 'OPERACIÓN EXITOSA!', "La gerencia ha sido habilitada.");
             /* toastr()->success('La gerencia ha sido habilitada.', 'ERROR!'); */
         }
         $management->save();

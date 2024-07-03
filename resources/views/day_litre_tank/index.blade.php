@@ -47,43 +47,44 @@
                 </div>
             -->
             
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center">N°</th>
-                        <th class="text-center col-md-4">Tipo</th>
-                        <th class="text-center col-md-2">Litros</th>
-                        <th class="text-center col-md-2">Jornada</th>
-                        <th class="text-center col-md-2">Tanque</th>
-                        <th class="text-center col-md-2">Fecha de creación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $i = 0;
-                    @endphp
-                    @foreach ($day_litre_tank as $litre_tank)
-                        @php
-                            $i++;
-                        @endphp
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td class="text-center">{{$i}}</td>
-                            <td class="text-center bold">{{to_spanish($litre_tank->day_litre->type)}}</td>
-                            <td class="text-center bold">{{$litre_tank->day_litre->litres}}</td>
-                            <td class="text-center">{!!fecha($litre_tank->day_litre->fuel_day->day)!!}</td>
-                            <td class="text-center">{{ $litre_tank->tank->name }}</td>
-                            <td class="text-center">{!! fecha($litre_tank->created_at) !!}</td>
+                            <th class="text-center">N°</th>
+                            <th class="text-center col-md-4">Tipo</th>
+                            <th class="text-center col-md-2">Litros</th>
+                            <th class="text-center col-md-2">Jornada</th>
+                            <th class="text-center col-md-2">Tanque</th>
+                            <th class="text-center col-md-2">Fecha de creación</th>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-					<tr>
-						<td colspan="6" class="opciones">
-						</td>
-					</tr>
-				</tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                        @php
+                            $i = 0;
+                        @endphp
+                        @foreach ($day_litre_tank as $litre_tank)
+                            @php
+                                $i++;
+                            @endphp
+                            <tr>
+                                <td class="text-center">{{$i}}</td>
+                                <td class="text-center bold">{{to_spanish($litre_tank->day_litre->type)}}</td>
+                                <td class="text-center bold">{{$litre_tank->day_litre->litres}}</td>
+                                <td class="text-center">{!!fecha($litre_tank->day_litre->fuel_day->day)!!}</td>
+                                <td class="text-center">{{ $litre_tank->tank->name }}</td>
+                                <td class="text-center">{!! fecha($litre_tank->created_at) !!}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="opciones">
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

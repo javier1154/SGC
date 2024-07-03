@@ -123,14 +123,10 @@ class UserFuelDaysController extends Controller
                 $day_litre_tank2->tank_id = 1;
                 $day_litre_tank2->save();
 
-            /*}else{
-                
-                dd($day_litres->litres);
-
-            }*/
+           
             
         }
-        
+        toastr('success', 'OPERACIÓN EXITOSA!', "El litraje ha sido guardado.");
         return redirect()->back();
             
     }
@@ -142,10 +138,10 @@ class UserFuelDaysController extends Controller
         if($users->destroy_validate()){
             $users->delete();
         }else{
-            /* toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); */
+            toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); 
             return redirect()->back();
         }
-        /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido eliminado.");
         return redirect()->back();
     }
 
@@ -161,7 +157,8 @@ class UserFuelDaysController extends Controller
             $user_fuel_day->estado = "Cancelado";
             $user_day_permit->estado = "Cancelado";
             $user_day_permit->save();
-            /* toastr()->success('La gerencia ha sido deshabilitada.', 'ERROR!'); */
+            toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido cancelado");
+            
         }
         $user_fuel_day->save();
         return redirect()->back();
@@ -173,16 +170,17 @@ class UserFuelDaysController extends Controller
           $assorted_litre = 0;
           $assorted = Tank::where('status', 1)->first();  
           for($i = 0; $i < count($request->ids); $i++){
-            $assorted_litre +=$request->assorted_litre[$i];
+            $assorted_litre += $request->assorted_litre[$i];
           }
-          if($assorted->available_litre>= $assorted_litre){
+          if($assorted->available_litre >= $assorted_litre){
 
             for($i = 0; $i < count($request->ids); $i++){
                 $user_fuel_day = User_fuel_day::find(decrypt($request->ids[$i]));
                 if(!empty($user_fuel_day) && $user_fuel_day->estado == "Autorizado"){
                     $user_day_permit = new UserDayPermit();
                     $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
-                    $user_day_permit->permit_id = \Auth::user()->id;
+                    $user_day_permit->permit_id = \Auth::user()->permit->id;
+
                     if($request->assorted_litre[$i] > 0){
     
                         $assorted = Tank::where('status', 1)->first();
@@ -194,7 +192,9 @@ class UserFuelDaysController extends Controller
                             $user_day_permit->save();
                         }                    
     
-                    }else{
+                    }
+                    else
+                    {
                         $user_fuel_day->estado = "No asistió";
                         $user_day_permit->estado = "No asistió";
                         $user_day_permit->save();
@@ -203,12 +203,17 @@ class UserFuelDaysController extends Controller
                     $fuel_day->manage_level = 'Finalizada';
                     $fuel_day->save();
                     $user_fuel_day->save();
+                    
+
                 }
-    
+               
              }; 
+             toastr('success', 'OPERACIÓN EXITOSA!', "Usuarios confirmados.");
 
           }else{
-            dd("La cantidad solicitada no se encuentra disponible en el tanque");
+
+            toastr('error', 'OPERACIÓN INVÁLIDA!', "El litraje no se encuentra disponible en el tanque.");
+            
           }
            
         }else{
@@ -217,7 +222,7 @@ class UserFuelDaysController extends Controller
                 $user_fuel_day = User_fuel_day::find(decrypt($request->ids[$i]));
                 $user_day_permit = new UserDayPermit();
                 $user_day_permit->user_fuel_day_id = $user_fuel_day->id;;
-                $user_day_permit->permit_id = \Auth::user()->id;
+                $user_day_permit->permit_id = \Auth::user()->permit->id;
                 if(!empty($user_fuel_day) && $user_fuel_day->estado == "Propuesto"){
                     $user_fuel_day->proposed_litre = $request->proposed_litre[$i];
                     $user_fuel_day->estado = "Autorizado";
@@ -231,7 +236,7 @@ class UserFuelDaysController extends Controller
                 }
 
             };
-
+            toastr('success', 'OPERACIÓN EXITOSA!', "Usuarios autorizados.");
         }
         
         return redirect()->back();
@@ -251,6 +256,7 @@ class UserFuelDaysController extends Controller
             $vehicle = Vehicle::where('user_id', $user->id)->where('status', 1)->first();
             
             if($vehicle == null){
+                toastr('error', 'OPERACIÓN INVÁLIDA!', "El usuario no posee vehículo");
                 return redirect()->back();
             }
 
@@ -264,7 +270,7 @@ class UserFuelDaysController extends Controller
                                         ->first();
 
                 if(!empty($exist_user)){
-                    /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+                    toastr('warning', 'OPERACIÓN INVÁLIDA!', "El usuario ya se encuentra asignado en una jornada.");
                     return redirect()->back();
                 }
                 $user_fuel_day = new User_fuel_day($request->all());
@@ -285,11 +291,11 @@ class UserFuelDaysController extends Controller
                 $user_day_permit->estado = "Propuesto";
                 $user_day_permit->save();
 
-
+                toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido guardado.");
                 return redirect()->back();
             }
             
-            
+            toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido añadido.");
         } return redirect()->back();
         
 
@@ -307,11 +313,13 @@ class UserFuelDaysController extends Controller
             $vehicle = Vehicle::where('user_id', $user->id)->where('status', 1)->first();
             
             if($vehicle == null){
+                toastr('error', 'OPERACIÓN INVÁLIDA!', "El usuario no posee vehículo");
                 return redirect()->back();
             }
 
             if(!empty($exist_user)){
-                /* toastr()->error('Ya existe una jornada con esa misma fecha.', 'ERROR!'); */
+                toastr('warning', 'OPERACIÓN INVÁLIDA!', "El usuario ya se encuentra asignado en una jornada.");
+                
                 return redirect()->back();
             }
 
@@ -387,7 +395,7 @@ class UserFuelDaysController extends Controller
             
             
             
-
+            toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido añadido.");
             return redirect()->back();
         }
     }

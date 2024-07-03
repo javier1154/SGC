@@ -45,61 +45,62 @@
                     </div>
                 </div>
             
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center">N°</th>
-                        <th class="text-center col-md-4">Nombre</th>
-                        <th class="text-center col-md-2">Código</th>
-                        <th class="text-center col-md-2">Cuota</th>
-                        <th class="text-center col-md-2">Estado</th>
-                        <th class="text-center col-md-2">Fecha de Creación</th>
-                        <th class="text-center col-md-2">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $i = 0;
-                    @endphp
-                    @foreach ($managements as $management)
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">N°</th>
+                            <th class="text-center col-md-4">Nombre</th>
+                            <th class="text-center col-md-2">Código</th>
+                            <th class="text-center col-md-2">Cuota</th>
+                            <th class="text-center col-md-2">Estado</th>
+                            <th class="text-center col-md-2">Fecha de Creación</th>
+                            <th class="text-center col-md-2">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @php
-                            $i++;
+                            $i = 0;
                         @endphp
-                        <tr  @if ($management->status == 0) class="danger" @endif>
-                            <td class="text-center">{{$i}}</td>
-                            <td class="text-center bold">{{$management->name}}</td>
-                            <td class="text-center bold">{{$management->code}}</td>
-                            <td class="text-center">{{ $management->cuota }}</td>
-                            <td class="text-center">{!! status($management->status) !!}</td>
-                            <td class="text-center">{!! fecha_hora($management->created_at) !!}</td>
-                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($management->id)}}", "name":"{{$management->name}}"}'>
-								<a href="{{route('managements.edit', encrypt($management->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar gerencia"><i class="fa fa-pencil"></i></a>
-                                @if ($management->status == 1)
-									<a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar gerencia"><i class="fa fa-ban"></i></a>
-								@else
-									<a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar gerencia"><i class="fa fa-check-circle-o"></i></a>
-								@endif
-								@if( $management->destroy_validate())
-									<a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar gerencia"><i class="fa fa-trash"></i></a>
-								@endif
+                        @foreach ($managements as $management)
+                            @php
+                                $i++;
+                            @endphp
+                            <tr  @if ($management->status == 0) class="danger" @endif>
+                                <td class="text-center">{{$i}}</td>
+                                <td class="text-center bold">{{$management->name}}</td>
+                                <td class="text-center bold">{{$management->code}}</td>
+                                <td class="text-center">{{ $management->cuota }}</td>
+                                <td class="text-center">{!! status($management->status) !!}</td>
+                                <td class="text-center">{!! fecha_hora($management->created_at) !!}</td>
+                                <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($management->id)}}", "name":"{{$management->name}}"}'>
+                                    <a href="{{route('managements.edit', encrypt($management->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar gerencia"><i class="fa fa-pencil"></i></a>
+                                    @if ($management->status == 1)
+                                        <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar gerencia"><i class="fa fa-ban"></i></a>
+                                    @else
+                                        <a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar gerencia"><i class="fa fa-check-circle-o"></i></a>
+                                    @endif
+                                    @if( $management->destroy_validate())
+                                        <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar gerencia"><i class="fa fa-trash"></i></a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7" class="opciones">
+                                <center>
+                                    <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
+                                    <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
+                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                    <i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
+                                </center>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-					<tr>
-						<td colspan="7" class="opciones">
-							<center>
-								<i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
-								<i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
-								<i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
-                                <i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
-							</center>
-						</td>
-					</tr>
-				</tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

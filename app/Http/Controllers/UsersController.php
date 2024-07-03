@@ -57,7 +57,7 @@ class UsersController extends Controller
         $user_management->management_id = $user->management_id;
         $user_management->save();
         /*Trazabilidad*/
-        
+        toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido guardado.");
         return redirect()->route('users.index');
     }
 
@@ -109,6 +109,7 @@ class UsersController extends Controller
         $user->indicator = $request->indicator;
         $user->extension = $request->extension;
         $user->save();
+        toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido actualizado.");
         return redirect()->route('users.index');
 
     }
@@ -119,11 +120,8 @@ class UsersController extends Controller
         $users = User::findOrFail(decrypt($id));
         if($users->destroy_validate()){
             $users->delete();
-        }else{
-            /* toastr()->success('La gerencia no puede ser eliminada debido a que posee registros asociados.', 'ERROR!'); */
-            return redirect()->back();
         }
-        /* toastr()->success('La gerencia ha sido eliminada.', 'OPERACIÓN EXITOSA!'); */
+        toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido eliminado.");
         return redirect()->back();
     }
 
