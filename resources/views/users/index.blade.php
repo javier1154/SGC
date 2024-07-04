@@ -2,16 +2,17 @@
 @section('titulo', 'Usuarios')
 @section('subtitulo', '')
 @section('contenido')
+<br>
 <div class="row">
         <div class="col-md-12">
-            <a href="{!! route('users.create') !!}">
-            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1; border-radius:5px;">
-                <i class="fa fa-btn fa-sign-in"></i> Registrar 
-            </button>
-            </a>
-
+            
             <div class="table-responsive">
                 <table class="table">
+                    <a href="{!! route('users.create') !!}">
+                        <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1; border-radius:5px;">
+                            <i class="fa fa-btn fa-sign-in"></i> Registrar 
+                        </button>
+                    </a>
                     <thead>
                         <tr>
                             <th class="text-center col-md-1">N°</th>

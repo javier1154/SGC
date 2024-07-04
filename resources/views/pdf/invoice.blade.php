@@ -27,8 +27,8 @@
             <div class="col-md-2" style="position:relative; left: 280px;">
             
                
-                       <label style=" font-size: 15px;"><u>Mes/Año</u>__________</label><br>
-                       <label style= "font-size: 15px;"><u>Día________</u></label>
+                       <label style=" font-size: 15px;"><u>Mes/Año: {{fechaCastellano(mes($user_day->day))}} / {{anio($user_day->day)}}</u></label><br>
+                       <label style= "font-size: 15px;"><u>Día: {{dia($user_day->day)}}</u></label>
            </div>
 
            <div class="col-md-2" style="position:relative; left: 340px;">
@@ -79,24 +79,25 @@
                 @php
                     
                     $i = 0;
+
                 @endphp
-                @foreach($data['user_days']->fuel_days as $user_day)
+                @foreach($user_day->fuel_days as $info)
                     @php
                       $i++;
 
                     @endphp
                     <tr>
                         <td class="text-center bold">{{$i}}</td>
-                        <td class="text-center">{{$user_day->user->management->name}}</td>
-                        <td class="text-center">{{$user_day->user->name}}</td>
-                        <td class="text-center">{{$user_day->user->ci}}</td>
-                        <td class="text-center">{{$user_day->vehicle->brand}}</td>
-                        <td class="text-center">{{$user_day->vehicle->model}}</td>
-                        <td class="text-center">{{$user_day->vehicle->color}}</td>
-                        <td class="text-center">{{$user_day->vehicle->plate}}</td>
-                        <td class="text-center">{{$user_day->assorted_litre}}</td>
+                        <td class="text-center">{{$info->user->management->name}}</td>
+                        <td class="text-center">{{$info->user->name}}</td>
+                        <td class="text-center">{{$info->user->ci}}</td>
+                        <td class="text-center">{{$info->vehicle->brand}}</td>
+                        <td class="text-center">{{$info->vehicle->model}}</td>
+                        <td class="text-center">{{$info->vehicle->color}}</td>
+                        <td class="text-center">{{$info->vehicle->plate}}</td>
+                        <td class="text-center">{{$info->assorted_litre}}</td>
                         <td></td>
-                        <td class="text-center">{{$user_day->permit->user->name}}</td>
+                        <td class="text-center">{{$info->permit->user->name}}</td>
                         <td></td>
                     </tr>
                 @endforeach
@@ -122,17 +123,19 @@
                         <label style="position:relative; left: -18px;">Firma:___________________</label><br>
                     
                     
-                        <label style="position:relative; left: -18px;">Nombre:_________________</label><br>
+                        <label style="position:relative; left: -18px;">Nombre: {{$user_day->permit->user->name}}</label><br>
                 
                 
-                        <label style="position:relative; left: -18px;">C.I:______________________</label><br>
+                        <label style="position:relative; left: -18px;">C.I: {{$user_day->permit->user->ci}}</label><br>
                 </div>
             </div>
 
             <div class="col-md-3" style="position:relative; left: 280px;">
-            
-                
-                        <label style=" font-size: 15px;"><u>TOTAL VOLUMEN LITROS:</u>_________</label><br>
+                            @php
+                                $final_litre = $user_day->day_litres->where('type','final')->where('status', 1)->first();
+                                
+                            @endphp
+                        <label style=" font-size: 15px;"><u>TOTAL VOLUMEN LITROS:{{$final_litre->litres}}</u></label><br>
                         
             </div>
 

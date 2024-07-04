@@ -36,13 +36,21 @@ class ReportsController extends Controller
     
     public function show($id)
     {
-    
+        /*
         $user_days = Fuel_day::findOrFail(decrypt($id));
 
         // Generar y descargar PDF
         $pdf = app('dompdf.wrapper', array('user_days' => $user_days));
         $pdf->loadView('pdf.invoice');
-        return $pdf->stream('invoice.pdf' . $user_days->id . '.pdf');
+        return $pdf->stream('invoice.pdf' . $user_days->id . '.pdf');*/
+
+        $user_day = Fuel_day::findOrFail(decrypt($id));
+
+        // Generate PDF using dompdf
+        $pdf = PDF::loadView('pdf.invoice', compact('user_day'));
+
+        // Stream or download the PDF
+        return $pdf->stream('invoice.pdf' . $user_day->id . '.pdf');
     
     }
 

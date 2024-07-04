@@ -269,13 +269,7 @@
                     </button>
                 
                 @endif
-                @if($i>0)
-                    <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
-                    <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px; z-index: 1;">
-                        <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
-                    </button>
-                    </a>
-                @endif
+                
                 
                 
                 @else
@@ -314,8 +308,6 @@
                     </thead>
                     <tbody>
                         
-                        
-
                         @foreach ($fuel_day->fuel_days as $user_day)
                             @php
                             $i++;
@@ -335,6 +327,13 @@
                             
                             </tr>
                         @endforeach
+                        @if($i>0)
+                            <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
+                            <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px; z-index: 1;">
+                                <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
+                            </button>
+                            </a>
+                        @endif
                         
                     </tbody>
                     <tfoot>

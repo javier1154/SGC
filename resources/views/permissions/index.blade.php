@@ -2,13 +2,9 @@
 @section('titulo', 'Permisos')
 @section('subtitulo', '')
 @section('contenido')
+<br>
 <div class="row">
         <div class="col-md-12">
-            
-            <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1; border-radius: 5px;">
-                <i class="fa fa-btn fa-sign-in"></i> Registrar
-            </button>
-            
             <div class="modal fade" id="modal-default">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
@@ -46,6 +42,9 @@
                 </div>
             <div class="table-responsive">
                 <table class="table">
+                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1; border-radius: 5px;">
+                    <i class="fa fa-btn fa-sign-in"></i> Registrar
+                    </button>
                     <thead>
                         <tr>
                             <th class="text-center col-md-2">N°</th>

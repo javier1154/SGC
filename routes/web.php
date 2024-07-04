@@ -43,12 +43,6 @@ Route::group(['middleware'=>['auth']],function(){
     ]);
     Route::resource('/reports', 'ReportsController');
 
-    Route::get('/reports', function (){
-        $pdf = PDF::loadView('pdf.invoice');
-        return $pdf->download('invoice.pdf');
-    });
-
-
     Route::resource('/users', 'UsersController');
 
     Route::get('/users/{id}/destroy',[

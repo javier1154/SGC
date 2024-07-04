@@ -7,6 +7,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{config('app.name')}} | @yield('titulo')</title>
+  
   <style>
     @page{
       margin-top: 2cm;
