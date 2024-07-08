@@ -4,24 +4,44 @@
     <div class="user-panel">
       <div class="pull-left info">
         <p style="margin-bottom: -6px; font-size: 14px">{{ Auth::user()->name }}</p>
-        {{-- <a href="#" style="cursor: default;"><i class="fa fa-circle text-success"></i>{{ Auth::user()->tipo() }}</a> --}}
+        <a href="#" style="cursor: default;"><i class="fa fa-circle text-success"></i>{{Auth::user()->permit->type}}</a>
       </div>
       <div class="info salir" style="margin-top: 10px; margin-bottom: 0px; padding-left: 0">
         <button id="salir-sistema" class="btn btn-primary btn-block btn-sm"><b>Salir <i class="fa fa-sign-out"></i></b></button>
       </div>
     </div>
     <ul class="sidebar-menu">
-      <li class="header">Panel {{-- {{Auth::user()->tipo()}} --}}</li>
-      <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
-      <li class="managements"><a href="{!! route('managements.index') !!}"><i class="fa fa-briefcase"></i> <span>Gerencias</span></a></li>
-      <li class="users"><a href="{!! route('users.index') !!}"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
-      <li class="vehicles"><a href="{!! route('vehicles.index') !!}"><i class="fa fa-car"></i> <span>Vehiculos</span></a></li>
-      <li class="permissions"><a href="{!! route('permissions.index') !!}"><i class="fa fa-book"></i> <span>Permisos</span></a></li>
-      <li class="fuel_days"><a href="{!! route('fuel_day.index') !!}"><i class="fa fa-object-group"></i> <span>Jornadas</span></a></li>
-      <li class="tank"><a href="{!! route('tank.index') !!}"><i class="fa fa-cubes"></i> <span>Inventario</span></a></li>
-      <li class="cistern"><a href="{!! route('cistern.index') !!}"><i class="fa fa-cube"></i> <span>Recepción</span></a></li>
-      <li class="new_vehicles"><a href="{!! route('vehicles.newVehicles') !!}"><i class="fa fa-car"></i> <span>Vehiculos Pendientes</span></a></li>
-      <li class="litre_tank"><a href="{!! route('litre_tank.index') !!}"><i class="fa fa-cube"></i> <span>Historial de litraje</span></a></li>
+      <li class="header">Panel {{Auth::user()->permit->type}}</li>
+
+      @if (Auth::user()->permit->type == "Administrador")
+
+        <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+        <li class="users"><a href="{!! route('users.index') !!}"><i class="fa fa-user"></i> <span>Usuarios</span></a></li>
+        <li class="managements"><a href="{!! route('managements.index') !!}"><i class="fa fa-briefcase"></i> <span>Gerencias</span></a></li>
+        <li class="vehicles"><a href="{!! route('vehicles.index') !!}"><i class="fa fa-car"></i> <span>Vehiculos</span></a></li>
+        <li class="permissions"><a href="{!! route('permissions.index') !!}"><i class="fa fa-book"></i> <span>Permisos</span></a></li>
+        <li class="fuel_days"><a href="{!! route('fuel_day.index') !!}"><i class="fa fa-object-group"></i> <span>Jornadas</span></a></li>
+        <li class="tank"><a href="{!! route('tank.index') !!}"><i class="fa fa-cubes"></i> <span>Inventario</span></a></li>
+        <li class="cistern"><a href="{!! route('cistern.index') !!}"><i class="fa fa-cube"></i> <span>Recepción</span></a></li>
+        <li class="new_vehicles"><a href="{!! route('vehicles.newVehicles') !!}"><i class="fa fa-car"></i> <span>Vehiculos Pendientes</span></a></li>
+        <li class="litre_tank"><a href="{!! route('litre_tank.index') !!}"><i class="fa fa-cube"></i> <span>Historial de litraje</span></a></li>
+
+      @elseif(Auth::user()->permit->type == "Coordinador")
+
+        <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+        <li class="vehicles"><a href="{!! route('vehicles.index') !!}"><i class="fa fa-car"></i> <span>Vehiculos</span></a></li>
+        <li class="fuel_days"><a href="{!! route('fuel_day.index') !!}"><i class="fa fa-object-group"></i> <span>Jornadas</span></a></li>
+        <li class="tank"><a href="{!! route('tank.index') !!}"><i class="fa fa-cubes"></i> <span>Inventario</span></a></li>
+        <li class="cistern"><a href="{!! route('cistern.index') !!}"><i class="fa fa-cube"></i> <span>Recepción de combustible</span></a></li>
+        <li class="new_vehicles"><a href="{!! route('vehicles.newVehicles') !!}"><i class="fa fa-car"></i> <span>Vehiculos Pendientes</span></a></li>
+        <li class="litre_tank"><a href="{!! route('litre_tank.index') !!}"><i class="fa fa-cube"></i> <span>Historial de litraje</span></a></li>
+      @else
+        <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+        <li class="staffs"><a href="{!! route('staffs.index') !!}"><i class="fa fa-user"></i> <span>Personal</span></a></li>
+        <li class="vehicle_staffs"><a href="{!! route('vehicle_staffs.index') !!}"><i class="fa fa-car"></i> <span>Vehiculos</span></a></li>
+      @endif
+
+      
       {{-- @if ((Auth::user()->tipo() == "Administrador") or (Auth::user()->tipo() == "Root"))
         <li class="caja"><a href="{!! route('caja.index') !!}"><i class="fa fa-desktop"></i><i class="fa fa-spinner fa-spin pull-right"></i> <span>Caja</span></a></li>
         <li class="inventario"><a href="{!! route('inventario.index') !!}"><i class="fa fa-list"></i> <span>Inventario</span></a></li>

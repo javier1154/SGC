@@ -40,64 +40,63 @@
                         </div>
                     </div>
                 </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; z-index: 1; border-radius: 5px;">
-                    <i class="fa fa-btn fa-sign-in"></i> Registrar
-                    </button>
-                    <thead>
-                        <tr>
-                            <th class="text-center col-md-2">N°</th>
-                            <th class="text-center col-md-2">Cédula</th>
-                            <th class="text-center col-md-2">Usuario</th>
-                            <th class="text-center col-md-2">Tipo</th>
-                            <th class="text-center col-md-2">Estado</th>
-                            <th class="text-center col-md-2">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+           
+            <table class="table">
+                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; margin-left:120px; z-index: 1; border-radius: 5px;">
+                <i class="fa fa-btn fa-sign-in"></i> Registrar
+                </button>
+                <thead>
+                    <tr>
+                        <th class="text-center">N°</th>
+                        <th class="text-left col-md-3">Nombre</th>
+                        <th class="text-center col-md-3">Cédula</th>
+                        <th class="text-center col-md-2">Tipo</th>
+                        <th class="text-center col-md-2">Estado</th>
+                        <th class="text-center col-md-2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $i = 0;
+                    @endphp
+                    @foreach ($permit as $permissions)
                         @php
-                            $i = 0;
+                            $i++;
                         @endphp
-                        @foreach ($permit as $permissions)
-                            @php
-                                $i++;
-                            @endphp
-                            <tr @if ($permissions->status == 0) class="danger" @endif>
-                                <td class="text-center">{{$i}}</td>
-                                <td class="text-center">{{$permissions->user->ci}}</td>
-                                <td class="text-center">{{$permissions->user->name}}</td>
-                                <td class="text-center">{{$permissions->type}}</td>
-                            
-                                <td class="text-center">{!!status($permissions->status)!!}</td>
-                                <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($permissions->id)}}", "name":"{{$permissions->user->name}}"}'>
-                                    @if ($permissions->status == 1)
-                                        <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar usuario"><i class="fa fa-ban"></i></a>
-                                    @else
-                                        <a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
-                                    @endif
-                                    <a href="{{route('permissions.edit', encrypt($permissions->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
-                                    @if( $permissions->destroy_validate())
-                                        <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="6" class="opciones">
-                                <center>
-                                    <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
-                                    <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
-                                    <i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
-                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
-                                </center>
+                        <tr @if ($permissions->status == 0) class="danger" @endif>
+                            <td class="text-center">{{$i}}</td>
+                            <td class="text-left">{{$permissions->user->name}}</td>
+                            <td class="text-center">{{$permissions->user->ci}}</td>
+                            <td class="text-center">{{$permissions->type}}</td>
+                        
+                            <td class="text-center">{!!status($permissions->status)!!}</td>
+                            <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($permissions->id)}}", "name":"{{$permissions->user->name}}"}'>
+                                @if ($permissions->status == 1)
+                                    <a href="#" class="deshabilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Deshabillitar usuario"><i class="fa fa-ban"></i></a>
+                                @else
+                                    <a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
+                                @endif
+                                <a href="{{route('permissions.edit', encrypt($permissions->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
+                                @if( $permissions->destroy_validate())
+                                    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
+                                @endif
                             </td>
                         </tr>
-                    </tfoot>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6" class="opciones">
+                            <center>
+                                <i class="fa fa-check-circle-o"></i>&nbsp;Habilitar&nbsp;
+                                <i class="fa fa-ban"></i>&nbsp;Deshabilitar&nbsp;
+                                <i class="fa fa-pencil"></i>&nbsp;Editar&nbsp;
+                                <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                            </center>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 @endsection
@@ -117,7 +116,7 @@
             $('table').dataTable({
                 "language": 
                 { 
-                "lengthMenu": '<div style="margin-left:120px;" class="opciones"><b>Ver</b> <select class="form-control">'+
+                "lengthMenu": '<div style="margin-left:0px;" class="opciones"><b>Ver</b> <select class="form-control">'+
                 '<option value="10">10</option>'+
                 '<option value="20">20</option>'+
                 '<option value="50">50</option>'+
@@ -126,6 +125,9 @@
                 },
                 "columnDefs": [ { targets: 4, sortable: false }],
             });
+
+            $( "<div class='table-responsive'>" ).insertBefore( "table" );
+                $('table').appendTo('.table-responsive');
 
             $("table.table").on('click', 'a.eliminar', function() {
                 var id = $(this).parents('td').data('valor').id;

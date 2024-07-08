@@ -120,8 +120,8 @@ class UsersController extends Controller
         $users = User::findOrFail(decrypt($id));
         if($users->destroy_validate()){
             $users->delete();
+            toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido eliminado.");
         }
-        toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido eliminado.");
         return redirect()->back();
     }
 

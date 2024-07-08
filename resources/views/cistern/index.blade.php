@@ -1,60 +1,58 @@
 @extends('layouts.app')
-@section('titulo', 'Recepción')
+@section('titulo', 'Recepción de combustible')
 @section('subtitulo', '')
 @section('contenido')
 <br>
 <div class="row">
         <div class="col-md-12">
-            <div class="table-responsive">
-                <table class="table">
-                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-received" style="margin-bottom: -50px; position: relative; z-index: 1; border-radius: 5px;">
-                    <i class="fa fa-btn fa-sign-in"></i> Registrar 
-                    </button>
-                    <thead>
-                        <tr>
-                            <th class="text-center col-md-1">N°</th>
-                            <th class="text-center col-md-1">Descripción</th>
-                            <th class="text-center col-md-2">Recepcionado por</th>
-                            <th class="text-center col-md-1">Combustible</th>
-                            <th class="text-center col-md-1">Litros recepcionados</th>
-                            <th class="text-center col-md-1">Fecha de Creación</th>
-                            <th class="text-center col-md-1">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $i = 0;
-                        @endphp
-                        @foreach ($cisterns as $cistern)
-                            @php
-                                $i++;
-                            @endphp
-                            <tr>
-                                <td class="text-center bold">{{$i}}</td>
-                                <td class="text-center bold">{{$cistern->description}}</td>
-                                <td class="text-center bold">{{$cistern->permit->user->name}}</td>
-                                <td class="text-center bold">{{$cistern->tank->fuel->name}}</td>
-                                <td class="text-center bold">{{$cistern->received_litre}}</td>
-                                <td class="text-center bold">{!! fecha($cistern->created_at) !!}</td>
-                                <td class="text-center bold t-opciones"  data-valor='{"id":"{{encrypt($cistern->id)}}"}'>
-                                    
-                                    <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
-                                    
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
+            <table class="table">
+                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-received" style="margin-bottom: -50px; position: relative; margin-left: 120px; z-index: 1; border-radius: 5px;">
+                <i class="fa fa-btn fa-sign-in"></i> Registrar 
+                </button>
+                <thead>
                     <tr>
-                            <td colspan="7" class="opciones">
-                                <center>
-                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
-                                </center>
+                        <th class="text-center">N°</th>
+                        <th class="text-center col-md-2">Descripción</th>
+                        <th class="text-center col-md-2">Recepcionado por</th>
+                        <th class="text-center col-md-2">Combustible</th>
+                        <th class="text-center col-md-2">Litros recepcionados</th>
+                        <th class="text-center col-md-2">Fecha de Creación</th>
+                        <th class="text-center col-md-2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $i = 0;
+                    @endphp
+                    @foreach ($cisterns as $cistern)
+                        @php
+                            $i++;
+                        @endphp
+                        <tr>
+                            <td class="text-center bold">{{$i}}</td>
+                            <td class="text-center bold">{{$cistern->description}}</td>
+                            <td class="text-center bold">{{$cistern->permit->user->name}}</td>
+                            <td class="text-center bold">{{$cistern->tank->fuel->name}}</td>
+                            <td class="text-center bold">{{$cistern->received_litre}}</td>
+                            <td class="text-center bold">{!! fecha($cistern->created_at) !!}</td>
+                            <td class="text-center bold t-opciones"  data-valor='{"id":"{{encrypt($cistern->id)}}"}'>
+                                
+                                <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar jornada"><i class="fa fa-trash"></i></a>
+                                
                             </td>
                         </tr>
-                    </tfoot>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                <tr>
+                        <td colspan="7" class="opciones">
+                            <center>
+                                <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                            </center>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 
@@ -99,11 +97,6 @@
                         </div>
                     </div>
                 </div>
-            
-                    
-                 
-
-    
 @endsection
 @section('css')
     <link href="{!! asset('plugins/datatables/jquery.dataTables.min.css'); !!}" rel="stylesheet">
@@ -121,7 +114,7 @@
             $('table').dataTable({
                 "language": 
                 { 
-                "lengthMenu": '<div style="margin-left:120px;" class="opciones"><b>Ver</b> <select class="form-control">'+
+                "lengthMenu": '<div style="margin-left:0px;" class="opciones"><b>Ver</b> <select class="form-control">'+
                 '<option value="10">10</option>'+
                 '<option value="20">20</option>'+
                 '<option value="50">50</option>'+
@@ -130,6 +123,9 @@
                 },
                 "columnDefs": [ { targets: 4, sortable: false }],
             });
+
+            $( "<div class='table-responsive'>" ).insertBefore( "table" );
+                $('table').appendTo('.table-responsive');
 
            
             $("table.table").on('click', 'a.eliminar', function() {

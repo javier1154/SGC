@@ -948,3 +948,8 @@ header.main-header div.user-header{
   font-weight: bold;
   font-size: 15px;
 }
+
+.alert.alert-info{
+  background-color: #0a3d8f !important;
+  border-color: #062c69 !important;
+}

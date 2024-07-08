@@ -2,17 +2,10 @@
 @section('titulo', 'Usuarios')
 @section('subtitulo', '')
 @section('contenido')
-
+<br>
 <div class="row">
         <div class="col-md-12">
-            
-           
                 <table class="table">
-                    <a href="{!! route('users.create') !!}">
-                        <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; margin-left: 120px; z-index: 1; border-radius:5px;">
-                            <i class="fa fa-btn fa-sign-in"></i> Registrar 
-                        </button>
-                    </a>
                     <thead>
                         <tr>
                             <th class="text-center">N°</th>
@@ -53,8 +46,6 @@
                                     @else
                                         <a href="#" class="habilitar" style="border-radius: 20px" data-toggle="tooltip" data-placement="bottom" data-original-title="Habilitar usuario"><i class="fa fa-check-circle-o"></i></a>
                                     @endif
-                                    <a href="{{route('users.show', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Detalles"><i class="fa fa-cogs"></i></a>
-                                    <a href="{{route('users.edit', encrypt($user->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar usuario"><i class="fa fa-pencil"></i></a>
                                     @if( $user->destroy_validate())
                                         <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar usuario"><i class="fa fa-trash"></i></a>
                                     @endif
@@ -88,7 +79,7 @@
     <script src="{!! asset('plugins/datatables/dataTables.bootstrap.min.js'); !!}"></script>
     <script>
         $(document).ready(function(){
-            $( "ul.sidebar-menu li.users" ).addClass('active');
+            $( "ul.sidebar-menu li.staffs" ).addClass('active');
 
             var errors = "{{$errors->any()}}"; if(errors){ $("div.modal").modal(); }
 

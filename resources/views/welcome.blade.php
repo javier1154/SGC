@@ -73,6 +73,8 @@
       </div>
   </form>
 
+
+
 </div>
 <!-- /.login-box-body -->
 </div>
@@ -85,7 +87,7 @@
 
 <script src="{!! asset('plugins/toastr/toastr.min.js') !!}"></script>
 
-@toastr_render
+@include('partials.toastr')
 
 </body>
 </html>
