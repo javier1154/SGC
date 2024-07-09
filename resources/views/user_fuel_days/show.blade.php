@@ -260,7 +260,7 @@
                                 <span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title"><b>Agregar vehiculo</b></h4>
                             </div>
-                            <form class="form-horizontal" action="{{ route('user_fuel_day.add', $fuel_day->id) }}" method="POST">
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.vehicles', $fuel_day->id) }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="_method" value="PUT">
                                 <div class="modal-body">
@@ -382,7 +382,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8" class="opciones">
+                        <td colspan="7" class="opciones">
                             <center>
                                 @if($fuel_day->manage_level == "Nueva")
                                     <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;

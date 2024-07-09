@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('titulo', 'Historial de surtido')
+@section('titulo', 'Historial de personal')
 @section('subtitulo', '')
 @section('contenido')
 <br>
@@ -35,7 +35,7 @@
                             <td class="bold text-center">{{$user_day->user->indicator}}</td>
                             <td class="bold text-center">{{$user_day->proposed_litre}}</td>
                             <td class="bold text-center">{{$user_day->assorted_litre}}</td>
-                            <td class="bold text-center">{{$user_day->estado}}</td>
+                            <td class="bold text-center">{!!estado($user_day->estado)!!}</td>
                             <td class="bold text-center">{{$user_day->permit->user->name}}</td>
                             
                             

@@ -96,6 +96,19 @@ function status($status){
         ?><span class="label label-danger">Deshabilitado</span><?php
     }
 }
+function estado($estado){
+    if ($estado == "Propuesto"){
+        ?><span class="label label-success">Propuesto</span><?php
+    }elseif($estado == "Cancelado"){
+        ?><span class="label label-danger">Cancelado</span><?php
+    }elseif ($estado == "Autorizado"){
+        ?><span class="label label-success">Autorizado</span><?php
+    }elseif ($estado == "Asistió"){
+        ?><span class="label label-success">Asistió</span><?php
+    }elseif ($estado == "No asistió"){
+        ?><span class="label label-danger">No asistió</span><?php
+    }
+}
 function status_new($new, $status){
     if ($new == "1"){
         ?><span class="label label-warning">Por Aprobar</span><?php
