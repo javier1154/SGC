@@ -24,11 +24,14 @@
                     </thead>
                     <tbody>
                         @php
+                        
                             $i = 0;
                         @endphp
                         @foreach ($vehicles as $vehicle)
                             @php
+                            
                                 $i++;
+                                
                             @endphp
                             <tr @if ($vehicle->status == 0) class="danger" @endif>
                                 <td class="text-center">{{$i}}</td>
@@ -79,7 +82,7 @@
     <script src="{!! asset('plugins/datatables/dataTables.bootstrap.min.js'); !!}"></script>
     <script>
         $(document).ready(function(){
-            $( "ul.sidebar-menu li.vehicles" ).addClass('active');
+            $( "ul.sidebar-menu li.vehicle_staffs" ).addClass('active');
 
             var errors = "{{$errors->any()}}"; if(errors){ $("div.modal").modal(); }
 

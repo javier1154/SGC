@@ -3,20 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-class StaffController extends Controller
+use App\User_Fuel_day;
+
+class AssortmentController extends Controller
 {
    
     public function index()
     {
         
-        $users = User::where('management_id', \Auth::user()->management->id)->get(); 
-        return view('staff.index', compact('users')); 
+    $user_fuel_days = User_Fuel_day::where('management_id',\Auth::user()->management->id)->get();
+    
+    return view('assortment.index', compact('user_fuel_days'));
+
     }
 
+   
     public function create()
     {
-    
+        
     }
 
     
@@ -37,7 +41,7 @@ class StaffController extends Controller
         //
     }
 
-   
+    
     public function update(Request $request, $id)
     {
         //

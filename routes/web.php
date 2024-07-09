@@ -84,6 +84,11 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
             'uses' => 'UserFuelDaysController@add',
             'as'   => 'user_fuel_day.add'
         ]);
+        Route::put('/fuel_days_vehicles/{id}',[
+            'uses' => 'UserFuelDaysController@vehicles',
+            'as'   => 'user_fuel_day.vehicles'
+        ]);
+
         Route::put('/fuel_day_manage/{id}',[
             'uses' => 'UserFuelDaysController@autorizeUser',
             'as'   => 'user_fuel_day.autorizeUser'
@@ -167,5 +172,8 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
 
     //Personal suporvisado por el lider (Vehiculos)
     Route::resource('/vehicle_staffs', 'VehicleStaffController');
+
+    //Personal suporvisado por el lider (Historial de surtido)
+    Route::resource('/assortment', 'AssortmentController');
 });
 

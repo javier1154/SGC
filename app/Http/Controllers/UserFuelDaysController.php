@@ -44,7 +44,8 @@ class UserFuelDaysController extends Controller
         $users = User::orderBy('name')->get(); 
         $fuel_day = Fuel_day::findOrFail(decrypt($id));
         $day_litres = DayLitre::where('fuel_day_id')->get();
-        return view('user_fuel_days.show', compact('fuel_day', 'day_litres', 'users'));
+        $vehicles = Vehicle::where('type', "Uso oficial" )->get();
+        return view('user_fuel_days.show', compact('fuel_day', 'day_litres', 'users', 'vehicles'));
     }
 
    
@@ -241,7 +242,68 @@ class UserFuelDaysController extends Controller
         
         return redirect()->back();
     }
+
     public function add(Request $request, $id){
+        $this->validate($request, [
+            'user_id' => 'required'
+        ]);
+
+        $now = date('Y-m-d');
+
+        $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
+        if(!empty($user)){
+
+           
+            $fuel_day = Fuel_day::findOrFail($id);
+            $vehicle = Vehicle::where('user_id', $user->id)->where('status', 1)->first();
+            
+            if($vehicle == null){
+                toastr('error', 'OPERACIÓN INVÁLIDA!', "El usuario no posee vehículo");
+                return redirect()->back();
+            }
+
+            if($fuel_day->day >= $now){
+                $exist_user = User_fuel_day::where('user_id', $user->id)
+                                        ->whereIn('fuel_day_id', function($query) use ($now){
+                                            $query->select('id')
+                                            ->from('fuel_days')
+                                            ->where('day', '>=', $now);
+                                        })
+                                        ->first();
+
+                if(!empty($exist_user)){
+                    toastr('warning', 'OPERACIÓN INVÁLIDA!', "El usuario ya se encuentra asignado en una jornada.");
+                    return redirect()->back();
+                }
+                $user_fuel_day = new User_fuel_day($request->all());
+                $user_fuel_day->permit_id = \Auth::user()->permit->id;
+                $user_fuel_day->assorted_litre = 0;
+                $user_fuel_day->proposed_litre = 20;
+                $user_fuel_day->status = 1;
+                $user_fuel_day->user_id = $user->id;
+                $user_fuel_day->management_id = $user->management_id;
+                $user_fuel_day->vehicle_id = $vehicle->id;
+                $user_fuel_day->fuel_day_id = $id;
+                $user_fuel_day->save();
+                
+                
+                $user_day_permit = new UserDayPermit();
+                $user_day_permit->user_fuel_day_id= $user_fuel_day->id;
+                $user_day_permit->permit_id = \Auth::user()->permit->id;
+                $user_day_permit->estado = "Propuesto";
+                $user_day_permit->save();
+
+                toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido guardado.");
+                return redirect()->back();
+            }
+            
+            toastr('success', 'OPERACIÓN EXITOSA!', "El usuario ha sido añadido.");
+        } return redirect()->back();
+        
+
+    }
+
+    public function vehicles(Request $request, $id){
         $this->validate($request, [
             'user_id' => 'required'
         ]);

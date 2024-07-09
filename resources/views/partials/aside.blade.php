@@ -39,6 +39,7 @@
         <li class="inicio"><a href="{!! route('home') !!}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
         <li class="staffs"><a href="{!! route('staffs.index') !!}"><i class="fa fa-user"></i> <span>Personal</span></a></li>
         <li class="vehicle_staffs"><a href="{!! route('vehicle_staffs.index') !!}"><i class="fa fa-car"></i> <span>Vehiculos</span></a></li>
+        <li class="assortment"><a href="{!! route('assortment.index') !!}"><i class="fa fa-car"></i> <span>Historial de personal</span></a></li>
       @endif
 
       

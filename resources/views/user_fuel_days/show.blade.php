@@ -251,6 +251,46 @@
                         </div>
                     </div>
                 </div>
+                <!--Agregar vehiculos de Uso Oficial -->
+                <div class="modal fade" id="modal-admin_vehicle">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"><b>Agregar vehiculo</b></h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ route('user_fuel_day.add', $fuel_day->id) }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    @include('layouts.validacion')
+                                    <div class="row">
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label>Cédula o indicador</label>
+                                            <input type="text" required name="user_id" class="form-control">
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label>Tipo</label>
+                                            <select name="type" class="form-control" required value="" style="width:100%">
+                                                @foreach($vehicles as $vehicle)
+                                                    <option value="{{encrypt($vehicle->id)}}">{{$vehicle->brand}} - {{$vehicle->model}} - {{$vehicle->plate}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 @php
                 $i = 0;
                             
@@ -264,7 +304,7 @@
                 
                 @if($fuel_day->manage_level == "Nueva")
                     
-                    <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; z-index: 1; border-radius:5px; " data-toggle="modal" data-target="#modal-agg">
+                    <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 130px; z-index: 1; border-radius:5px; " data-toggle="modal" data-target="#modal-agg">
                         <i class="fa fa-btn fa-sign-in"></i> Agregar
                     </button>
                 
@@ -289,67 +329,70 @@
                     
                 @endif 
            
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="text-center col-md-1">N°</th>
-                            <th class="text-center col-md-2">Nombre</th>
-                            <th class="text-center col-md-1">Cédula</th>
-                            <th class="text-center col-md-1">Indicador</th>
-                            <th class="text-center col-md-1">Litraje propuesto</th>
-                            <th class="text-center col-md-1">Litraje surtido</th>
-                            <th class="text-center col-md-1">Propuesto por</th>
-                            @if($fuel_day->manage_level == "Nueva")
-                            <th class="text-center col-md-1">Opciones</th>
-                            @endif
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        @foreach ($fuel_day->fuel_days as $user_day)
-                            @php
-                            $i++;
-                            
-                            @endphp
-                            <tr>
-                                <td class="text-center">{{$i}}</td>
-                                <td class="bold text-center">{{$user_day->user->name}}</td>
-                                <td class="text-center">{{$user_day->user->ci}}</td>
-                                <td class="text-center">{{$user_day->user->indicator}}</td>
-                                <td class="bold text-center">{{$user_day->proposed_litre}}</td>
-                                <td class="bold text-center">{{$user_day->assorted_litre}}</td>
-                                <td class="bold text-center">{{$user_day->permit->user->name}}</td>
-                                @if($fuel_day->manage_level == "Nueva")
-                                <td class="text-center t-opciones"> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
-                                @endif
-                            
-                            </tr>
-                        @endforeach
-                        @if($i>0)
-                            <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
-                            <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 280px; z-index: 1;">
-                                <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
-                            </button>
-                            </a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center col-md-1">N°</th>
+                        <th class="text-center col-md-2">Nombre</th>
+                        <th class="text-center col-md-1">Cédula</th>
+                        <th class="text-center col-md-1">Indicador</th>
+                        <th class="text-center col-md-1">Litraje propuesto</th>
+                        <th class="text-center col-md-1">Litraje surtido</th>
+                        <th class="text-center col-md-1">Propuesto por</th>
+                        @if($fuel_day->manage_level == "Nueva")
+                        <th class="text-center col-md-1">Opciones</th>
                         @endif
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach ($fuel_day->fuel_days as $user_day)
+                        @php
+                        $i++;
                         
-                    </tbody>
-                    <tfoot>
+                        @endphp
                         <tr>
-                            <td colspan="8" class="opciones">
-                                <center>
-                                    @if($fuel_day->manage_level == "Nueva")
-                                        <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
-                                    @endif
-                                    
-                                </center>
-                            </td>
+                            <td class="text-center">{{$i}}</td>
+                            <td class="bold text-center">{{$user_day->user->name}}</td>
+                            <td class="text-center">{{$user_day->user->ci}}</td>
+                            <td class="text-center">{{$user_day->user->indicator}}</td>
+                            <td class="bold text-center">{{$user_day->proposed_litre}}</td>
+                            <td class="bold text-center">{{$user_day->assorted_litre}}</td>
+                            <td class="bold text-center">{{$user_day->permit->user->name}}</td>
+                            @if($fuel_day->manage_level == "Nueva")
+                            <td class="text-center t-opciones"> <a href="{{route('user_fuel_day.destroy', encrypt($user_day->id))}}" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="eliminar usuario"><i class="fa fa-trash"></i></a></td>
+                            @endif
+                        
                         </tr>
-                    </tfoot>
-                </table>
-            </div>
+                    @endforeach
+                    @if($i>0)
+                        <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
+                        <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 230px; z-index: 1; border-radius: 5px;">
+                            <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
+                        </button>
+                        </a>
+                    @endif
+
+                <!--Agregar vehiculos de Uso Oficial (Coordinador y Administrador)-->
+                    <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 400px; z-index: 1; border-radius:5px; " data-toggle="modal" data-target="#modal-admin_vehicle">
+                        <i class="fa fa-btn fa-sign-in"></i> Agregar vehiculos de uso oficial
+                    </button>
+
+                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="8" class="opciones">
+                            <center>
+                                @if($fuel_day->manage_level == "Nueva")
+                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                @endif
+                                
+                            </center>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 @endsection
@@ -369,7 +412,7 @@
             $('table').dataTable({
                 "language": 
                 { 
-                "lengthMenu": '<div style="margin-left:120px;" class="opciones"><b>Ver</b> <select class="form-control">'+
+                "lengthMenu": '<div style="margin-left:0px;" class="opciones"><b>Ver</b> <select class="form-control">'+
                 '<option value="10">10</option>'+
                 '<option value="20">20</option>'+
                 '<option value="50">50</option>'+
