@@ -67,10 +67,7 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
 
         Route::resource('/user_fuel_day', 'UserFuelDaysController');
 
-        Route::get('/user_fuel_day/{id}/destroy',[
-            'uses' => 'UserFuelDaysController@destroy',
-            'as'   => 'user_fuel_day.destroy'
-        ]);
+        
 
         Route::get('/user_fuel_day/{id}/status',[
             'uses' => 'UserFuelDaysController@status',
@@ -165,7 +162,22 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
             'uses' => 'ManagementsController@status',
             'as'   => 'managements.status'
         ]);
+
     });
+
+    Route::get('/fuel_days/{id}',[
+        'uses' => 'UserFuelDaysController@show',
+        'as'   => 'user_fuel_day.show'
+    ]);
+    Route::put('/fuel_days_add/{id}',[
+        'uses' => 'UserFuelDaysController@add',
+        'as'   => 'user_fuel_day.add'
+    ]);
+
+    Route::get('/user_fuel_day/{id}/destroy',[
+        'uses' => 'UserFuelDaysController@destroy',
+        'as'   => 'user_fuel_day.destroy'
+    ]);
    
     //Personal suporvisado por el lider
     Route::resource('/staffs', 'StaffController');

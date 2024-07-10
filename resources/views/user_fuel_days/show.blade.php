@@ -28,7 +28,7 @@
                                 $initial_litre = $fuel_day->day_litres->where('type','initial')->where('status', 1)->first();
                             @endphp
                             
-                            @if(empty($initial_litre))
+                            @if(empty($initial_litre) && (\Auth::user()->permit->type == "Coordinador" || \Auth::user()->permit->type == "Administrador"))
                             
                                     <div class="col-md-4">
                                         <label>Litraje Inicial</label>
@@ -37,17 +37,13 @@
                                         </button>
                                     </div>
                                 
-                               
-                            @else
+                             @endif 
+                             @if(!empty($initial_litre))
                             <div class="col-md-6">
                                 <label>Litraje Inicial:</label> {{$initial_litre->litres}}
-                                <!--
-                                    <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-update">
-                                        <i class="fa fa-btn fa-sign-in"></i> editar
-                                    </button>
-                                -->
-                            </div>
-                             @endif  
+                               
+                            </div> 
+                            @endif
                              
                              @php
                                 $final_litre = $fuel_day->day_litres->where('type','final')->where('status', 1)->first();
@@ -258,7 +254,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title"><b>Agregar vehiculo</b></h4>
+                                <h4 class="modal-title"><b>Agregar vehiculo de uso oficial</b></h4>
                             </div>
                             <form class="form-horizontal" action="{{ route('user_fuel_day.vehicles', $fuel_day->id) }}" method="POST">
                                 {{ csrf_field() }}
@@ -273,7 +269,7 @@
                                         </div>
 
                                         <div class="form-group col-md-12">
-                                            <label>Tipo</label>
+                                            <label>Vehiculo</label>
                                             <select name="type" class="form-control" required value="" style="width:100%">
                                                 @foreach($vehicles as $vehicle)
                                                     <option value="{{encrypt($vehicle->id)}}">{{$vehicle->brand}} - {{$vehicle->model}} - {{$vehicle->plate}}</option>
@@ -365,7 +361,7 @@
                         
                         </tr>
                     @endforeach
-                    @if($i>0)
+                    @if($i>0 && \Auth::user()->permit->type != "Lider")
                         <a href="{{route('user_fuel_day.manage', encrypt($fuel_day->id))}}">
                         <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 230px; z-index: 1; border-radius: 5px;">
                             <i class="fa fa-btn fa-sign-in"></i> Gestionar Jornada
@@ -373,15 +369,29 @@
                         </a>
                     @endif
 
-                <!--Agregar vehiculos de Uso Oficial (Coordinador y Administrador)-->
-                    <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 400px; z-index: 1; border-radius:5px; " data-toggle="modal" data-target="#modal-admin_vehicle">
-                        <i class="fa fa-btn fa-sign-in"></i> Agregar vehiculos de uso oficial
-                    </button>
+                    <!--Agregar vehiculos de Uso Oficial (Coordinador y Administrador)-->
+                    @if(\Auth::user()->permit->type != "Lider")
+                        <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 400px; z-index: 1; border-radius:5px; " data-toggle="modal" data-target="#modal-admin_vehicle">
+                            <i class="fa fa-btn fa-sign-in"></i> Agregar vehiculos de uso oficial
+                        </button>
+                    @endif
+                    
 
                     
                 </tbody>
                 <tfoot>
                     <tr>
+                        @if($fuel_day->manage_level == "Nueva")
+                        <td colspan="8" class="opciones">
+                            <center>
+                                @if($fuel_day->manage_level == "Nueva")
+                                    <i class="fa fa-trash"></i>&nbsp;Eliminar&nbsp;
+                                @endif
+                                
+                            </center>
+                        </td>
+                        @else
+
                         <td colspan="7" class="opciones">
                             <center>
                                 @if($fuel_day->manage_level == "Nueva")
@@ -390,6 +400,8 @@
                                 
                             </center>
                         </td>
+
+                        @endif
                     </tr>
                 </tfoot>
             </table>

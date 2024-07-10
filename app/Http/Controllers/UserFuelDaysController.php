@@ -44,12 +44,15 @@ class UserFuelDaysController extends Controller
         $users = User::orderBy('name')->get(); 
         $fuel_day = Fuel_day::findOrFail(decrypt($id));
         $day_litres = DayLitre::where('fuel_day_id')->get();
+
         $vehicles = Vehicle::query()
         ->whereNotIn('id', function ($query) {
             $query->select('vehicle_id')
                 ->from('users_fuel_days');
-        })->where('type', "Uso oficial" )
+        })->where('type', "Uso oficial")
         ->get();
+        
+
         return view('user_fuel_days.show', compact('fuel_day', 'day_litres', 'users', 'vehicles'));
     }
 
@@ -312,21 +315,17 @@ class UserFuelDaysController extends Controller
         $this->validate($request, [
             'user_id' => 'required'
         ]);
-
+        
         $now = date('Y-m-d');
 
         $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
-        
         if(!empty($user)){
 
            
             $fuel_day = Fuel_day::findOrFail($id);
-            $vehicle = Vehicle::where('user_id', $user->id)->where('status', 1)->first();
+            $vehicle = Vehicle::where('id', decrypt($request->type))->where('status', 1)->first();
             
-            if($vehicle == null){
-                toastr('error', 'OPERACIÓN INVÁLIDA!', "El usuario no posee vehículo");
-                return redirect()->back();
-            }
+           
 
             if($fuel_day->day >= $now){
                 $exist_user = User_fuel_day::where('user_id', $user->id)
