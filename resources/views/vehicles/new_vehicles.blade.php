@@ -32,7 +32,7 @@
                         @endphp
                         <tr @if ($vehicle->status == 0) class="danger" @endif>
                             <td class="text-center">{{$i}}</td>
-                            <td class="text-center">{{$vehicle->user->name}}</td>
+                            <td class="text-center">{{$vehicle->user_vehicles->user->name}}</td>
                             <td class="bold">{{$vehicle->plate}}</td>
                             <td class="text-center">{{$vehicle->brand}}</td>
                             <td class="text-center">{{$vehicle->model}}</td>

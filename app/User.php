@@ -26,11 +26,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function vehicles(){
-
-        return $this->hasMany('App\Vehicle');
-
-    }
+    
     public function fuel_days(){
 
         return $this->hasMany('App\User_Fuel_day');
@@ -50,7 +46,7 @@ class User extends Authenticatable
 
     }
 
-    public function user_vehicles(){
+    public function vehicles(){
 
         return $this->hasMany('App\UserVehicle');
 

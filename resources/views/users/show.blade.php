@@ -188,50 +188,50 @@
                    <div class="row" @if($i > 1) style="border-top: 1px solid #ddd; padding-top: 6px;" @endif >
                         <div class="col-sm-6">
                             <label>Placa</label>
-                            <p>{{$vehicle->plate}}</p>
+                            <p>{{$vehicle->vehicle->plate}}</p>
                         </div>
                         <div class="col-sm-6">
                             <label>Marca</label>
-                            <p>{{$vehicle->brand}}</p>
+                            <p>{{$vehicle->vehicle->brand}}</p>
                         </div>
                         <div class="col-sm-6">
                             <label>Modelo</label>
-                            <p>{{$vehicle->model}}</p>
+                            <p>{{$vehicle->vehicle->model}}</p>
                         </div>
                         <div class="col-sm-6">
                             <label>Color</label>
-                            <p>{{$vehicle->color}}</p>
+                            <p>{{$vehicle->vehicle->color}}</p>
                         </div>
 
                         <div class="col-sm-6">
                             <label>Año</label>
-                            <p>{{$vehicle->year}}</p>
+                            <p>{{$vehicle->vehicle->year}}</p>
                         </div>
                         <div class="col-sm-6">
                             <label>Estado</label>
-                            <p>{!!status_new($vehicle->new, $vehicle->status)!!}</p>
+                            <p>{!!status_new($vehicle->vehicle->new, $vehicle->vehicle->status)!!}</p>
                         </div>
                         <div class="col-sm-6">
                             <label>Litraje</label>
-                            <p>{{$vehicle->liter}}</p>
+                            <p>{{$vehicle->vehicle->liter}}</p>
                         </div>
-                        <div class = "col-sm-6" data-id="{{encrypt($vehicle->id)}}" data-plate="{{$vehicle->plate}}">
+                        <div class = "col-sm-6" data-id="{{encrypt($vehicle->vehicle->id)}}" data-plate="{{$vehicle->vehicle->plate}}">
                            
-                            @if( $vehicle->destroy_validate() && \Auth::user()->permit->type != "Lider")
+                            @if( $vehicle->vehicle->destroy_validate() && \Auth::user()->permit->type != "Lider")
                                 <a href="#" class="eliminar" data-toggle="tooltip" data-placement="bottom" data-original-title="Eliminar vehículo"><i class="fa fa-trash"></i></a>
                             @endif
                             @if(\Auth::user()->permit->type != "Lider")
-                            <a href="{{route('vehicles.edit', encrypt($vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar vehículo" style="border-radius: 5px;"><i class="fa fa-pencil"></i></a>
+                            <a href="{{route('vehicles.edit', encrypt($vehicle->vehicle->id))}}" class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Editar vehículo" style="border-radius: 5px;"><i class="fa fa-pencil"></i></a>
                             @endif
                             
                         </div>
                         <div class= "">
                             
                         </div>
-                        @if(strlen($vehicle->observations))
+                        @if(strlen($vehicle->vehicle->observations))
                             <div class="col-sm-12">
                                 <label>Observación</label>
-                                <p>{{$vehicle->observations}}</p>
+                                <p>{{$vehicle->vehicle->observations}}</p>
                             </div>
                         @endif
                     </div>

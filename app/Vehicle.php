@@ -24,7 +24,7 @@ class Vehicle extends Model
     }
     public function user_vehicles(){
 
-        return $this->hasMany('App\UserVehicle');
+        return $this->hasOne('App\UserVehicle');
 
     }
     public function destroy_validate(){

@@ -37,14 +37,14 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Observaciones</label>
-                        <input type="text" name="observations" class="form-control" required value="{{$vehicle->observations}}" >
+                        <input type="text" name="observations" class="form-control" value="{{$vehicle->observations}}" >
                     </div>
                     <div class="form-group col-md-4">
                         <label>Litraje</label>
                         <input type="number" step= "0.01" name="liter" class="form-control" required value="{{$vehicle->liter}}" >
                     </div>
 
-                    <input type="hidden" name="user_id" class="form-control" required value="{{$vehicle->user_id}}" >
+                    <input type="hidden" name="user_id" class="form-control" required value="{{$vehicle->user_vehicles->user_id}}" >
                     
                     <div class="form-group col-md-4">
                         <label>Combustible</label>
@@ -59,8 +59,8 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <a href="{!! route('users.index') !!}">
-                        <button type="button" class="btn btn-default btn-flat" style="border-radius: 5px;">Cancelar</button>   
+                        <a  class="btn btn-default btn-flat" style="border-radius: 5px;" href="{!! route('users.show', encrypt($vehicle->user_vehicles->user_id)) !!}">
+                        Cancelar
                         </a>
                         <button type="submit" class="btn btn-primary btn-flat" style="border-radius: 5px;"><i class="fa fa-save"></i> Guardar</button>
                     </div>

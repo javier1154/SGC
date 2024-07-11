@@ -40,7 +40,7 @@
                                 <td class="text-center">{{$vehicle->liter}}</td>
                                 <td class="text-center">{{$vehicle->observations}}</td>
                                 <td class="text-center">{!!status_new($vehicle->new, $vehicle->status)!!}</td>
-                                <td class="text-center">{{$vehicle->user->name}}</td>
+                                <td class="text-center">{{$vehicle->user_vehicles->user->name}}</td>
                                 <td class="text-center">{!! fecha_hora($vehicle->created_at) !!}</td>
                                 <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($vehicle->id)}}", "name":"{{$vehicle->plate}}"}'>
                                     @if ($vehicle->status == 1)

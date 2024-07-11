@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Observaciones</label>
-                            <input type="text" name="observations" class="form-control" required value="" >
+                            <input type="text" name="observations" class="form-control" value="" >
                         </div>
                         <div class="form-group col-md-4">
                             <label>Litraje</label>

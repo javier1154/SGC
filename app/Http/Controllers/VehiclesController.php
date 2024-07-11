@@ -54,11 +54,11 @@ class VehiclesController extends Controller
             'model' => 'required',
             'year' => 'required|numeric',
             'color' => 'required|regex:/^[\pL\s]+$/u',
-            'observations' => 'required|regex:/^[\pL\s]+$/u',
             'liter'=> 'required|numeric',
             'user_id' => 'required',
             'fuel_id' => 'required'
         ]);
+
 
         $status = 0;
 
@@ -70,16 +70,16 @@ class VehiclesController extends Controller
         $vehicle->color = $request->color;
         $vehicle->observations = $request->observations;
         $vehicle->liter = $request->liter;
-        $vehicle->user_id = decrypt($request->user_id);
         $vehicle->fuel_id = decrypt($request->fuel_id);
         $vehicle->status = $status;
         $vehicle->save();
-        //trazabilidad
+        /*Logica de timmy */
         $user_vehicle = new UserVehicle();
-        $user_vehicle->user_id = $vehicle->user_id;
+        $user_vehicle->user_id = decrypt($request->user_id);
         $user_vehicle->vehicle_id = $vehicle->id;
         $user_vehicle->save();
-        //trazabilidad
+        /*Logica de timmy */
+        
         toastr('success', 'OPERACIÓN EXITOSA!', "El vehiculo ha sido guardado.");
         return redirect()->back();
     }
@@ -105,7 +105,7 @@ class VehiclesController extends Controller
         $vehicle = Vehicle::findOrFail(decrypt($id));
 
         $fuels = Fuel::orderBy('name')->get();
-        return view('vehicles.edit', compact('vehicle', 'users', 'fuels'));
+        return view('vehicles.edit', compact('vehicle', 'fuels'));
     }
 
     /**
@@ -123,11 +123,11 @@ class VehiclesController extends Controller
             'model' => 'required',
             'year' => 'required|numeric',
             'color' => 'required|regex:/^[\pL\s]+$/u',
-            'observations' => 'required|regex:/^[\pL\s]+$/u',
             'liter'=> 'required|numeric',
             'user_id' => 'required',
             'fuel_id' => 'required'
         ]);
+
         $vehicle = Vehicle::find($id);
         $vehicle->plate = mb_strtoupper($request->plate, "UTF-8");
         $vehicle->brand = $request->brand;
@@ -136,9 +136,9 @@ class VehiclesController extends Controller
         $vehicle->color = $request->color;
         $vehicle->observations = $request->observations;
         $vehicle->liter = $request->liter;
-        $vehicle->user_id = $request->user_id;
         $vehicle->fuel_id = $request->fuel_id;
         $vehicle->save();
+
         toastr('success', 'OPERACIÓN EXITOSA!', "El vehiculo ha sido actualizado.");
         return redirect()->route('users.show', encrypt($request->user_id));
     }
@@ -175,7 +175,16 @@ class VehiclesController extends Controller
 
             //consultar todos los vehiculos habilitados del usuario
             //luego con un foreach deshabilitar todos los q posea habilitados
-            $vehicles = Vehicle::where('status', 1)->where('user_id', $vehicle->user_id)->get();
+            $vehicles = Vehicle::where('status', 1)
+                                ->whereIn('id', function($query) use ($vehicle)
+                                {
+                                    $query->select('vehicle_id')
+                                    ->from('user_vehicle')
+                                    ->where('user_id', $vehicle->user_vehicles->user_id);
+                                })->get();
+
+
+
             foreach($vehicles as $veh){
                 $veh->status = 0;
                 $veh->save();
@@ -187,10 +196,10 @@ class VehiclesController extends Controller
         }
         $vehicle->save();
         //trazabilidad
-        $user_vehicle = new UserVehicle();
+        /*$user_vehicle = new UserVehicle();
         $user_vehicle->user_id = $vehicle->user_id;
         $user_vehicle->vehicle_id = $vehicle->id;
-        $user_vehicle->save();
+        $user_vehicle->save();*/
         //trazabilidad
         if($status == 1){
           toastr('success', 'OPERACIÓN EXITOSA!', "El vehiculo ha sido aprobado.");  

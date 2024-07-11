@@ -67,6 +67,7 @@ class UsersController extends Controller
         $user = User::findOrFail(decrypt($id));
         $managements = Management::orderBy('name')->get();
         $fuels = Fuel::orderBy('name')->get();
+
         return view('users.show', compact('user', 'vehicles','managements', 'users', 'fuels'));
 
         
