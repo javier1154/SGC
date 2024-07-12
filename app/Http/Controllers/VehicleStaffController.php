@@ -8,14 +8,24 @@ class VehicleStaffController extends Controller
 {
     public function index()
     {
-        $magangement_id = \Auth::user()->management->id;
-        $vehicles = Vehicle::whereIn('user_id', function($query) use ($magangement_id)
-                                        {
-                                            $query->select('id')
-                                            ->from('users')
-                                            ->where('management_id', $magangement_id);
-                                        })
-                                        ->get();
+        $management_id = \Auth::user()->management->id;
+        
+
+
+
+
+
+                    $vehicles = Vehicle::whereIn('id', function($query) use ($management_id)
+                    {
+                        $query->select('vehicle_id')
+                        ->from('user_vehicle')
+                        ->whereIn('user_id', function($query) use ($management_id)
+                        {
+                            $query->select('id')
+                            ->from('users')
+                            ->where('management_id', $management_id);
+                        });
+                    })->get();
 
                                                           
         return view('vehicle_staff.index', compact('vehicles')); 

@@ -48,7 +48,7 @@ class ReportsController extends Controller
 
         // Generate PDF using dompdf
         $pdf = PDF::loadView('pdf.invoice', compact('user_day'));
-
+        $pdf->setPaper('A4', 'landscape');
         // Stream or download the PDF
         return $pdf->stream('invoice.pdf' . $user_day->id . '.pdf');
     

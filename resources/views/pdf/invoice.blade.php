@@ -1,7 +1,7 @@
 @extends('layouts.pdf')
-
+@include('partials.css2')
 @section('contenido')
-<br>  
+
 <div class="container">
         <div class="row">
             <div class="col-md-12" style="position:relative; left: 15px;">
@@ -88,7 +88,7 @@
                     @endphp
                     <tr>
                         <td class="text-center bold">{{$i}}</td>
-                        <td class="text-center">{{$info->user->management->name}}</td>
+                        <td class="text-center">{{$info->user->management->code}}</td>
                         <td class="text-center">{{$info->user->name}}</td>
                         <td class="text-center">{{$info->user->ci}}</td>
                         <td class="text-center">{{$info->vehicle->brand}}</td>

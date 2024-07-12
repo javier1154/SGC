@@ -259,6 +259,9 @@ class UserFuelDaysController extends Controller
         $now = date('Y-m-d');
 
         $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
+        if(empty($user)){
+            toastr('error', 'OPERACIÓN INVÁLIDA!', "No existe un usuario con esta cédula o indicador");
+        }
         if(!empty($user)){
 
            
@@ -270,6 +273,7 @@ class UserFuelDaysController extends Controller
                                     ->from('user_vehicle')
                                     ->where('user_id', $user->id);
                                 })->first();
+                                
             if($vehicle == null){
                 toastr('error', 'OPERACIÓN INVÁLIDA!', "El usuario no posee vehículo");
                 return redirect()->back();
@@ -325,18 +329,28 @@ class UserFuelDaysController extends Controller
         $now = date('Y-m-d');
 
         $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
+        if(empty($user)){
+            toastr('error', 'OPERACIÓN INVÁLIDA!', "No existe un usuario con esta cédula o indicador");
+        }
         if(!empty($user)){
 
            
             $fuel_day = Fuel_day::findOrFail($id);
             //BUSCAR VEHICULO POR LA PLACA RECIBIDA
-            $vehicle =  Vehicle::where('status', 1)
+            
+            $vehicle = Vehicle::find(decrypt($request->type));
+
+            if($vehicle == null){
+                toastr('error', 'OPERACIÓN INVÁLIDA!', "No existe un vehículo con esta placa");
+            }
+
+            /*$vehicle =  Vehicle::where('status', 1)
                         ->whereIn('id', function($query) use ($user)
                         {
                             $query->select('vehicle_id')
                             ->from('user_vehicle')
                             ->where('user_id', $user->id);
-                        })->first();
+                        })->first();*/
 
 
             if($fuel_day->day >= $now){
@@ -386,7 +400,10 @@ class UserFuelDaysController extends Controller
             ]);
 
             $user = User::where('ci', $request->user_id)->orWhere('indicator', $request->user_id)->first();
-
+            if(empty($user)){
+                toastr('error', 'OPERACIÓN INVÁLIDA!', "No existe un usuario con esta cédula o indicador");
+                return redirect()->back();
+            }
             $fuel_day = Fuel_day::find(decrypt($id));
             $exist_user = User_fuel_day::where('user_id', $user->id)->first();
             $vehicle =  Vehicle::where('status', 1)

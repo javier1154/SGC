@@ -18,15 +18,19 @@
                 </div>
         </div>
     </div>
+    
+    @php
+        $initial_litre = $fuel_day->day_litres->where('type','initial')->where('status', 1)->first();
+        $final_litre = $fuel_day->day_litres->where('type','final')->where('status', 1)->first();
+    @endphp
+    @if(!empty($initial_litre) || \Auth::user()->permit->type != "Lider")
     <div class="col-md-6">
         <div class="panel panel-primary" style="border-radius: 5px;">
             <div class="panel-heading">Datos de la jornada</div>
                 <div class="panel-body">
                    <div class="row">
                         <div class="col-md-12" style="margin-left: 57px;">
-                            @php
-                                $initial_litre = $fuel_day->day_litres->where('type','initial')->where('status', 1)->first();
-                            @endphp
+                            
                             
                             @if(empty($initial_litre) && (\Auth::user()->permit->type == "Coordinador" || \Auth::user()->permit->type == "Administrador"))
                             
@@ -44,14 +48,10 @@
                                
                             </div> 
                             @endif
-                             
-                             @php
-                                $final_litre = $fuel_day->day_litres->where('type','final')->where('status', 1)->first();
-                            @endphp
-                            
+                                                        
                             @if( $fuel_day->manage_level == "Finalizada")
 
-                                @if(empty($final_litre))
+                                @if(empty($final_litre) && (\Auth::user()->permit->type == "Coordinador" || \Auth::user()->permit->type == "Administrador"))
                                 
                                     <div class="col-md-4" style="margin-left: 50px; position:relative;">
                                         <label>Litraje Final</label>
@@ -60,7 +60,8 @@
                                         </button>
                                     </div>
                                 
-                                @else
+                                @endif
+                                @if(!empty($final_litre))
                                 <div class="col-md-6">
                                     <label>Litraje Final:</label> {{$final_litre->litres}}
                                     <!--
@@ -78,6 +79,7 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 
 <div class="row">
