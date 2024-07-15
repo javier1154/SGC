@@ -2,18 +2,20 @@
 @include('partials.css2')
 @section('contenido')
 
+
 <div class="container">
         <div class="row">
-            <div class="col-md-12" style="position:relative; left: 15px;">
-                
-            </div>
+            <div class="col-md-12" style="position:relative; left: 45px;">
+            
+            <img src="{!! public_path('img/logo.png') !!}" width= "170px">
+            
         </div>
 
         <div class="row">
 
             <div class="col-md-3">
             
-                <div class="" style="font-size: 15px; position:relative; left: 20px;">
+                <div class="" style="font-size: 15px; position:relative; left: 40px;">
                         <label style="position:relative; left: -18px;">Dirección Costa Afuera de PDVSA Gas</label><br>
                     
                     
@@ -24,32 +26,21 @@
                 </div>
             </div>
 
-            <div class="col-md-2" style="position:relative; left: 280px;">
+            <div style="position: relative; margin-left: 890px; bottom: 100px;">
             
                
-                       <label style=" font-size: 15px;"><u>Mes/Año: {{fechaCastellano(mes($user_day->day))}} / {{anio($user_day->day)}}</u></label><br>
-                       <label style= "font-size: 15px;"><u>Día: {{dia($user_day->day)}}</u></label>
-           </div>
-
-           <div class="col-md-2" style="position:relative; left: 340px;">
-            
-                <label style="font-size: 15px;">Nº de Páginas ____/____</label><br>
-                   
+                       <label style=" font-size: 15px;"><u>Fecha: {!!fecha($user_day->day)!!} </u></label><br>
+                       
            </div>
         
         </div>
 </div>
-<div class="container">
-    <div>
-    <p class="text-center bold" style="font-size: 15px ;"><strong>REGISTROS DIARIOS DE SUMINISTRO DE COMBUSTIBLE</strong></p>
+    <div class="container">
+        <div>
+        <p class="text-center bold" style="font-size: 15px ;"><strong>REGISTROS DIARIOS DE SUMINISTRO DE COMBUSTIBLE</strong></p>
+        </div>
     </div>
-</div>
         
-</div>
-
-
- 
-
 
         <div class="container">
             <table class="table table-bordered">
@@ -98,39 +89,38 @@
                         <td class="text-center">{{$info->assorted_litre}}</td>
                         <td></td>
                         <td class="text-center">{{$info->permit->user->name}}</td>
-                        <td></td>
+                        @if($info->vehicle->type == "Uso oficial")
+                        <td class="text-center">Uso oficial</td>
+                        @else
+                        <td class="text-center">{{$info->vehicle->observations}}</td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>
                 <tfoot>
-                    <tr>
-
-                        <td colspan="12">
-                          
-                        </td>
-                        
-                    </tr>
+                    
                     
 				</tfoot>
             </table>
         </div>
+
     <div class="container">
         <div class="row">
 
-            <div class="col-md-3">
+            <div style="position: absolute; top: 90px">
             
-                <div class="" style="font-size: 15px; position:relative; left: 20px;">
-                        <label style="position:relative; left: -18px;">Firma:___________________</label><br>
+                <div>
+                        <label style="position:relative; left: -18px;">Firma:___________________</label><br><br>
                     
                     
-                        <label style="position:relative; left: -18px;">Nombre: {{$user_day->permit->user->name}}</label><br>
+                        <label style="position:relative; left: -18px;">Nombre: {{$user_day->permit->user->name}}</label><br><br>
                 
                 
-                        <label style="position:relative; left: -18px;">C.I: {{$user_day->permit->user->ci}}</label><br>
+                        <label style="position:relative; left: -18px;">C.I: {{$user_day->permit->user->ci}}</label><br><br>
                 </div>
             </div>
 
-            <div class="col-md-3" style="position:relative; left: 280px;">
+            <div style="position: relative; top: 45px; left: 770px;">
                             @php
                                 $final_litre = $user_day->day_litres->where('type','final')->where('status', 1)->first();
                                 
@@ -141,5 +131,16 @@
 
         </div>
     </div>
+    
+<!--Enumeracion de paginas-->
+    <script type="text/php">
+        if ( isset($pdf) ) {
+            $pdf->page_script('
+                $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+                $pdf->text(370, 570, "Pág $PAGE_NUM de $PAGE_COUNT", $font, 10);
+            ');
+        }
+    	</script>
         
 @endsection
+

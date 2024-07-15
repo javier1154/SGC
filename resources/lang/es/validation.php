@@ -168,7 +168,8 @@ return [
         'tca' => 'calle o avenida',
         'ca' => 'calle o avenida',
         'tce' => 'casa o edificio',
-        'ce' => 'casa o edificio'
+        'ce' => 'casa o edificio',
+        
     ]
 
 ];
