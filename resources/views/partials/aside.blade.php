@@ -3,6 +3,7 @@
     @auth
     <div class="user-panel">
       <div class="pull-left info">
+    
         <p style="margin-bottom: -6px; font-size: 14px">{{ Auth::user()->name }}</p>
         <a href="#" style="cursor: default;"><i class="fa fa-circle text-success"></i>{{Auth::user()->permit->type}}</a>
       </div>

@@ -123,6 +123,11 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
             'uses' => 'litre_tank@status',
             'as'   => 'litre_tank.status'
         ]);
+
+        Route::get('/reports/test/reports',[
+            'uses' => 'ReportsController@test',
+            'as'   => 'reports.test'
+        ]);
     });
 
     Route::group(['middleware'=>['Permisologia:Administrador']],function(){

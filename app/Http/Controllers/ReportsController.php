@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use PDF;
 use App\Fuel_day;
 use App\Vehicle;
-
-
+use App\User;
+use App\Exports\GeneralExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class ReportsController extends Controller
@@ -70,5 +71,21 @@ class ReportsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test(){
+        
+
+        Excel::create('Test-'.date('YmdHis'), function($excel) {
+            $excel->sheet('Usuarios', function($sheet) {
+
+                $users = User::all();
+                // Sheet manipulation
+                $sheet->loadView('reports.excel.users', array('users' => $users));
+        
+            });
+        })->download('xls');
+
+        //return Excel::download(new GeneralExport($users), "NOMBRE DEL REPORTE.xlsx");
     }
 }
