@@ -128,6 +128,15 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
             'uses' => 'ReportsController@test',
             'as'   => 'reports.test'
         ]);
+        Route::get('/reports/test/{id}/reports2',[
+            'uses' => 'ReportsController@test2',
+            'as'   => 'reports.test2'
+        ]);
+        Route::get('/reports/test/reports3',[
+            'uses' => 'ReportsController@test3',
+            'as'   => 'reports.test3'
+        ]);
+
     });
 
     Route::group(['middleware'=>['Permisologia:Administrador']],function(){
