@@ -16,10 +16,18 @@
         <td colspan="6"></td>
     </tr>
     <tr>
+<<<<<<< HEAD
         <th class="text-center" style="width: 50px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: center">N°</th>
         <th class="text-center" style="width: 14px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: left">CÉDULA</th>
+=======
+        <th class="text-center" style="width: 5px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: center">N°</th>
+>>>>>>> b9048602279bc1d4c8e21d1a35d55299e1fcc6f6
         <th class="text-left" style="width: 60px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: left">USUARIO</th>
+        <th class="text-center" style="width: 14px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: left">CÉDULA</th>
+        <th class="text-center" style="width: 14px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: left">EMAIL</th>
         <th class="text-center" style="width: 14px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: center">TELÉFONO</th>
+        <th class="text-center" style="width: 14px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: center">GERENCIA</th>
+        
     </tr>
     @php
         $i = 0;
@@ -27,9 +35,11 @@
     @foreach ($users as $user)
         <tr>
             <td class="text-center" style="text-align: center; border: 1px solid #000000;">{{ $i = $i + 1 }}</td>
-            <td class="text-left" style="text-align: left; border: 1px solid #000000;">{{$user->ci}}</td>
             <td class="text-left bold" style="text-align: left; border: 1px solid #000000; font-weight: bold;">{{$user->name}}</td>
+            <td class="text-left" style="text-align: left; border: 1px solid #000000;">{{$user->ci}}</td>
+            <td class="text-left" style="text-align: left; border: 1px solid #000000;">{{$user->email}}</td>
             <td class="text-center" style="text-align: center; border: 1px solid #000000;">{{$user->phone}}</td>
+            <td class="text-left" style="text-align: left; border: 1px solid #000000;">{{$user->management->code}}</td>
         </tr>
     @endforeach
 </table>
