@@ -8,7 +8,8 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="text-center col-md-1">N°</th>
+                            <th class="text-center">N°</th>
+                            <th class="text-left col-md-2">Usuario</th>
                             <th class="text-center col-md-1">Placa</th>
                             <th class="text-center col-md-1">Marca</th>
                             <th class="text-center col-md-1">Modelo</th>
@@ -17,7 +18,6 @@
                             <th class="text-center col-md-1">Litraje</th>
                             <th class="text-center col-md-1">Observaciones</th>
                             <th class="text-center col-md-1">Estado</th>
-                            <th class="text-center col-md-1">Usuario</th>
                             <th class="text-center col-md-1">Fecha de Creación</th>
                             <th class="text-center col-md-1">Opciones</th>
                         </tr>
@@ -31,8 +31,9 @@
                                 $i++;
                             @endphp
                             <tr @if ($vehicle->status == 0) class="danger" @endif>
-                                <td class="text-center">{{$i}}</td>
-                                <td class="bold">{{$vehicle->plate}}</td>
+                                <td class="text-left">{{$i}}</td>
+                                <td class="text-left">{{$vehicle->user_vehicles->user->name}}</td>
+                                <td class="text-center">{{$vehicle->plate}}</td>
                                 <td class="text-center">{{$vehicle->brand}}</td>
                                 <td class="text-center">{{$vehicle->model}}</td>
                                 <td class="text-center">{{$vehicle->year}}</td>
@@ -40,7 +41,6 @@
                                 <td class="text-center">{{$vehicle->liter}}</td>
                                 <td class="text-center">{{$vehicle->observations}}</td>
                                 <td class="text-center">{!!status_new($vehicle->new, $vehicle->status)!!}</td>
-                                <td class="text-center">{{$vehicle->user_vehicles->user->name}}</td>
                                 <td class="text-center">{!! fecha_hora($vehicle->created_at) !!}</td>
                                 <td class="text-center t-opciones"  data-valor='{"id":"{{encrypt($vehicle->id)}}", "name":"{{$vehicle->plate}}"}'>
                                     @if ($vehicle->status == 1)

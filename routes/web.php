@@ -67,7 +67,6 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
 
         Route::resource('/user_fuel_day', 'UserFuelDaysController');
 
-        
 
         Route::get('/user_fuel_day/{id}/status',[
             'uses' => 'UserFuelDaysController@status',

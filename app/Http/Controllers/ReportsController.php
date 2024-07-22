@@ -17,13 +17,17 @@ class ReportsController extends Controller
     public function index()
     {
 
-        $pdf = App::PDF('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Test</h1>');
-        return $pdf->stream();
+        $users = User::orderby('name')->get();
+        //return view('pdf.users', compact('users'));
+
+        // Generate PDF using dompdf
+        $pdf = PDF::loadView('pdf.users', compact('users'));
+        $pdf->setPaper('A4', 'landscape');
+        // Stream or download the PDF
+        return $pdf->stream('users.pdf'.'.pdf');
         
     }
 
-   
     public function create()
     {
         //
@@ -37,21 +41,14 @@ class ReportsController extends Controller
     
     public function show($id)
     {
-        /*
-        $user_days = Fuel_day::findOrFail(decrypt($id));
-
-        // Generar y descargar PDF
-        $pdf = app('dompdf.wrapper', array('user_days' => $user_days));
-        $pdf->loadView('pdf.invoice');
-        return $pdf->stream('invoice.pdf' . $user_days->id . '.pdf');*/
-
-        $user_day = Fuel_day::findOrFail(decrypt($id));
+        
+        $users = User::findOrFail($id);
 
         // Generate PDF using dompdf
-        $pdf = PDF::loadView('pdf.invoice', compact('user_day'));
+        $pdf = PDF::loadView('pdf.users', compact('users'));
         $pdf->setPaper('A4', 'landscape');
         // Stream or download the PDF
-        return $pdf->stream('invoice.pdf' . $user_day->id . '.pdf');
+        return $pdf->stream('users.pdf' . $users->id . '.pdf');
     
     }
 
@@ -75,9 +72,8 @@ class ReportsController extends Controller
 
     public function test(){
         
-
         Excel::create('Test-'.date('YmdHis'), function($excel) {
-            $excel->sheet('Usuarios', function($sheet) {
+            $excel->sheet('Informe de jornada', function($sheet) {
 
                 $users = User::all();
                 // Sheet manipulation

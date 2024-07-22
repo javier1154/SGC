@@ -19,8 +19,6 @@ class UsersController extends Controller
     {
         $users = User::orderBy('name')->get();
         return view('users.index', compact('users'));
-
-        
     }
 
    
@@ -68,7 +66,7 @@ class UsersController extends Controller
         $managements = Management::orderBy('name')->get();
         $fuels = Fuel::orderBy('name')->get();
 
-        return view('users.show', compact('user', 'vehicles','managements', 'users', 'fuels'));
+        return view('users.show', compact('user', 'vehicles','managements', 'fuels'));
 
         
     }

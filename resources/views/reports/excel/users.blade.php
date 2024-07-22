@@ -16,7 +16,7 @@
         <td colspan="6"></td>
     </tr>
     <tr>
-        <th class="text-center" style="width: 5px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: center">N°</th>
+        <th class="text-center" style="width: 50px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: center">N°</th>
         <th class="text-center" style="width: 14px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: left">CÉDULA</th>
         <th class="text-left" style="width: 60px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: left">USUARIO</th>
         <th class="text-center" style="width: 14px; font-weight: bold; background-color: #ed1c24; color: #FFFFFF; text-align: center">TELÉFONO</th>

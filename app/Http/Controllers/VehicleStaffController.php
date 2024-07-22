@@ -10,11 +10,6 @@ class VehicleStaffController extends Controller
     {
         $management_id = \Auth::user()->management->id;
         
-
-
-
-
-
                     $vehicles = Vehicle::whereIn('id', function($query) use ($management_id)
                     {
                         $query->select('vehicle_id')

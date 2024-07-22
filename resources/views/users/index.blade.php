@@ -9,10 +9,16 @@
            
                 <table class="table">
                     <a href="{!! route('users.create') !!}">
-                        <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; margin-left: 120px; z-index: 1; border-radius:5px;">
+                        <bottom type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; margin-left: 120px; z-index: 1; border-radius:5px;">
                             <i class="fa fa-btn fa-sign-in"></i> Registrar 
-                        </button>
+                        </bottom>
                     </a>
+                    
+                    <a href="{{route('reports.index') }}">
+                        <button type="submit" class="btn btn-primary btn-flat opciones" style="margin-bottom: 15px; position: relative; z-index: 1; border-radius: 5px;">
+                            <i class="fa fa-btn fa-sign-in"></i> Generar PDF
+                            </button> 
+                        </a>
                     <thead>
                         <tr>
                             <th class="text-center">N°</th>
