@@ -18,14 +18,8 @@ class ReportsController extends Controller
     public function index()
     {
 
-        $users = User::orderby('name')->get();
-        //return view('pdf.users', compact('users'));
-
-        // Generate PDF using dompdf
-        $pdf = PDF::loadView('pdf.users', compact('users'));
-        $pdf->setPaper('A4', 'landscape');
-        // Stream or download the PDF
-        return $pdf->stream('users.pdf'.'.pdf');
+        
+        return view('reports.index');
         
     }
 

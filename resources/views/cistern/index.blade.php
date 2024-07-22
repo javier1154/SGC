@@ -6,7 +6,7 @@
 <div class="row">
         <div class="col-md-12">
             <table class="table">
-                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-received" style="margin-bottom: -50px; position: relative; margin-left: 120px; z-index: 1; border-radius: 5px;">
+                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-received" style="margin-bottom: -50px; position: absolute; margin-left: 120px; z-index: 1; border-radius: 5px;">
                 <i class="fa fa-btn fa-sign-in"></i> Registrar 
                 </button>
                 <thead>

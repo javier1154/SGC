@@ -3,7 +3,6 @@
 @section('subtitulo', '')
 @section('contenido')
 <br>
-
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -46,6 +45,9 @@
             <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: absolute; left: 130px; z-index: 1; border-radius:5px;">
                 <i class="fa fa-btn fa-sign-in"></i> Registrar
             </button>
+            <a href="{!!route('users.pdf')!!}" class="btn btn-primary btn-flat opciones generar-pdf" style="margin-left: 225px; position: absolute; left: 15px; z-index: 1; border-radius: 5px;">
+                <i class="fa fa-btn fa-sign-in"></i> Generar PDF
+              </a>
             <table class="table">
                 <thead>
                     <tr>

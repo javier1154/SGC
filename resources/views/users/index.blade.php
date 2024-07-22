@@ -2,23 +2,20 @@
 @section('titulo', 'Usuarios')
 @section('subtitulo', '')
 @section('contenido')
-
+<br>
 <div class="row">
         <div class="col-md-12">
             
            
                 <table class="table">
-                    <a href="{!! route('users.create') !!}">
-                        <bottom type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; margin-left: 120px; z-index: 1; border-radius:5px;">
+                    
+                    <a href="{!! route('users.create') !!}" type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style=" position: absolute; margin-left: 120px; z-index: 1; border-radius:5px;">
                             <i class="fa fa-btn fa-sign-in"></i> Registrar 
-                        </bottom>
                     </a>
                     
-                    <a href="{{route('reports.index') }}">
-                        <button type="submit" class="btn btn-primary btn-flat opciones" style="margin-bottom: 15px; position: relative; z-index: 1; border-radius: 5px;">
-                            <i class="fa fa-btn fa-sign-in"></i> Generar PDF
-                            </button> 
-                        </a>
+                    <a href="{!!route('users.pdf')!!}" class="btn btn-primary btn-flat opciones generar-pdf" style="margin-left: 225px; position: absolute; left: 15px; z-index: 1; border-radius: 5px;">
+                        <i class="fa fa-btn fa-sign-in"></i> Generar PDF
+                    </a>
                     <thead>
                         <tr>
                             <th class="text-center">N°</th>

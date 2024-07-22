@@ -4,10 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Management;
+use PDF;
 
 class ManagementsController extends Controller
 {
-    
+    public function pdf()
+    {
+       //Obtener fecha actual (Mes)
+       $month = date('m');
+       $year = date('Y');
+       
+
+
+       //$managements = Management::where('created_at', $dateTime)->get();
+       $managements = Management::whereMonth('created_at', $month)
+                        ->whereYear('created_at', $year)
+                        ->get();
+       //$managements = Management::all();
+       $pdf = Pdf::loadView('managements.pdf', compact('managements'));
+       $pdf->setPaper('A4', 'landscape');
+       return $pdf->stream();
+    }
+
     public function index()
     {
         $managements = Management::orderBy('name')->get();

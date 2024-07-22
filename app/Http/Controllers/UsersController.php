@@ -9,11 +9,22 @@ use App\Vehicle;
 use App\Fuel;
 use App\Fuel_day;
 use App\UserManagement;
+use PDF;
 
 class UsersController extends Controller
 {
-  
+    
+    public function pdf()
+    {
+        //Obtener fecha actual (Año)
+        $dateTime = date('Y');
 
+        $users = User::whereYear('created_at', $dateTime)->get();
+        
+        $pdf = Pdf::loadView('users.pdf', compact('users'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+    }
 
     public function index()
     {

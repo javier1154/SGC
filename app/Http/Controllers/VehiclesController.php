@@ -7,13 +7,17 @@ use App\Vehicle;
 use App\Fuel;
 use App\User;
 use App\UserVehicle;
+use PDF;
 class VehiclesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function pdf()
+    {
+
+        $vehicles = Vehicle::all();
+        $pdf = Pdf::loadView('vehicles.pdf', compact('vehicles'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+    }
     public function index()
     {
         $vehicles = Vehicle::orderBy('brand')->where('new', 0)->get();

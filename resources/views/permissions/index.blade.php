@@ -42,9 +42,10 @@
                 </div>
            
             <table class="table">
-                <button type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: relative; margin-left:120px; z-index: 1; border-radius: 5px;">
-                <i class="fa fa-btn fa-sign-in"></i> Registrar
-                </button>
+                <a type="button" class="btn btn-primary btn-flat opciones" data-toggle="modal" data-target="#modal-default" style="margin-bottom: -50px; position: absolute; margin-left:120px; z-index: 1; border-radius: 5px;">
+                    <i class="fa fa-btn fa-sign-in"></i> Registrar
+                </a>
+                
                 <thead>
                     <tr>
                         <th class="text-center">N°</th>

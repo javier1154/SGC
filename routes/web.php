@@ -14,10 +14,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/report/pdf', function () {
-    $pdf = PDF::loadView('pdf.hello');
-    return $pdf->download('hello.pdf');
-});
+//Rutas de los pdf
+
+Route::get('/users/pdf', 'UsersController@pdf')->name('users.pdf');
+Route::get('/managements/pdf', 'ManagementsController@pdf')->name('managements.pdf');
+Route::get('/vehicles/pdf', 'VehiclesController@pdf')->name('vehicles.pdf');
+Route::get('/fuel_days/pdf', 'FuelDaysController@pdf')->name('fuel_days.pdf');
+
+
 
 
 Auth::routes();
