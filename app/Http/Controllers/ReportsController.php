@@ -36,14 +36,13 @@ class ReportsController extends Controller
     
     public function show($id)
     {
-        
-        $users = User::findOrFail($id);
+        $user_day = Fuel_day::findOrFail(decrypt($id));
 
         // Generate PDF using dompdf
-        $pdf = PDF::loadView('pdf.users', compact('users'));
+        $pdf = PDF::loadView('reports.pdf.user_days', compact('user_day'));
         $pdf->setPaper('A4', 'landscape');
         // Stream or download the PDF
-        return $pdf->stream('users.pdf' . $users->id . '.pdf');
+        return $pdf->stream('fuel_day.pdf' . $user_day->id . '.pdf');
     
     }
 
