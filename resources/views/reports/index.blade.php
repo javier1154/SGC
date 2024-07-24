@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('titulo', 'Usuarios')
+@section('titulo', 'Reportes')
 @section('subtitulo', '')
 @section('contenido')
 <br>
 <div class="row">
     <div class="col-md-2">
-        <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#generalEnte">Reporte General de Usuarios</a>
+        <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#generalUser">Reporte General de Usuarios</a>
     </div>
-    <div class="modal fade" id="generalEnte" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="generalUser" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -18,6 +18,42 @@
                 </div>
                 <div class="modal-body">
                     <a href="{{route('users.pdf')}}" target="_blank" class="btn btn-danger btn-block">EXPORTAR A PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#generalRecep">Reporte General de Recepciones <br> de Combustible</a>
+    </div>
+    <div class="modal fade" id="generalRecep" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reporte General de Recepciones de Combustible</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="{{route('reports.cisterns.pdf')}}" target="_blank" class="btn btn-danger btn-block">EXPORTAR A PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#generalRecep">Reporte General de Recepciones <br> de Combustible</a>
+    </div>
+    <div class="modal fade" id="generalRecep" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reporte General de Recepciones de Combustible</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="{{route('reports.cisterns.pdf')}}" target="_blank" class="btn btn-danger btn-block">EXPORTAR A PDF</a>
                 </div>
             </div>
         </div>

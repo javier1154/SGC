@@ -29,7 +29,7 @@
             <div style="position: relative; margin-left: 890px; bottom: 100px;">
             
                
-                       <label style=" font-size: 15px;"><u>Fecha: {!!fecha($user_day->day)!!} </u></label><br>
+                       <label style=" font-size: 15px;"><u>Fecha: {!!fecha($user_day->fuel_day->day)!!} </u></label><br>
                        
            </div>
         
@@ -72,7 +72,7 @@
                     $i = 0;
 
                 @endphp
-                @foreach($user_day->fuel_days as $info)
+                @foreach($user_day->fuel_day as $info)
                     @php
                       $i++;
 

@@ -20,8 +20,9 @@ Route::get('/users/pdf', 'UsersController@pdf')->name('users.pdf');
 Route::get('/managements/pdf', 'ManagementsController@pdf')->name('managements.pdf');
 Route::get('/vehicles/pdf', 'VehiclesController@pdf')->name('vehicles.pdf');
 Route::get('/fuel_days/pdf', 'FuelDaysController@pdf')->name('fuel_days.pdf');
-
-
+Route::get('/user_days/pdf', 'UserFuelDaysController@pdf')->name('user_days.pdf');
+Route::get('cisterns/pdf', 'CisternController@pdf')->name('reports.cisterns.pdf') ;
+    
 
 
 Auth::routes();

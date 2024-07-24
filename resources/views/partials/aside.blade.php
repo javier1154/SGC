@@ -26,7 +26,7 @@
         <li class="cistern"><a href="{!! route('cistern.index') !!}"><i class="fa fa-cube"></i> <span>Recepción</span></a></li>
         <li class="new_vehicles"><a href="{!! route('vehicles.newVehicles') !!}"><i class="fa fa-car"></i> <span>Vehiculos Pendientes</span></a></li>
         <li class="litre_tank"><a href="{!! route('litre_tank.index') !!}"><i class="fa fa-cube"></i> <span>Historial de litraje</span></a></li>
-        <li class="reports"><a href="{!! route('reports.index') !!}"><i class="fa fa-cube"></i> <span>Reportes</span></a></li>
+        <li class="reports"><a href="{!! route('reports.index') !!}"><i class='fa fa-bar-chart'></i> <span>Reportes</span></a></li>
 
       @elseif(Auth::user()->permit->type == "Coordinador")
 

@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cistern;
 use App\Tank;
+use PDF;
 class CisternController extends Controller
 {
-   
+    public function pdf()
+    {
+        $cisterns = Cistern::all();
+
+        $pdf = PDF::loadView('reports.pdf.cisterns', compact('cisterns'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+    }
     public function index()
     {
         $cisterns = Cistern::orderBy('received_litre')->get(); 

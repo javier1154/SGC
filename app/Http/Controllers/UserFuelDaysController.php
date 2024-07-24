@@ -12,10 +12,19 @@ use App\Tank;
 use App\DayLitreTank;
 use App\Vehicle;
 use App\Management;
+use PDF;
 
 class UserFuelDaysController extends Controller
 {
-    
+    public function pdf()
+    {
+        $user_days = User_Fuel_day::all();
+        dd($user_days->user_day_permit);
+
+        $pdf = PDF::loadView('reports.pdf.user_days', compact('user_days'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+    }
     public function manage($id)
     {
         $users = User::orderBy('name')->get(); 
