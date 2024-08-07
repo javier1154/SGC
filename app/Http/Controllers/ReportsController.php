@@ -17,7 +17,8 @@ class ReportsController extends Controller
    
     public function index()
     {
-
+        /* $user_day = Fuel_day::findOrFail(4);
+        dd($user_day->fuel_days->where('estado', 'Propuesto')); */
         
         return view('reports.index');
         
@@ -64,19 +65,28 @@ class ReportsController extends Controller
         //
     }
 
-    public function test(){
-        
-        Excel::create('Test-'.date('YmdHis'), function($excel) {
-            $excel->sheet('Informe de jornada', function($sheet) {
+    public function users(Request $request){
 
-                $users = User::all();
-                // Sheet manipulation
-                $sheet->loadView('reports.excel.users', array('users' => $users));
-        
-            });
-        })->download('xls');
+        if($request->tipo == "Excel"){
+            Excel::create('Usuarios-'.date('YmdHis'), function($excel) {
+                $excel->sheet('Informe de usuarios', function($sheet) {
+                    $users = User::all();
+                    // Sheet manipulation
+                    $sheet->loadView('reports.excel.users', array('users' => $users));
+                });
+            })->download('xls');
+            //return Excel::download(new GeneralExport($users), "NOMBRE DEL REPORTE.xlsx");
+        }else{
 
-        //return Excel::download(new GeneralExport($users), "NOMBRE DEL REPORTE.xlsx");
+
+
+            dd("reporte en PDF");
+
+
+
+        }
+        
+        
     }
     public function test2($id){
         
@@ -85,6 +95,7 @@ class ReportsController extends Controller
             $excel->sheet('Jornada', function($sheet)  use ($id){
 
                 $user_day = Fuel_day::findOrFail(decrypt($id));
+
                 // Sheet manipulation
                 $sheet->loadView('reports.excel.jornadas', array('user_day' => $user_day));
         
@@ -108,4 +119,30 @@ class ReportsController extends Controller
 
         //return Excel::download(new GeneralExport($users), "NOMBRE DEL REPORTE.xlsx");
     }
+    public function autorize( Request $request,$id){
+
+        if($request->tipo == "Excel"){
+            Excel::create('Usuarios-'.date('YmdHis'), function($excel) use ($id) {
+                $excel->sheet('Informe de usuarios', function($sheet) use ($id) {
+                    
+                    $user_day = Fuel_day::findOrFail(decrypt($id));
+                    dd($user_day);
+                    // Sheet manipulation
+                    $sheet->loadView('reports.excel.users', array('users' => $users));
+                });
+            })->download('xls');
+            //return Excel::download(new GeneralExport($users), "NOMBRE DEL REPORTE.xlsx");
+        }else{
+
+
+
+            dd("reporte en PDF");
+
+
+
+        }
+        
+        
+    }
+    
 }

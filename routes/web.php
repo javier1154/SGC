@@ -21,7 +21,7 @@ Route::get('/managements/pdf', 'ManagementsController@pdf')->name('managements.p
 Route::get('/vehicles/pdf', 'VehiclesController@pdf')->name('vehicles.pdf');
 Route::get('/fuel_days/pdf', 'FuelDaysController@pdf')->name('fuel_days.pdf');
 Route::get('/user_days/pdf', 'UserFuelDaysController@pdf')->name('user_days.pdf');
-Route::get('cisterns/pdf', 'CisternController@pdf')->name('reports.cisterns.pdf') ;
+Route::get('cisterns/pdf', 'CisternController@pdf')->name('reports.cisterns.pdf');
     
 
 
@@ -128,9 +128,9 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
             'as'   => 'litre_tank.status'
         ]);
 
-        Route::get('/reports/test/reports',[
-            'uses' => 'ReportsController@test',
-            'as'   => 'reports.test'
+        Route::post('/reports/users/reports',[
+            'uses' => 'ReportsController@users',
+            'as'   => 'reports.users'
         ]);
         Route::get('/reports/test/{id}/reports2',[
             'uses' => 'ReportsController@test2',
@@ -140,7 +140,10 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
             'uses' => 'ReportsController@test3',
             'as'   => 'reports.test3'
         ]);
-
+        Route::get('/reports/autorize_users/{id}/reports',[
+            'uses' => 'ReportsController@autorize',
+            'as'   => 'reports.autorize'
+        ]);
     });
 
     Route::group(['middleware'=>['Permisologia:Administrador']],function(){

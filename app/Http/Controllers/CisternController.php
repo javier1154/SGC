@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cistern;
 use App\Tank;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class CisternController extends Controller
 {
     public function pdf()
