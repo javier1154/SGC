@@ -144,6 +144,10 @@ Route::group(['middleware'=>['auth','Habilitado']],function(){
             'uses' => 'ReportsController@autorize',
             'as'   => 'reports.autorize'
         ]);
+        Route::get('/reports/assorted_managament/{year}/reports',[
+            'uses' => 'ReportsController@assortedbyyearmanagement',
+            'as'   => 'reports.assortedManagament'
+        ]);
     });
 
     Route::group(['middleware'=>['Permisologia:Administrador']],function(){

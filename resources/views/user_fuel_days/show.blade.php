@@ -326,6 +326,15 @@
                     </a>
                     
                 @endif 
+                @if ($fuel_day->manage_level == 'Autorizada')
+
+                    <a href="{{route('reports.autorize', encrypt($fuel_day->id)) }}">
+                    <button type="submit" class="btn btn-primary btn-flat opciones" style="margin-bottom: 15px; margin-left: 10px; position: relative; z-index: 1; border-radius: 5px;">
+                        <i class="fa fa-btn fa-sign-in"></i> Generar confirmados Excel
+                        </button> 
+                    </a>
+                    
+                @endif 
            
             <table class="table">
                 <thead>

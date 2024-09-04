@@ -10,6 +10,7 @@ use App\User;
 use App\Cistern;
 use App\Exports\GeneralExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Management;
 
 
 class ReportsController extends Controller
@@ -119,30 +120,48 @@ class ReportsController extends Controller
 
         //return Excel::download(new GeneralExport($users), "NOMBRE DEL REPORTE.xlsx");
     }
-    public function autorize( Request $request,$id){
+    public function autorize($id){
 
-        if($request->tipo == "Excel"){
+        
             Excel::create('Usuarios-'.date('YmdHis'), function($excel) use ($id) {
                 $excel->sheet('Informe de usuarios', function($sheet) use ($id) {
                     
                     $user_day = Fuel_day::findOrFail(decrypt($id));
-                    dd($user_day);
+                    $user_day = $user_day->fuel_days->where('estado', 'Autorizado'); 
+        
+
+                    
                     // Sheet manipulation
-                    $sheet->loadView('reports.excel.users', array('users' => $users));
+                    $sheet->loadView('reports.excel.userautorize', array('user_day' => $user_day));
                 });
             })->download('xls');
             //return Excel::download(new GeneralExport($users), "NOMBRE DEL REPORTE.xlsx");
-        }else{
 
-
-
-            dd("reporte en PDF");
-
-
-
-        }
+    }
+    public function assortedbyyearmanagement($year){
+        $inputyear= $year;
+        $year = $inputyear."-01-01";
+        $endyear = $inputyear."-12-31";
         
-        
+        Excel::create('Usuarios-'.date('YmdHis'), function($excel) use ($year, $endyear) {
+            $excel->sheet('Informe de usuarios', function($sheet) use ($year, $endyear) {
+                
+                $user_day = Management::whereIn('id', function($query) use ($year, $endyear)
+                {
+                    $query->select('management_id')
+                    ->from('users_fuel_days')->where('estado', 'Asistió')
+                    ->whereIn('fuel_day_id', function($query) use ($year, $endyear)
+                    {
+                        $query->select('id')
+                        ->from('fuel_days')
+                        ->whereBetween('day', [$year, $endyear]);
+                    });
+                })->orderBy('name')->get();
+                
+                // Sheet manipulation
+                $sheet->loadView('reports.excel.userautorize', array('user_day' => $user_day, 'year' => $year));
+            });
+        })->download('xls');
     }
     
 }
