@@ -23,7 +23,19 @@ class TanksController extends Controller
     
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'tank_litre' => 'required|numeric',
+        ]);
+        $tank = new Tank($request->all());
+        $tank->name = $request->name;
+        $tank->available_litre= $request->tank_litre;
+        $tank->status = 1;
+        $tank->assorted_litre = 0;
+        $tank->fuel_id = 1;
+        $tank->save();
+        toastr('success', 'OPERACIÓN EXITOSA!', "El tanque ha sido guardado.");
+        return redirect()->route('tank.index');
     }
 
    

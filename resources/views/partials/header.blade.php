@@ -1,7 +1,7 @@
 <header class="main-header" style="">
   <a href="#" class="logo">
     <span class="logo-mini" style="font-weight: bold">{{config('app.name')}}</span>
-    <span class="logo-lg" style="font-weight: bold">{{config('app.name')}}</span>
+    <span class="logo-lg" style="font-weight: bold">PDVSA</span>
   </a>
   <nav class="navbar navbar-static-top">
     <a href="#!" class="sidebar-toggle" data-toggle="offcanvas" role="button">

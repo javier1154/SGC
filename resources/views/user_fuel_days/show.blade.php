@@ -299,8 +299,7 @@
                 @endphp
 
                 @if($fuel_day->day >= $hoy)
-                
-                @if($fuel_day->manage_level == "Nueva")
+                @if($fuel_day->manage_level == "Nueva" && !empty($initial_litre))
                     
                     <button type="button" class="btn btn-primary btn-flat opciones" style="position: absolute; left: 130px; z-index: 1; border-radius:5px; " data-toggle="modal" data-target="#modal-agg">
                         <i class="fa fa-btn fa-sign-in"></i> Agregar

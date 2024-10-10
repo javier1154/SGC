@@ -87,36 +87,12 @@ class UserFuelDaysController extends Controller
         $day_litres->status = true;
         $day_litres->litres = $request->litres;
         $day_litres->fuel_day_id = $id; 
-        
-        $tank = Tank::findOrFail(1);
-        if($day_litres->type == "initial"){
-
-            $day_litres_merma = new DayLitre();
-            $day_litres_merma->litres = $tank->available_litre - $request->litres;
-            $day_litres_merma->type = "decrease";
-            $day_litres_merma->status = true;
-            $day_litres_merma->fuel_day_id = $id; 
-
-            $day_litre_tank = new DayLitreTank();
-            $day_litres_merma->save();
-            
-            $day_litre_tank->day_litre_id = $day_litres_merma->id;
-            $day_litre_tank->tank_id = 1;
-            $day_litre_tank->save();
-
-            $tank->available_litre = $request->litres;
-            $tank->save();
-
-            $day_litre_tank = new DayLitreTank();
-            $day_litres->save();
-            
-            $day_litre_tank->day_litre_id = $day_litres->id;
-            $day_litre_tank->tank_id = 1;
-            $day_litre_tank->save();
-        
-        }elseif($day_litres->type == "final"){
-            
-            /*if($tank->available_litre >= $request->litres){*/
+        try {
+            $tank = Tank::first();
+            if(!$tank){
+                throw new \Exception('No se encontró ningún tanque.');
+            }
+            if($day_litres->type == "initial"){
 
                 $day_litres_merma = new DayLitre();
                 $day_litres_merma->litres = $tank->available_litre - $request->litres;
@@ -128,24 +104,56 @@ class UserFuelDaysController extends Controller
                 $day_litres_merma->save();
                 
                 $day_litre_tank->day_litre_id = $day_litres_merma->id;
-                $day_litre_tank->tank_id = 1;
+                $day_litre_tank->tank_id = $tank->id;
                 $day_litre_tank->save();
 
                 $tank->available_litre = $request->litres;
                 $tank->save();
 
-                $day_litre_tank2 = new DayLitreTank();
+                $day_litre_tank = new DayLitreTank();
                 $day_litres->save();
                 
-                $day_litre_tank2->day_litre_id = $day_litres->id;
-                $day_litre_tank2->tank_id = 1;
-                $day_litre_tank2->save();
-
-           
+                $day_litre_tank->day_litre_id = $day_litres->id;
+                $day_litre_tank->tank_id = $tank->id;
+                $day_litre_tank->save();
             
+            }elseif($day_litres->type == "final"){
+                
+                /*if($tank->available_litre >= $request->litres){*/
+
+                    $day_litres_merma = new DayLitre();
+                    $day_litres_merma->litres = $tank->available_litre - $request->litres;
+                    $day_litres_merma->type = "decrease";
+                    $day_litres_merma->status = true;
+                    $day_litres_merma->fuel_day_id = $id; 
+
+                    $day_litre_tank = new DayLitreTank();
+                    $day_litres_merma->save();
+                    
+                    $day_litre_tank->day_litre_id = $day_litres_merma->id;
+                    $day_litre_tank->tank_id = $tank->id;
+                    $day_litre_tank->save();
+
+                    $tank->available_litre = $request->litres;
+                    $tank->save();
+
+                    $day_litre_tank2 = new DayLitreTank();
+                    $day_litres->save();
+                    
+                    $day_litre_tank2->day_litre_id = $day_litres->id;
+                    $day_litre_tank2->tank_id = $tank->id;
+                    $day_litre_tank2->save();
+
+            
+                
+            }
+            toastr('success', 'OPERACIÓN EXITOSA!', "El litraje ha sido guardado.");
+            return redirect()->back();
+        } catch (\Exception $e) {
+            toastr('error', 'OPERACIÓN Fallida!', "Primero agregue un tanque.");
+            return redirect()->back();
         }
-        toastr('success', 'OPERACIÓN EXITOSA!', "El litraje ha sido guardado.");
-        return redirect()->back();
+        
             
     }
 
