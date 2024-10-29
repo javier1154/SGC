@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Permit;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+
 class PermissionsController extends Controller
 {
    
     public function index()
-    {   $users = User::orderBy('name')->get();
-        $permit = Permit::orderBy('type')->get();
+    {   
+        $authenticatedUserId = Auth::id();
+        $users = User::orderBy('name')->get();
+        $permit = Permit::where('user_id', '!=', $authenticatedUserId)->get();
+        //$permit = Permit::orderBy('type')->get();
         return view('permissions.index', compact('permit', 'users'));
     }
 
